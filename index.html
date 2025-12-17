@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phishing Awareness Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    /* Navigation Bar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #2e7d32;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo i {
+      font-size: 2rem;
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .admin-btn {
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    }
+
+    .admin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+    }
+
+    /* Main Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      margin-top: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(46, 125, 50, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.05) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    /* Animation Container */
+    .animation-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Floating Icons */
+    .floating-icon {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(46, 125, 50, 0.2);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .icon-laptop {
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
+      left: 20px;
+      top: 30px;
+      animation-delay: 0s;
+    }
+
+    .icon-envelope {
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
+      right: 20px;
+      bottom: 30px;
+      animation-delay: 1.3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Phishing Hook */
+    .phishing-hook {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: descend-hook 3s ease-in-out infinite;
+      z-index: 5;
+    }
+
+    .hook-icon {
+      font-size: 3rem;
+      color: #d32f2f;
+      text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+      animation: pulse-hook 1s ease-in-out infinite;
+    }
+
+    @keyframes descend-hook {
+      0% {
+        top: -80px;
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      70% {
+        top: 100px;
+        opacity: 1;
+      }
+      100% {
+        top: 150px;
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse-hook {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Security Shield */
+    .shield-blocker {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: shield-activate 3s ease-in-out infinite;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shield-icon {
+      font-size: 4rem;
+      color: #4caf50;
+      text-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+      animation: shield-glow 1.5s ease-in-out infinite;
+    }
+
+    @keyframes shield-activate {
+      0%, 60% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.5);
+      }
+      65% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.2);
+      }
+      100% {
+        opacity: 0.6;
+        transform: translateX(-50%) scale(1);
+      }
+    }
+
+    @keyframes shield-glow {
+      0%, 100% { 
+        text-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+      }
+      50% { 
+        text-shadow: 0 0 40px rgba(76, 175, 80, 1);
+      }
+    }
+
+    /* Hero Text */
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #2e7d32;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      color: #777;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Buttons Container */
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Video Button */
+    .video-btn {
+      background: rgba(46, 125, 50, 0.1);
+      color: #2e7d32;
+      border: 2px solid #2e7d32;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .video-btn:hover {
+      background: rgba(46, 125, 50, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(46, 125, 50, 0.2);
+    }
+
+    /* Quiz CTA Button */
+    .quiz-cta-btn {
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
+      color: #fff;
+      border: none;
+      padding: 1.2rem 2.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .quiz-cta-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(46, 125, 50, 0.4);
+    }
+
+    .quiz-cta-btn:active {
+      transform: translateY(-2px);
+    }
+
+    /* Made By Inline */
+    .made-by-inline {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #666;
+      font-weight: 500;
+      margin-top: 2rem;
+    }
+
+    .made-by-inline a {
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .made-by-inline a:hover {
+      color: #1b4620;
+      text-decoration: underline;
+    }
+
+    /* Secondary Options */
+    .secondary-options {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.6);
+      color: #2e7d32;
+      border: 1px solid rgba(46, 125, 50, 0.3);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .secondary-btn:hover {
+      background: rgba(46, 125, 50, 0.1);
+      border-color: #2e7d32;
+      transform: translateY(-2px);
+    }
+
+    /* Video Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content {
+      background: #fff;
+      margin: 5% auto;
+      padding: 0;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s ease;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: none;
+    }
+
+    .modal-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .video-embed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .video-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Made By */
+    .made-by {
+      display: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0.75rem 1rem;
+      }
+
+      .nav-container {
+        padding: 0 0.5rem;
+      }
+
+      .logo {
+        font-size: 1.2rem;
+        gap: 0.5rem;
+      }
+
+      .logo i {
+        font-size: 1.5rem;
+      }
+
+      .admin-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+      }
+
+      .description {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .animation-container {
+        width: 250px;
+        height: 250px;
+        margin-bottom: 2rem;
+      }
+
+      .floating-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+      }
+
+      .shield-icon {
+        font-size: 3rem;
+      }
+
+      .hook-icon {
+        font-size: 2.5rem;
+      }
+
+      .video-btn {
+        padding: 0.9rem 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      .quiz-cta-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+
+      .secondary-options {
+        flex-direction: column;
+      }
+
+      .secondary-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .modal-content {
+        width: 95%;
+        margin: 20% auto;
+      }
+
+      .modal-header {
+        padding: 1rem;
+      }
+
+      .modal-body {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        padding: 0.5rem 0.75rem;
+      }
+
+      .logo {
+        font-size: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .description {
+        font-size: 0.95rem;
+      }
+
+      .animation-container {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 1.5rem;
+      }
+
+      .floating-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+
+      .video-btn,
+      .quiz-cta-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo" onclick="window.location.href='index.html'">
+        <i class="fas fa-shield-alt"></i>
+        <span>SecureAware</span>
+      </div>
+      <button class="admin-btn" onclick="window.location.href='admin.html'">
+        <i class="fas fa-lock"></i> Admin Dashboard
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-background"></div>
+    
+    <div class="hero-content">
+      <!-- Animation Container -->
+      <div class="animation-container">
+        <!-- Floating Icons -->
+        <div class="floating-icon icon-laptop">
+          <i class="fas fa-laptop"></i>
+        </div>
+        <div class="floating-icon icon-envelope">
+          <i class="fas fa-envelope"></i>
+        </div>
+
+        <!-- Phishing Hook -->
+        <div class="phishing-hook">
+          <div class="hook-icon">
+            <i class="fas fa-fish"></i>
+          </div>
+        </div>
+
+        <!-- Security Shield -->
+        <div class="shield-blocker">
+          <div class="shield-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Text -->
+      <h1>Phishing Awareness Portal</h1>
+      <p class="subtitle">Stay Safe from Phishing Attacks</p>
+      <p class="description">
+        Interactive training platform designed to help you identify, understand, and protect against phishing threats. 
+        Test your skills, learn best practices, and strengthen your cybersecurity awareness.
+      </p>
+
+      <!-- Buttons -->
+      <div class="buttons-container">
+        <button class="video-btn" onclick="openVideoModal()">
+          <i class="fas fa-play-circle"></i> Watch Awareness Video
+        </button>
+        <button class="quiz-cta-btn" onclick="window.location.href='quiz.html'">
+          <i class="fas fa-graduation-cap"></i> Attempt Quiz Now
+        </button>
+      </div>
+
+      <!-- Made By -->
+      <div class="made-by-inline">
+        Made by <a href="http://www.linkedin.com/in/atharva-more-8118b6283" target="_blank">Atharva More</a>
+      </div>
+
+      <!-- Secondary Options -->
+      <div class="secondary-options">
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Modal -->
+  <div id="videoModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Phishing Awareness Video</h2>
+        <button class="close-btn" onclick="closeVideoModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/GZc-CpV5Z1k" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Made By -->
+  <div class="made-by">
+    Made by <a href="http://www.linkedin.com/in/atharva-more-8118b6283" target="_blank">Atharva More</a>
+  </div>
+
+  <script>
+    // Video Modal Functions
+    function openVideoModal() {
+      const modal = document.getElementById('videoModal');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      const modal = document.getElementById('videoModal');
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('videoModal');
+      if (event.target === modal) {
+        closeVideoModal();
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeVideoModal();
+      }
+    });
+  </script>
+
+  <!-- Firebase Module Script -->
+  <script type="module">
+    import { db, collection, addDoc } from './firebase.js';
+
+    // Test function to write sample data to Firestore
+    window.writeTestDataToFirebase = async function() {
+      try {
+        console.log("📝 Writing test data to Firebase...");
+        
+        const testData = {
+          portalName: "Phishing Awareness Portal",
+          testTimestamp: new Date().toISOString(),
+          message: "Test connection from index.html",
+          status: "active"
+        };
+
+        const docRef = await addDoc(collection(db, "portalConfig"), testData);
+        console.log("✅ Document written successfully with ID:", docRef.id);
+        alert("✅ Data written to Firebase! Check console for details.");
+      } catch (error) {
+        console.error("❌ Error writing data to Firebase:", error);
+        alert("❌ Error writing data. Check console for details.");
+      }
+    };
+
+    // Auto-call on page load to test connection
+    console.log("🔥 Firebase module loaded on index.html");
+    console.log("💡 Call writeTestDataToFirebase() in console to test write functionality");
+  </script>
+</body>
+</html>

@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #222;
+    }
+
+    .home-icon {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      width: 3rem;
+      height: 3rem;
+      background: #2e7d32;
+      color: #fff;
+      border: 2px solid #2e7d32;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+    }
+
+    .home-icon:hover {
+      background: #fff;
+      color: #2e7d32;
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    }
+
+    .login-container {
+      max-width: 400px;
+      margin: 10rem auto;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      border: 2px solid #2e7d32;
+      text-align: center;
+    }
+
+    .login-container h1 {
+      color: #2e7d32;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #2e7d32;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .login-form button {
+      width: 100%;
+      padding: 0.8rem;
+      background: #2e7d32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .login-form button:hover {
+      background: #1b4620;
+    }
+
+    .dashboard {
+      display: none;
+      padding: 2rem;
+      padding-top: 5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .dashboard.active {
+      display: block;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #2e7d32;
+    }
+
+    .dashboard-header h1 {
+      color: #2e7d32;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    .logout-btn {
+      background: transparent;
+      color: #2e7d32;
+      border: 2px solid #2e7d32;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .logout-btn:hover {
+      background: #2e7d32;
+      color: #fff;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #2e7d32;
+    }
+
+    .tab-btn {
+      padding: 0.8rem 1.5rem;
+      background: transparent;
+      color: #2e7d32;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      transition: 0.3s ease;
+    }
+
+    .tab-btn.active {
+      color: #2e7d32;
+      border-bottom-color: #2e7d32;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .login-data-section h2,
+    .question-management-section h2 {
+      color: #2e7d32;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .login-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      border: 2px solid #2e7d32;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .login-table thead {
+      background: #2e7d32;
+      color: #fff;
+    }
+
+    .login-table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .login-table td {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .login-table tbody tr:hover {
+      background: #f5f5f5;
+    }
+
+    .status-pass {
+      background: #4caf50;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .status-fail {
+      background: #c62828;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .question-form {
+      background: #f9f9f9;
+      padding: 2rem;
+      border: 2px solid #2e7d32;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #2e7d32;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #2e7d32;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .option-input {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      padding: 0.8rem;
+      background: #f9f9f9;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .option-input input[type="text"] {
+      flex: 1;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .option-input input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .option-input label {
+      margin: 0;
+      font-weight: 500;
+      color: #2e7d32;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #2e7d32;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #1b4620;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #2e7d32;
+      border: 2px solid #2e7d32;
+    }
+
+    .btn-secondary:hover {
+      background: #2e7d32;
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: #c62828;
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      background: #8b1c1c;
+    }
+
+    .btn-edit {
+      background: #2196f3;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .btn-edit:hover {
+      background: #1565c0;
+    }
+
+    .question-list {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .question-card {
+      background: #f9f9f9;
+      border: 2px solid #2e7d32;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .question-card h3 {
+      color: #2e7d32;
+      margin-top: 0;
+      font-weight: 600;
+    }
+
+    .question-card p {
+      margin: 0.5rem 0;
+    }
+
+    .question-card-options {
+      margin: 1rem 0;
+      padding-left: 1rem;
+      border-left: 3px solid #2e7d32;
+    }
+
+    .question-card-options li {
+      margin: 0.5rem 0;
+    }
+
+    .image-preview {
+      margin-top: 1rem;
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 6px;
+      border: 2px solid #2e7d32;
+    }
+
+    .image-upload-container {
+      margin-top: 1rem;
+    }
+
+    .image-upload-input {
+      padding: 0.8rem;
+      border: 2px dashed #2e7d32;
+      border-radius: 6px;
+      background: #fafafa;
+      cursor: pointer;
+    }
+
+    .image-preview-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f5;
+      border: 1px solid #2e7d32;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .image-preview-box img {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+    }
+
+    .question-card-image {
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .question-card-image img {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 6px;
+      border: 1px solid #2e7d32;
+    }
+
+    .question-card-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
+      font-style: italic;
+    }
+
+    .success-message {
+      background: #4caf50;
+      color: #fff;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      animation: slideDown 0.5s ease;
+    }
+
+    .error-message {
+      background: #c62828;
+      color: #fff;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .export-btn {
+      background: #2e7d32;
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin-bottom: 1rem;
+    }
+
+    .export-btn:hover {
+      background: #1b4620;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        padding: 1rem;
+      }
+
+      .options-container {
+        flex-direction: column;
+      }
+
+      .login-table {
+        font-size: 0.9rem;
+      }
+
+      .login-table th,
+      .login-table td {
+        padding: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-icon" title="Back to Home">
+    <i class="fas fa-home"></i>
+  </a>
+
+  <!-- Login Screen -->
+  <div class="login-container" id="loginScreen">
+    <h1>Admin Dashboard</h1>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p style="margin-top: 1rem; color: #999; font-size: 0.9rem;">Demo: admin / password</p>
+  </div>
+
+  <!-- Dashboard Screen -->
+  <div class="dashboard" id="dashboard">
+    <div class="dashboard-header">
+      <h1>Administration Dashboard</h1>
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('login-data')">Employee Login Data</button>
+      <button class="tab-btn" onclick="switchTab('question-management')">Question Management</button>
+    </div>
+
+    <!-- Employee Login Data Tab -->
+    <div id="login-data" class="tab-content active">
+      <div class="login-data-section">
+        <h2>Assessment Attempts Log</h2>
+        <button class="export-btn" onclick="exportLoginData()">Export as CSV</button>
+        <div id="messageContainer"></div>
+        <table class="login-table">
+          <thead>
+            <tr>
+              <th>Employee Name</th>
+              <th>Employee ID</th>
+              <th>Submission Time</th>
+              <th>Score</th>
+              <th>Percentage</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="loginTableBody">
+            <tr>
+              <td colspan="6" class="empty-state">No assessment data yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Question Management Tab -->
+    <div id="question-management" class="tab-content">
+      <div class="question-management-section">
+        <h2>Add or Edit Question</h2>
+        <form class="question-form" onsubmit="handleQuestionSubmit(event)">
+          <div class="form-group">
+            <label for="questionText">Question Text</label>
+            <textarea id="questionText" placeholder="Enter the question" required></textarea>
+          </div>
+
+          <div class="form-group image-upload-container">
+            <label for="questionImage">Question Image (Optional)</label>
+            <input type="file" id="questionImage" accept="image/*" class="image-upload-input" onchange="previewImage()">
+            <div class="image-preview-box" id="imagePreviewBox" style="display: none;">
+              <p>Image Preview:</p>
+              <img id="previewImg" src="" alt="Preview">
+              <button type="button" class="btn btn-danger" onclick="clearImage()" style="margin-top: 0.5rem;">Clear Image</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Answer Options</label>
+            <div class="options-container">
+              <div class="option-input">
+                <input type="text" id="option1" placeholder="Option 1" required>
+                <input type="checkbox" name="correctAnswer" value="0">
+                <label for="correctAnswer">Correct</label>
+              </div>
+              <div class="option-input">
+                <input type="text" id="option2" placeholder="Option 2" required>
+                <input type="checkbox" name="correctAnswer" value="1">
+                <label for="correctAnswer">Correct</label>
+              </div>
+              <div class="option-input">
+                <input type="text" id="option3" placeholder="Option 3" required>
+                <input type="checkbox" name="correctAnswer" value="2">
+                <label for="correctAnswer">Correct</label>
+              </div>
+              <div class="option-input">
+                <input type="text" id="option4" placeholder="Option 4" required>
+                <input type="checkbox" name="correctAnswer" value="3">
+                <label for="correctAnswer">Correct</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary">Add Question</button>
+            <button type="reset" class="btn btn-secondary" onclick="resetQuestionForm()">Clear</button>
+          </div>
+        </form>
+
+        <h2>Custom Questions</h2>
+        <div id="questionsList" class="question-list">
+          <div class="empty-state">No custom questions added yet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize admin system
+    const ADMIN_USERNAME = 'admin';
+    const ADMIN_PASSWORD = 'password';
+    const DEFAULT_PASS_SCORE = 70; // Pass if 70% or higher
+
+    // Load data from localStorage (fallback)
+    function loadLoginData() {
+      const data = localStorage.getItem('quizAttempts');
+      return data ? JSON.parse(data) : [];
+    }
+
+    // Fetch from Firebase - called after Firebase loads
+    async function loadLoginDataFromFirebase() {
+      if (window.fetchQuizAttemptsFromFirebase) {
+        const attempts = await window.fetchQuizAttemptsFromFirebase();
+        return attempts;
+      }
+      return loadLoginData(); // Fallback to localStorage
+    }
+
+    function loadCustomQuestions() {
+      const data = localStorage.getItem('customQuestions');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveCustomQuestions(questions) {
+      localStorage.setItem('customQuestions', JSON.stringify(questions));
+    }
+
+    // Authentication
+    function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').classList.add('active');
+        loadDashboardData();
+      } else {
+        alert('Invalid credentials');
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('adminLoggedIn');
+      location.reload();
+    }
+
+    // Check if admin is logged in
+    function checkAdminLogin() {
+      if (!sessionStorage.getItem('adminLoggedIn')) {
+        document.getElementById('loginScreen').style.display = 'block';
+        document.getElementById('dashboard').classList.remove('active');
+      } else {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').classList.add('active');
+        loadDashboardData();
+      }
+    }
+
+    // Switch tabs
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Show selected tab
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+
+      if (tabName === 'login-data') {
+        loadLoginDataTable();
+      } else if (tabName === 'question-management') {
+        loadCustomQuestionsList();
+      }
+    }
+
+    // Load login data table
+    function loadLoginDataTable() {
+      // Try Firebase first, fallback to localStorage
+      if (window.fetchQuizAttemptsFromFirebase) {
+        window.fetchQuizAttemptsFromFirebase().then(attempts => {
+          displayLoginDataTable(attempts);
+        }).catch(err => {
+          console.warn("Firebase unavailable, using localStorage:", err);
+          const attempts = loadLoginData();
+          displayLoginDataTable(attempts);
+        });
+      } else {
+        const attempts = loadLoginData();
+        displayLoginDataTable(attempts);
+      }
+    }
+
+    // Display the login data table
+    function displayLoginDataTable(attempts) {
+      const tbody = document.getElementById('loginTableBody');
+
+      if (attempts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No assessment data yet</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = attempts.map((attempt, index) => {
+        const date = new Date(attempt.timestamp);
+        const formattedDate = date.toLocaleString();
+        const percentage = Math.round((attempt.score / attempt.totalQuestions) * 100);
+        const isPassed = percentage >= DEFAULT_PASS_SCORE;
+        const statusClass = isPassed ? 'status-pass' : 'status-fail';
+        const statusText = isPassed ? 'PASS' : 'FAIL';
+
+        return `
+          <tr>
+            <td><span style="cursor: pointer; color: #2e7d32; font-weight: 600;" onclick="viewEmployeeReview(${index})">${attempt.employeeName}</span></td>
+            <td>${attempt.employeeId}</td>
+            <td>${formattedDate}</td>
+            <td>${attempt.score}/${attempt.totalQuestions}</td>
+            <td>${percentage}%</td>
+            <td><span class="${statusClass}">${statusText}</span></td>
+            <td><button class="btn btn-sm" onclick="viewEmployeeReview(${index})" style="background: #2196f3; color: #fff; padding: 0.4rem 0.8rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">View</button></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Export login data to CSV
+    function exportLoginData() {
+      const attempts = loadLoginData();
+      if (attempts.length === 0) {
+        alert('No data to export');
+        return;
+      }
+
+      let csv = 'Employee Name,Employee ID,Submission Time,Score,Percentage,Status\n';
+      attempts.forEach(attempt => {
+        const date = new Date(attempt.timestamp).toLocaleString();
+        const percentage = Math.round((attempt.score / attempt.totalQuestions) * 100);
+        const status = percentage >= DEFAULT_PASS_SCORE ? 'PASS' : 'FAIL';
+        csv += `"${attempt.employeeName}","${attempt.employeeId}","${date}","${attempt.score}/${attempt.totalQuestions}","${percentage}%","${status}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `quiz-attempts-${new Date().toISOString().split('T')[0]}.csv`;
+      link.click();
+    }
+
+    // Question Management
+    function handleQuestionSubmit(event) {
+      event.preventDefault();
+
+      const imageData = document.getElementById('previewImg').src || null;
+      
+      // Get all checked correct answers
+      const correctAnswers = [];
+      document.querySelectorAll('input[name="correctAnswer"]:checked').forEach(checkbox => {
+        correctAnswers.push(parseInt(checkbox.value));
+      });
+
+      if (correctAnswers.length === 0) {
+        alert('Please select at least one correct answer!');
+        return;
+      }
+
+      const question = {
+        id: Date.now(),
+        q: document.getElementById('questionText').value,
+        image: imageData,
+        options: [
+          document.getElementById('option1').value,
+          document.getElementById('option2').value,
+          document.getElementById('option3').value,
+          document.getElementById('option4').value
+        ],
+        answer: correctAnswers.length === 1 ? correctAnswers[0] : correctAnswers
+      };
+
+      let customQuestions = loadCustomQuestions();
+      customQuestions.push(question);
+      saveCustomQuestions(customQuestions);
+
+      showMessage('Question added successfully!', 'success');
+      resetQuestionForm();
+      loadCustomQuestionsList();
+    }
+
+    function resetQuestionForm() {
+      document.querySelector('.question-form').reset();
+      clearImage();
+    }
+
+    function previewImage() {
+      const fileInput = document.getElementById('questionImage');
+      const previewBox = document.getElementById('imagePreviewBox');
+      const previewImg = document.getElementById('previewImg');
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          previewBox.style.display = 'block';
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    }
+
+    function clearImage() {
+      document.getElementById('questionImage').value = '';
+      document.getElementById('imagePreviewBox').style.display = 'none';
+      document.getElementById('previewImg').src = '';
+    }
+
+    function loadCustomQuestionsList() {
+      const questions = loadCustomQuestions();
+      const container = document.getElementById('questionsList');
+
+      if (questions.length === 0) {
+        container.innerHTML = '<div class="empty-state">No custom questions added yet</div>';
+        return;
+      }
+
+      container.innerHTML = questions.map(q => `
+        <div class="question-card">
+          <h3>Q: ${q.q}</h3>
+          ${q.image ? `<div class="question-card-image"><img src="${q.image}" alt="Question Image"></div>` : ''}
+          <div class="question-card-options">
+            <strong>Options:</strong>
+            <ul>
+              ${q.options.map((opt, idx) => `
+                <li>${opt}${idx === q.answer ? ' <strong>(Correct Answer)</strong>' : ''}</li>
+              `).join('')}
+            </ul>
+          </div>
+          <div class="question-card-actions">
+            <button class="btn btn-edit" onclick="editQuestion(${q.id})">Edit</button>
+            <button class="btn btn-danger" onclick="deleteQuestion(${q.id})">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function deleteQuestion(questionId) {
+      if (!confirm('Are you sure you want to delete this question?')) return;
+
+      let questions = loadCustomQuestions();
+      questions = questions.filter(q => q.id !== questionId);
+      saveCustomQuestions(questions);
+      showMessage('Question deleted successfully!', 'success');
+      loadCustomQuestionsList();
+    }
+
+    function editQuestion(questionId) {
+      const questions = loadCustomQuestions();
+      const question = questions.find(q => q.id === questionId);
+
+      if (!question) return;
+
+      // Populate form with question data
+      document.getElementById('questionText').value = question.q;
+      document.getElementById('option1').value = question.options[0];
+      document.getElementById('option2').value = question.options[1];
+      document.getElementById('option3').value = question.options[2];
+      document.getElementById('option4').value = question.options[3];
+      
+      // Handle multiple correct answers
+      const correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
+      correctAnswers.forEach(ans => {
+        document.querySelector(`input[name="correctAnswer"][value="${ans}"]`).checked = true;
+      });
+
+      // Load image if exists
+      if (question.image) {
+        document.getElementById('previewImg').src = question.image;
+        document.getElementById('imagePreviewBox').style.display = 'block';
+      } else {
+        clearImage();
+      }
+
+      // Change button text
+      const submitBtn = document.querySelector('.question-form button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Update Question';
+
+      // Store original form handler and replace with update handler
+      const form = document.querySelector('.question-form');
+      const originalOnsubmit = form.onsubmit;
+
+      form.onsubmit = (e) => {
+        e.preventDefault();
+        const imageData = document.getElementById('previewImg').src || null;
+        
+        // Get all checked correct answers
+        const newCorrectAnswers = [];
+        document.querySelectorAll('input[name="correctAnswer"]:checked').forEach(checkbox => {
+          newCorrectAnswers.push(parseInt(checkbox.value));
+        });
+
+        if (newCorrectAnswers.length === 0) {
+          alert('Please select at least one correct answer!');
+          return;
+        }
+
+        const updatedQuestion = {
+          id: questionId,
+          q: document.getElementById('questionText').value,
+          image: imageData,
+          options: [
+            document.getElementById('option1').value,
+            document.getElementById('option2').value,
+            document.getElementById('option3').value,
+            document.getElementById('option4').value
+          ],
+          answer: newCorrectAnswers.length === 1 ? newCorrectAnswers[0] : newCorrectAnswers
+        };
+
+        let allQuestions = loadCustomQuestions();
+        const index = allQuestions.findIndex(q => q.id === questionId);
+        allQuestions[index] = updatedQuestion;
+        saveCustomQuestions(allQuestions);
+
+        showMessage('Question updated successfully!', 'success');
+        resetQuestionForm();
+        submitBtn.textContent = originalText;
+        form.onsubmit = originalOnsubmit;
+        loadCustomQuestionsList();
+      };
+
+      // Scroll to form
+      document.querySelector('.question-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showMessage(text, type) {
+      const container = document.getElementById('messageContainer');
+      const messageClass = type === 'success' ? 'success-message' : 'error-message';
+      const message = document.createElement('div');
+      message.className = messageClass;
+      message.textContent = text;
+      container.innerHTML = '';
+      container.appendChild(message);
+
+      setTimeout(() => {
+        message.remove();
+      }, 3000);
+    }
+
+    // Load dashboard
+    function loadDashboardData() {
+      loadLoginDataTable();
+      loadCustomQuestionsList();
+    }
+
+    function viewEmployeeReview(attemptIndex) {
+      // Try Firebase first, fallback to localStorage
+      if (window.fetchQuizAttemptsFromFirebase) {
+        window.fetchQuizAttemptsFromFirebase().then(attempts => {
+          displayEmployeeReview(attempts, attemptIndex);
+        }).catch(err => {
+          console.warn("Firebase error, using localStorage:", err);
+          const attempts = loadLoginData();
+          displayEmployeeReview(attempts, attemptIndex);
+        });
+      } else {
+        const attempts = loadLoginData();
+        displayEmployeeReview(attempts, attemptIndex);
+      }
+    }
+
+    function displayEmployeeReview(attempts, attemptIndex) {
+      const attempt = attempts[attemptIndex];
+      
+      if (!attempt) {
+        alert('Review data not available for this attempt.');
+        return;
+      }
+
+      // Parse userAnswers if it's stored as JSON string (from Firebase)
+      let userAnswers = attempt.userAnswers;
+      if (attempt.userAnswersJSON && typeof attempt.userAnswersJSON === 'string') {
+        try {
+          userAnswers = JSON.parse(attempt.userAnswersJSON);
+        } catch (e) {
+          console.error("Error parsing userAnswersJSON:", e);
+          userAnswers = attempt.userAnswers || [];
+        }
+      }
+
+      // For Firebase data (without full questions), use localStorage as fallback for full question details
+      let questions = attempt.questions;
+      if (!questions || questions.length === 0) {
+        const localAttempts = loadLoginData();
+        if (localAttempts[attemptIndex] && localAttempts[attemptIndex].questions) {
+          questions = localAttempts[attemptIndex].questions;
+        } else {
+          alert('Full question data not available. Showing summary only.');
+          questions = [];
+        }
+      }
+
+      if (!userAnswers) {
+        alert('Review data not available for this attempt.');
+        return;
+      }
+
+      let html = `
+        <div style="max-width: 1000px; max-height: 80vh; overflow-y: auto; background: #fff; padding: 2rem; border-radius: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #2e7d32;">
+            <div>
+              <h2 style="margin: 0; color: #2e7d32; font-size: 1.3rem;">Quiz Review - ${attempt.employeeName}</h2>
+              <p style="margin: 0.5rem 0 0 0; color: #666; font-size: 0.9rem;">Employee ID: ${attempt.employeeId} | Date: ${new Date(attempt.timestamp).toLocaleString()}</p>
+            </div>
+            <button onclick="closeEmployeeReview()" style="background: #2e7d32; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600;">Close</button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; padding: 1rem; background: #f5f5f5; border-radius: 6px;">
+            <div>
+              <div style="color: #666; font-size: 0.9rem;">Score</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #2e7d32;">${attempt.score}/${attempt.totalQuestions}</div>
+            </div>
+            <div>
+              <div style="color: #666; font-size: 0.9rem;">Percentage</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #2e7d32;">${Math.round((attempt.score / attempt.totalQuestions) * 100)}%</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 2rem;">
+      `;
+
+      userAnswers.forEach((userAnswer, qIndex) => {
+        if (!questions[qIndex]) {
+          console.warn("Question not found for index:", qIndex);
+          return;
+        }
+        
+        const question = questions[qIndex];
+        const correctAnswer = question.answer;
+        
+        // Determine if answer is correct
+        let isCorrect = false;
+        if (Array.isArray(correctAnswer)) {
+          if (Array.isArray(userAnswer)) {
+            isCorrect = userAnswer.length === correctAnswer.length && 
+                       userAnswer.every(a => correctAnswer.includes(a)) &&
+                       correctAnswer.every(c => userAnswer.includes(c));
+          } else if (userAnswer !== null) {
+            isCorrect = correctAnswer.includes(userAnswer);
+          }
+        } else {
+          if (Array.isArray(userAnswer)) {
+            isCorrect = userAnswer.includes(correctAnswer);
+          } else {
+            isCorrect = userAnswer === correctAnswer;
+          }
+        }
+
+        const statusColor = isCorrect ? '#4caf50' : userAnswer === null ? '#999' : '#f44336';
+        const statusBadge = isCorrect ? '✓ Correct' : userAnswer === null ? 'Not Attempted' : '✗ Incorrect';
+
+        html += `
+          <div style="background: #f9f9f9; border-left: 4px solid ${statusColor}; padding: 1.2rem; margin-bottom: 1rem; border-radius: 6px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+              <div style="font-weight: 700; color: #2e7d32; font-size: 1rem;">Q${qIndex + 1}: ${question.q}</div>
+              <div style="background: ${statusColor}; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem;">${statusBadge}</div>
+            </div>
+        `;
+
+        if (question.image && question.image.trim()) {
+          html += `<img src="${question.image}" alt="Question Image" style="width: 100%; max-height: 120px; object-fit: contain; border-radius: 4px; margin-bottom: 1rem;">`;
+        }
+
+        html += `<div style="background: #fff; border: 1px solid #e0e0e0; border-radius: 4px; padding: 1rem;">`;
+
+        question.options.forEach((option, optIndex) => {
+          const isCorrectOption = Array.isArray(correctAnswer) ? correctAnswer.includes(optIndex) : optIndex === correctAnswer;
+          const isUserSelected = Array.isArray(userAnswer) ? userAnswer.includes(optIndex) : optIndex === userAnswer;
+          
+          let optStyle = '';
+          let icon = '';
+          
+          if (isCorrectOption && isUserSelected) {
+            optStyle = 'background: #e8f5e9; border-left: 3px solid #4caf50;';
+            icon = '<i class="fas fa-check-circle" style="color: #4caf50; margin-right: 0.5rem;"></i>';
+          } else if (isCorrectOption) {
+            optStyle = 'background: #e8f5e9; border-left: 3px solid #4caf50;';
+            icon = '<i class="fas fa-check-circle" style="color: #4caf50; margin-right: 0.5rem;"></i>';
+          } else if (isUserSelected && !isCorrect) {
+            optStyle = 'background: #ffebee; border-left: 3px solid #f44336;';
+            icon = '<i class="fas fa-times-circle" style="color: #f44336; margin-right: 0.5rem;"></i>';
+          }
+
+          let label = '';
+          if (isCorrectOption && isUserSelected) {
+            label = '<span style="color: #4caf50; font-weight: 600; margin-left: auto;">(Your Answer - Correct)</span>';
+          } else if (isCorrectOption) {
+            label = '<span style="color: #4caf50; font-weight: 600; margin-left: auto;">(Correct Answer)</span>';
+          } else if (isUserSelected && !isCorrect) {
+            label = '<span style="color: #f44336; font-weight: 600; margin-left: auto;">(Your Answer)</span>';
+          }
+
+          html += `
+            <div style="padding: 0.8rem; margin-bottom: 0.5rem; border-radius: 4px; display: flex; align-items: center; ${optStyle}">
+              ${icon}
+              <span>${option}</span>
+              ${label}
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+
+        if (userAnswer === null) {
+          html += `
+            <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 0.8rem; margin-top: 1rem; border-radius: 4px;">
+              <strong style="color: #ff9800;">Not Attempted</strong> - Employee did not select an answer for this question.
+            </div>
+          `;
+        } else if (isCorrect) {
+          html += `
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 0.8rem; margin-top: 1rem; border-radius: 4px;">
+              <strong style="color: #4caf50;">Correct!</strong> Employee's answer matched the correct answer.
+            </div>
+          `;
+        } else {
+          const correctAnswerText = Array.isArray(correctAnswer) ? 
+            correctAnswer.map(idx => question.options[idx]).join(' or ') : 
+            question.options[correctAnswer];
+          html += `
+            <div style="background: #ffebee; border-left: 4px solid #f44336; padding: 0.8rem; margin-top: 1rem; border-radius: 4px;">
+              <strong style="color: #f44336;">Incorrect</strong><br>
+              Employee's answer: <strong>${Array.isArray(userAnswer) ? userAnswer.map(idx => question.options[idx]).join(', ') : question.options[userAnswer]}</strong><br>
+              Correct answer: <strong>${correctAnswerText}</strong>
+            </div>
+          `;
+        }
+
+        html += `</div>`;
+      });
+
+      html += `
+          </div>
+        </div>
+      `;
+
+      const modal = document.getElementById('reviewModal') || createReviewModal();
+      modal.innerHTML = html;
+      modal.style.display = 'flex';
+    }
+
+    function createReviewModal() {
+      const modal = document.createElement('div');
+      modal.id = 'reviewModal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        padding: 2rem;
+      `;
+      document.body.appendChild(modal);
+      return modal;
+    }
+
+    function closeEmployeeReview() {
+      const modal = document.getElementById('reviewModal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    // Initialize on page load
+    window.addEventListener('load', checkAdminLogin);
+  </script>
+
+  <!-- Firebase Module Script -->
+  <script type="module">
+    import { db, getDocs, collection, query, orderBy } from './firebase.js';
+
+    // Fetch quiz attempts from Firebase
+    window.fetchQuizAttemptsFromFirebase = async function() {
+      try {
+        console.log("📖 Fetching quiz attempts from Firebase...");
+        
+        const q = query(collection(db, "quizAttempts"), orderBy("timestamp", "desc"));
+        const querySnapshot = await getDocs(q);
+        
+        const attempts = [];
+        querySnapshot.forEach((doc) => {
+          attempts.push({
+            id: doc.id,
+            ...doc.data()
+          });
+        });
+
+        console.log("✅ Fetched", attempts.length, "quiz attempt(s) from Firebase");
+        if (attempts.length === 0) {
+          console.warn("⚠️ No quiz attempts found in Firebase. Ensure employees have submitted quizzes.");
+        }
+        return attempts;
+      } catch (error) {
+        console.error("❌ Error fetching from Firebase:", error);
+        console.error("Error message:", error.message);
+        console.error("Error code:", error.code);
+        throw error;
+      }
+    };
+
+    // Test function to read all data from Firestore
+    window.readTestDataFromFirebase = async function() {
+      try {
+        console.log("📖 Reading test data from Firebase...");
+        
+        const querySnapshot = await getDocs(collection(db, "portalConfig"));
+        
+        if (querySnapshot.empty) {
+          console.warn("⚠️ No documents found in portalConfig collection");
+          alert("⚠️ No data found. Write test data from index.html first!");
+          return;
+        }
+
+        console.log("✅ Documents found:");
+        querySnapshot.forEach((doc) => {
+          console.log("📄 Document ID:", doc.id);
+          console.log("📋 Data:", doc.data());
+        });
+
+        alert(`✅ Found ${querySnapshot.size} document(s)! Check console for details.`);
+      } catch (error) {
+        console.error("❌ Error reading data from Firebase:", error);
+        alert("❌ Error reading data. Check console for details.");
+      }
+    };
+
+    // Auto-call on page load to test connection
+    console.log("🔥 Firebase module loaded on admin.html");
+    console.log("💡 Quiz attempts will auto-load from Firebase when you view the Dashboard tab");
+    
+    // Test the connection immediately
+    window.fetchQuizAttemptsFromFirebase().then(attempts => {
+      console.log("🎉 Firebase connection successful! Found", attempts.length, "attempts.");
+    }).catch(err => {
+      console.error("⚠️ Firebase connection issue. Check your config and Firestore permissions.");
+    });
+  </script>
+
+</body>
+</html>

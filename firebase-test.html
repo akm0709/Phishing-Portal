@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Firebase Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2e7d32;
+    }
+    button {
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0.5rem 0;
+      width: 100%;
+    }
+    button:hover {
+      background: #1b4620;
+    }
+    .log {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    .success {
+      color: #4caf50;
+    }
+    .error {
+      color: #f44336;
+    }
+    .warning {
+      color: #ff9800;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔥 Firebase Diagnostic Test</h1>
+    
+    <button onclick="testFirebaseLoad()">1. Test Firebase Loading</button>
+    <button onclick="testWrite()">2. Test Write to Firebase</button>
+    <button onclick="testRead()">3. Test Read from Firebase</button>
+    <button onclick="clearLog()">Clear Log</button>
+
+    <div class="log" id="log">
+      Logs will appear here...
+    </div>
+  </div>
+
+  <script type="module">
+    import { db, collection, addDoc, getDocs } from './firebase.js';
+
+    window.log = function(message, type = 'info') {
+      const logDiv = document.getElementById('log');
+      const timestamp = new Date().toLocaleTimeString();
+      const className = type === 'success' ? 'success' : type === 'error' ? 'error' : type === 'warning' ? 'warning' : '';
+      const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+      logDiv.innerHTML += `<div class="${className}">${icon} [${timestamp}] ${message}</div>`;
+      logDiv.scrollTop = logDiv.scrollHeight;
+    };
+
+    window.testFirebaseLoad = function() {
+      try {
+        window.log('Testing Firebase module...', 'info');
+        if (db) {
+          window.log('✓ Firebase initialized successfully', 'success');
+          window.log('Database: ' + db.type, 'success');
+        }
+      } catch (err) {
+        window.log('Firebase module error: ' + err.message, 'error');
+      }
+    };
+
+    window.testWrite = function() {
+      window.log('Attempting to write test data...', 'info');
+      
+      const testData = {
+        testType: 'diagnostic',
+        timestamp: new Date().toISOString(),
+        message: 'Test write from diagnostic page'
+      };
+
+      addDoc(collection(db, "quizAttempts"), testData)
+        .then((docRef) => {
+          window.log('✓ Data written successfully!', 'success');
+          window.log('Document ID: ' + docRef.id, 'success');
+        })
+        .catch((error) => {
+          window.log('✗ Write failed: ' + error.message, 'error');
+          window.log('Error code: ' + error.code, 'error');
+        });
+    };
+
+    window.testRead = function() {
+      window.log('Attempting to read from Firebase...', 'info');
+      
+      getDocs(collection(db, "quizAttempts"))
+        .then((querySnapshot) => {
+          window.log('✓ Read successful!', 'success');
+          window.log('Found ' + querySnapshot.size + ' documents', 'success');
+          querySnapshot.forEach((doc) => {
+            window.log('Doc ID: ' + doc.id, 'info');
+          });
+        })
+        .catch((error) => {
+          window.log('✗ Read failed: ' + error.message, 'error');
+          window.log('Error code: ' + error.code, 'error');
+        });
+    };
+
+    window.clearLog = function() {
+      document.getElementById('log').innerHTML = '';
+    };
+
+    // Auto-test on load
+    setTimeout(() => {
+      window.log('Firebase diagnostic page loaded', 'info');
+      window.testFirebaseLoad();
+    }, 500);
+  </script>
+</body>
+</html>
