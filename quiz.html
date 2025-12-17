@@ -731,17 +731,37 @@
 
     totalQuestionsSpan.textContent = questions.length;
 
-    function loadAllQuestions() {
-      const customQuestions = localStorage.getItem('customQuestions');
-      if (customQuestions) {
-        const custom = JSON.parse(customQuestions);
-        questions.push(...custom);
-        userAnswers = new Array(questions.length).fill(null);
-        totalQuestionsSpan.textContent = questions.length;
+    async function loadAllQuestions() {
+      if (window.fetchCustomQuestionsFromFirebase) {
+        try {
+          const custom = await window.fetchCustomQuestionsFromFirebase();
+          if (custom && custom.length > 0) {
+            questions.push(...custom);
+            userAnswers = new Array(questions.length).fill(null);
+            totalQuestionsSpan.textContent = questions.length;
+          }
+        } catch (err) {
+          console.warn("Firebase custom questions unavailable:", err);
+          const customQuestions = localStorage.getItem('customQuestions');
+          if (customQuestions) {
+            const custom = JSON.parse(customQuestions);
+            questions.push(...custom);
+            userAnswers = new Array(questions.length).fill(null);
+            totalQuestionsSpan.textContent = questions.length;
+          }
+        }
+      } else {
+        const customQuestions = localStorage.getItem('customQuestions');
+        if (customQuestions) {
+          const custom = JSON.parse(customQuestions);
+          questions.push(...custom);
+          userAnswers = new Array(questions.length).fill(null);
+          totalQuestionsSpan.textContent = questions.length;
+        }
       }
     }
 
-    function startQuiz(event) {
+    async function startQuiz(event) {
       event.preventDefault();
       employeeName = document.getElementById('employeeName').value;
       employeeId = document.getElementById('employeeId').value;
@@ -749,7 +769,7 @@
       document.getElementById('employeeForm').style.display = 'none';
       document.getElementById('quizWrapper').style.display = 'flex';
       
-      loadAllQuestions();
+      await loadAllQuestions();
       buildNavigator();
       displayQuestion();
     }
@@ -803,10 +823,6 @@
       let html = `
         <div class="question-text">Q${currentQuestionIndex + 1}: ${question.q}</div>
       `;
-      
-      if (question.image && question.image.trim()) {
-        html += `<img src="${question.image}" alt="Question Image" class="question-image">`;
-      }
       
       html += `<div class="options">`;
       question.options.forEach((opt, j) => {
@@ -1238,9 +1254,18 @@
       // Get correct answer text
       let correctAnswerText = '';
       if (Array.isArray(correctAnswer)) {
-        correctAnswerText = correctAnswer.map(idx => question.options[idx]).join(' or ');
+        correctAnswerText = correctAnswer.map(idx => question.options[idx]).join(', ');
       } else {
         correctAnswerText = question.options[correctAnswer];
+      }
+
+      let userAnswerText = '';
+      if (!isCorrect) {
+        if (Array.isArray(userAnswer) && userAnswer.length > 0) {
+          userAnswerText = userAnswer.map(idx => question.options[idx]).join(', ');
+        } else if (userAnswer !== null && !Array.isArray(userAnswer)) {
+          userAnswerText = question.options[userAnswer];
+        }
       }
 
       html += `
@@ -1251,7 +1276,7 @@
           <div style="color: #333; font-size: 0.9rem; line-height: 1.6;">
             <strong>Correct Answer:</strong> ${correctAnswerText}
           </div>
-          ${!isCorrect ? `<div style="color: #333; font-size: 0.9rem; line-height: 1.6; margin-top: 0.5rem;"><strong>Your Answer:</strong> ${question.options[userAnswer]}</div>` : ''}
+          ${!isCorrect && userAnswerText ? `<div style="color: #333; font-size: 0.9rem; line-height: 1.6; margin-top: 0.5rem;"><strong>Your Answer:</strong> ${userAnswerText}</div>` : ''}
         </div>
       `;
 
@@ -1439,7 +1464,10 @@
 
   <!-- Firebase Module Script -->
   <script type="module">
-    import { db, collection, addDoc } from './firebase.js';
+    import { db, collection, addDoc, fetchCustomQuestionsFromFirebase } from './firebase.js';
+    
+    // Export custom questions fetcher to window
+    window.fetchCustomQuestionsFromFirebase = fetchCustomQuestionsFromFirebase;
     
     window.saveQuizAttemptToFirebase = async function(attemptData) {
       try {
