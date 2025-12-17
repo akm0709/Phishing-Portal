@@ -661,6 +661,23 @@
 
     function saveCustomQuestions(questions) {
       localStorage.setItem('customQuestions', JSON.stringify(questions));
+      if (window.saveCustomQuestionsToFirebase) {
+        window.saveCustomQuestionsToFirebase(questions).catch(err => {
+          console.warn("Firebase sync failed for custom questions:", err);
+        });
+      }
+    }
+
+    async function loadCustomQuestionsFromFirebase() {
+      if (window.fetchCustomQuestionsFromFirebase) {
+        try {
+          return await window.fetchCustomQuestionsFromFirebase();
+        } catch (err) {
+          console.warn("Firebase fetch failed, using localStorage:", err);
+          return loadCustomQuestions();
+        }
+      }
+      return loadCustomQuestions();
     }
 
     // Authentication
@@ -855,7 +872,16 @@
     }
 
     function loadCustomQuestionsList() {
-      const questions = loadCustomQuestions();
+      loadCustomQuestionsFromFirebase().then(questions => {
+        displayCustomQuestionsList(questions);
+      }).catch(err => {
+        console.warn("Error loading questions:", err);
+        const questions = loadCustomQuestions();
+        displayCustomQuestionsList(questions);
+      });
+    }
+
+    function displayCustomQuestionsList(questions) {
       const container = document.getElementById('questionsList');
 
       if (questions.length === 0) {
@@ -1222,7 +1248,7 @@
 
   <!-- Firebase Module Script -->
   <script type="module">
-    import { db, getDocs, collection, query, orderBy } from './firebase.js';
+    import { db, getDocs, collection, query, orderBy, saveCustomQuestionsToFirebase, fetchCustomQuestionsFromFirebase } from './firebase.js';
 
     // Fetch quiz attempts from Firebase
     window.fetchQuizAttemptsFromFirebase = async function() {
@@ -1252,6 +1278,10 @@
         throw error;
       }
     };
+
+    // Export custom questions functions to window
+    window.saveCustomQuestionsToFirebase = saveCustomQuestionsToFirebase;
+    window.fetchCustomQuestionsFromFirebase = fetchCustomQuestionsFromFirebase;
 
     // Test function to read all data from Firestore
     window.readTestDataFromFirebase = async function() {
