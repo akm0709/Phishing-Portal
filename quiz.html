@@ -1189,9 +1189,19 @@
       // Check if answer is correct (handle both single and multiple correct answers)
       let isCorrect = false;
       if (Array.isArray(correctAnswer)) {
-        isCorrect = correctAnswer.includes(userAnswer);
+        // Multiple correct answers - user must match exactly
+        if (Array.isArray(userAnswer)) {
+          isCorrect = userAnswer.length === correctAnswer.length && 
+                     userAnswer.every(a => correctAnswer.includes(a)) &&
+                     correctAnswer.every(c => userAnswer.includes(c));
+        }
       } else {
-        isCorrect = userAnswer === correctAnswer;
+        // Single correct answer
+        if (Array.isArray(userAnswer)) {
+          isCorrect = userAnswer.includes(correctAnswer);
+        } else {
+          isCorrect = userAnswer === correctAnswer;
+        }
       }
 
       let html = `
@@ -1216,8 +1226,16 @@
 
         // Determine if this is a correct answer
         const isCorrectOption = Array.isArray(correctAnswer) ? correctAnswer.includes(j) : j === correctAnswer;
+        
+        // Check if user selected this option
+        let userSelectedThis = false;
+        if (Array.isArray(userAnswer)) {
+          userSelectedThis = userAnswer.includes(j);
+        } else {
+          userSelectedThis = j === userAnswer;
+        }
 
-        if (isCorrectOption && j === userAnswer) {
+        if (isCorrectOption && userSelectedThis) {
           // User was correct
           optionStyles = 'background: #e8f5e9 !important; border-color: #4caf50 !important;';
           icon = '<i class="fas fa-check-circle" style="color: #4caf50; margin-right: 0.5rem; font-weight: 700;"></i>';
@@ -1227,7 +1245,7 @@
           optionStyles = 'background: #e8f5e9 !important; border-color: #4caf50 !important;';
           icon = '<i class="fas fa-check-circle" style="color: #4caf50; margin-right: 0.5rem; font-weight: 700;"></i>';
           label = '<span style="color: #4caf50; font-weight: 700; margin-left: 0.5rem;">(Correct Answer)</span>';
-        } else if (j === userAnswer && !isCorrect) {
+        } else if (userSelectedThis && !isCorrect) {
           // Highlight user's wrong choice
           optionStyles = 'background: #ffebee !important; border-color: #f44336 !important;';
           icon = '<i class="fas fa-times-circle" style="color: #f44336; margin-right: 0.5rem; font-weight: 700;"></i>';
@@ -1236,7 +1254,7 @@
 
         html += `
           <label style="${optionStyles}" style="pointer-events: none; opacity: 1;">
-            <input type="radio" disabled ${j === userAnswer ? 'checked' : ''} style="margin-right: 0.75rem; cursor: not-allowed;">
+            <input type="radio" disabled ${userSelectedThis ? 'checked' : ''} style="margin-right: 0.75rem; cursor: not-allowed;">
             ${icon}
             ${opt}
             ${label}
