@@ -578,7 +578,6 @@
         <div class="progress-info">
           Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span>
         </div>
-        <div class="timer" id="timer">60</div>
       </div>
 
       <div class="question-content" id="questionContent">
@@ -963,39 +962,15 @@
     }
 
     function resetTimer() {
-      timeRemaining = 60;
-      timerDisplay.textContent = "60";
-      timerDisplay.classList.remove('warning', 'danger');
+      // Timer disabled
     }
 
     function startTimer() {
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        timeRemaining--;
-        timerDisplay.textContent = timeRemaining;
-
-        if (timeRemaining <= 20 && timeRemaining > 10) {
-          timerDisplay.classList.add('warning');
-          timerDisplay.classList.remove('danger');
-        } else if (timeRemaining <= 10) {
-          timerDisplay.classList.add('danger');
-          timerDisplay.classList.remove('warning');
-        }
-
-        if (timeRemaining === 0) {
-          clearInterval(timerInterval);
-          const quizWrapper = document.getElementById('quizWrapper');
-          if (quizWrapper && quizWrapper.style.display !== 'none' && currentQuestionIndex < questions.length - 1) {
-            alert("Time's up for this question! Moving to next question.");
-            nextQuestion();
-          }
-        }
-      }, 1000);
+      // Timer disabled
     }
 
     async function submitQuiz() {
       saveCurrentAnswer();
-      clearInterval(timerInterval);
       isQuizSubmitted = true;
       
       let score = 0;
