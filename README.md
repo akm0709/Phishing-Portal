@@ -209,81 +209,9 @@ The admin dashboard provides:
 
 ---
 
-## 🐛 Troubleshooting
-
-### Quiz data not saving to Firebase?
-- Check `.env.local` contains correct Firebase credentials
-- Verify Firestore security rules allow `create` access
-- Check browser console (F12) for error messages
-
-### Admin dashboard not loading data?
-- Ensure you have authenticated with correct credentials
-- Verify Firebase rules allow `read` access to `quizAttempts`
-- Check that quiz attempts exist in Firestore
-
-### Deployment failed?
-- Verify all files are in git (check `.gitignore`)
-- Ensure environment variables are set in deployment platform
-- Check deployment logs for specific error messages
-
----
-
-## 📞 Support
-
-For issues or questions:
-
-1. Check the [Troubleshooting](#troubleshooting) section
-2. Review Firebase documentation: https://firebase.google.com/docs
-3. Check console logs (F12) for error details
-4. Open an issue on GitHub
-
----
-
 ## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 🔄 Updates & Maintenance
-
-This portal is actively maintained. Check back regularly for:
-
-- Security updates
-- New question templates
-- UI/UX improvements
-- Bug fixes
-- Performance optimizations
-
----
-
-## ⚡ Performance Tips
-
-- Use Chrome DevTools to monitor loading times
-- Compress images before adding to questions
-- Enable browser caching in deployment
-- Use CDN for Firebase SDK
-
----
-
-## 📚 Resources
-
-- [Firebase Documentation](https://firebase.google.com/docs)
-- [Phishing Prevention Tips](https://www.sans.org/reading-room/whitepapers/)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [Web Security Best Practices](https://owasp.org/)
 
 ---
 
@@ -304,3 +232,4 @@ After completing this training, employees will understand:
 **Version:** 1.0.0  
 **Deployed:** https://phishing-portal-beta.vercel.app/  
 **Status:** Production Ready ✅
+
