@@ -47,6 +47,21 @@
       box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
     }
 
+    .home-icon.disabled {
+      background: #ccc;
+      color: #888;
+      border-color: #ccc;
+      cursor: not-allowed;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .home-icon.disabled:hover {
+      background: #ccc;
+      color: #888;
+      transform: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
     canvas#matrix {
       display: none;
     }
@@ -305,6 +320,38 @@
       color: #fff;
     }
 
+    .btn-submit-navigator {
+      background: #4caf50;
+      color: #fff;
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      font-size: 0.9rem;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-submit-navigator:hover:not(:disabled) {
+      background: #388e3c;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+    }
+
+    .btn-submit-navigator:disabled {
+      background: #ccc;
+      color: #888;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
     /* Question Navigator Styles */
     .navigator-header {
       font-weight: 700;
@@ -546,7 +593,7 @@
   </style>
 </head>
 <body>
-  <a href="index.html" class="home-icon" title="Back to Home">
+  <a href="index.html" class="home-icon" id="homeIcon" title="Back to Home">
     <i class="fas fa-home"></i>
   </a>
   
@@ -560,10 +607,44 @@
         <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Employee Name</label>
         <input type="text" id="employeeName" placeholder="Enter your full name" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
       </div>
-      <div style="margin-bottom: 1.5rem;">
-        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Employee ID</label>
-        <input type="text" id="employeeId" placeholder="Enter your employee ID" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Group</label>
+        <select id="employeeGroup" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+          <option value="">-- Select Group --</option>
+          <option value="IT Dept">IT Dept</option>
+          <option value="PURCHASE">PURCHASE</option>
+          <option value="ARDL">ARDL</option>
+          <option value="ARDL3 Doc.">ARDL3 Doc.</option>
+          <option value="ART">ART</option>
+          <option value="ACCOUNTS">ACCOUNTS</option>
+          <option value="BIOTECH">BIOTECH</option>
+          <option value="CQA">CQA</option>
+          <option value="Distribution">Distribution</option>
+          <option value="Documentation">Documentation</option>
+          <option value="Export (Formulations)">Export (Formulations)</option>
+          <option value="HR">HR</option>
+          <option value="MDL">MDL</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Marketing">Marketing</option>
+          <option value="PACKAGING">PACKAGING</option>
+          <option value="PLANNING">PLANNING</option>
+          <option value="Product Portfolio">Product Portfolio</option>
+          <option value="R&D Foods">R&D Foods</option>
+          <option value="Regulatory Affairs">Regulatory Affairs</option>
+          <option value="SFE">SFE</option>
+          <option value="STG">STG</option>
+          <option value="CQC">CQC</option>
+          <option value="IPR">IPR</option>
+          <option value="LEGAL">LEGAL</option>
+          <option value="MTL">MTL</option>
+          <option value="Export (International)">Export (International)</option>
+        </select>
       </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Employee ID - Host ID</label>
+        <input type="text" id="employeeId" placeholder="Enter your Host ID (e.g., J-IT-003)" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+      </div>
+      <div id="verificationMessage" style="margin-bottom: 1rem; padding: 0.8rem; border-radius: 6px; display: none;"></div>
       <button type="submit" style="width: 100%; padding: 0.8rem; background: #2e7d32; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Start Quiz</button>
       <button type="button" onclick="goBack()" style="width: 100%; margin-top: 0.5rem; padding: 0.8rem; background: transparent; color: #2e7d32; border: 2px solid #2e7d32; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Back to Home</button>
     </form>
@@ -600,6 +681,9 @@
       <div class="navigator-grid" id="navigatorGrid">
         <!-- Question buttons will be generated here -->
       </div>
+      <button class="btn-submit-navigator" id="submitNavBtn" onclick="submitQuizFromNavigator()" type="button">
+        Submit Quiz
+      </button>
       <button class="btn-exit" onclick="exitQuiz()" type="button">Exit Quiz</button>
     </div>
   </div>
@@ -708,14 +792,274 @@
       }
     ];
 
+    // Employee Database for Verification
+    const employeeDatabase = {
+      "Sankat": { group: "IT Dept", hostId: "J-IT-003" },
+      "Anant Pandye": { group: "IT Dept", hostId: "J-IT-229" },
+      "Atharva More": { group: "IT Dept", hostId: "J-IT-018" },
+      "Brijesh Jaiswal": { group: "IT Dept", hostId: "A-IT-005" },
+      "Gaurav W": { group: "IT Dept", hostId: "J-IT-011" },
+      "Kalpesh Shah": { group: "IT Dept", hostId: "A-IT-001" },
+      "Kishor Dalvi": { group: "IT Dept", hostId: "J-IT-019" },
+      "Pawan Singh": { group: "IT Dept", hostId: "A-IT-006" },
+      "Payal Lohar": { group: "IT Dept", hostId: "A-IT-007" },
+      "Pragesh Mayekar": { group: "IT Dept", hostId: "A-IT-009" },
+      "Rajesh Nikharge": { group: "IT Dept", hostId: "J-IT-014" },
+      "SAP server": { group: "IT Dept", hostId: "FDCSAPOS4" },
+      "Shailesh Kudu": { group: "IT Dept", hostId: "J-IT-008" },
+      "Sumit Rame": { group: "IT Dept", hostId: "A-IT-002" },
+      "Swarna Chennakesavulu": { group: "IT Dept", hostId: "J-IT-020" },
+      "Uday Shukla": { group: "IT Dept", hostId: "A-IT-004" },
+      "Unnati Patel": { group: "IT Dept", hostId: "A-IT-015" },
+      "Vijith (Viji Pinarayi)": { group: "IT Dept", hostId: "J-IT-004" },
+      "Yogesh Yadav": { group: "IT Dept", hostId: "J-IT-013" },
+      "Abhijit Jadhav": { group: "PURCHASE", hostId: "J-PUR-010" },
+      "Kishor Satam": { group: "PURCHASE", hostId: "J-PUR-003" },
+      "Kharayan Thive": { group: "PURCHASE", hostId: "J-PUR-006" },
+      "Nidhi Gode": { group: "PURCHASE", hostId: "A-PUR-012" },
+      "Pranod Karolkar": { group: "PURCHASE", hostId: "J-PUR-017" },
+      "Ranjana Sondagar": { group: "PURCHASE", hostId: "J-PUR-016" },
+      "Ravindra Panchal": { group: "PURCHASE", hostId: "J-PUR-020" },
+      "Shrikant Gaile": { group: "PURCHASE", hostId: "A-PUR-021" },
+      "Vijay Jadhav": { group: "ARDL", hostId: "K-ARDL-003" },
+      "Anupama Yadav": { group: "ARDL3 Doc.", hostId: "J-DOC-007" },
+      "CO-DOCUMENTATION": { group: "ARDL3 Doc.", hostId: "J-DOC-002" },
+      "Rupesh Kelaskar": { group: "ARDL3 Doc.", hostId: "J-QA-012" },
+      "Anand Nestly": { group: "ART", hostId: "J-ART-007" },
+      "Jayvant Hire": { group: "ART", hostId: "J-ART-006" },
+      "Neeta Dalvi": { group: "ART", hostId: "J-ART-008" },
+      "Pooja Desai": { group: "ART", hostId: "J-ART-009" },
+      "RAVindra Mulam": { group: "ART", hostId: "J-ART-001" },
+      "Sameer Jadhav": { group: "ART", hostId: "J-ART-002" },
+      "Suhas Kadam": { group: "ART", hostId: "J-ART-003" },
+      "Varsha Yeram": { group: "ART", hostId: "J-ART-005" },
+      "Akash Chaurasia": { group: "ACCOUNTS", hostId: "J-ACC-002" },
+      "Shamal Bandivadekar Extn": { group: "ACCOUNTS", hostId: "A-ACC-034" },
+      "Yash Thakur": { group: "BIOTECH", hostId: "J-BITC-011" },
+      "Abhijeet Shinde": { group: "CQA", hostId: "A-QA-001" },
+      "Amol Rohakale": { group: "CQA", hostId: "A-QA-009" },
+      "Atul Sawangikar": { group: "CQA", hostId: "J-QA-014" },
+      "Bhushan Kolake": { group: "CQA", hostId: "J-QA-005" },
+      "Dattu Kolekar": { group: "CQA", hostId: "J-QA-008" },
+      "Deepak Satam": { group: "CQA", hostId: "J-QA-019" },
+      "Dinesh Yadav": { group: "CQA", hostId: "A-QA-004" },
+      "Ganesh Chotthe": { group: "CQA", hostId: "J-QA-021" },
+      "Jitendra Thakur": { group: "CQA", hostId: "A-QA-013" },
+      "Lalit Narkhede": { group: "CQA", hostId: "J-QA-015" },
+      "Nitin Naik": { group: "CQA", hostId: "J-QA-024" },
+      "Rahul Galaye": { group: "CQA", hostId: "J-QA-023" },
+      "Saket Rane": { group: "CQA", hostId: "A-QA-017" },
+      "Shrinivas Gharat": { group: "CQA", hostId: "J-QA-011" },
+      "Prashant Chadgaonkar": { group: "CQA", hostId: "J-QA-006" },
+      "Ajay Singh": { group: "CQC", hostId: "J-QA-003" },
+      "M Sundaram": { group: "CQC", hostId: "J-QA-018" },
+      "Nilesh Terdaikar": { group: "CQC", hostId: "J-QA-020" },
+      "Sarvesh Bane": { group: "CQC", hostId: "J-QA-022" },
+      "Archana Rawool": { group: "Distribution", hostId: "J-DIS-008" },
+      "Bhavna Rana": { group: "Distribution", hostId: "A-DIS-007" },
+      "Kavita Panchal": { group: "Distribution", hostId: "A-DIS-001" },
+      "Manjiri Alve": { group: "Distribution", hostId: "J-EXP-003" },
+      "Om Tuvrekar": { group: "Distribution", hostId: "J-DIS-006" },
+      "Prach Ghadi": { group: "Distribution", hostId: "J-EXP-005" },
+      "Prajita Patel": { group: "Distribution", hostId: "J-DIS-002" },
+      "Rahul Dalvi": { group: "Distribution", hostId: "A-DIS-017" },
+      "Rishi Nalkswadi": { group: "Distribution", hostId: "J-DIS-014" },
+      "Sachin Borase": { group: "Distribution", hostId: "A-DIS-015" },
+      "Sheetai Bhatale": { group: "Distribution", hostId: "J-DIS-013" },
+      "Shivaji Nalawade": { group: "Distribution", hostId: "J-DIS-011" },
+      "Shrutika More": { group: "Distribution", hostId: "J-DIS-016" },
+      "Sushant Patkar": { group: "Distribution", hostId: "J-DIS-010" },
+      "Yogesh N Sawant Ext": { group: "Distribution", hostId: "J-DIS-005" },
+      "Dipali Devekar": { group: "Documentation", hostId: "J-DOC-008" },
+      "Kanchan Gavand": { group: "Documentation", hostId: "J-DOC-010" },
+      "Ketaki Khandewaie": { group: "Documentation", hostId: "J-DOC-009" },
+      "Surekha Lande": { group: "Documentation", hostId: "J-DOC-004" },
+      "Tushar D": { group: "Documentation", hostId: "J-DOC-001" },
+      "Umika Pavaskar": { group: "Documentation", hostId: "A-DOC-005" },
+      "Utpala Lalit": { group: "Documentation", hostId: "J-DOC-003" },
+      "Hemali Pelu": { group: "Export (Formulations)", hostId: "J-EXP-012" },
+      "Jaswinder Gill": { group: "Export (Formulations)", hostId: "J-EXP-009" },
+      "Kaipesh Atul": { group: "Export (Formulations)", hostId: "A-EXP-010" },
+      "Krupali Sanghvi": { group: "Export (Formulations)", hostId: "J-EXP-015" },
+      "Nahid Risaldar": { group: "Export (Formulations)", hostId: "J-EXP-017" },
+      "Nishant Meshram": { group: "Export (Formulations)", hostId: "A-EXP-011" },
+      "Rajesh Khambal": { group: "Export (Formulations)", hostId: "J-EXP-016" },
+      "Shner Surte": { group: "Export (Formulations)", hostId: "J-EXP-014" },
+      "Sandeep Hegde": { group: "Export (Formulations)", hostId: "A-EXP-019" },
+      "Sanjivani Chandorkar": { group: "Export (Formulations)", hostId: "A-EXP-018" },
+      "Vinod Asif": { group: "Export (Formulations)", hostId: "A-EXP-007" },
+      "Sameer Sawant": { group: "Export (International)", hostId: "A-EXP-008" },
+      "Abhay Raut": { group: "HR", hostId: "J-HR-021" },
+      "Arpita Sahu": { group: "HR", hostId: "J-HR-012" },
+      "Ganesh Joshi": { group: "HR", hostId: "J-HR-029" },
+      "Jyoti Nayak": { group: "HR", hostId: "J-SA-012" },
+      "Kerry Barrowe": { group: "HR", hostId: "J-HR-004" },
+      "Kiran Kadam": { group: "HR", hostId: "J-HR-023" },
+      "Mangesh Malusare": { group: "HR", hostId: "J-HR-002" },
+      "Manoj Shetty": { group: "HR", hostId: "J-HR-003" },
+      "Maruti Bachantti": { group: "HR", hostId: "J-HR-014" },
+      "Neha Malik": { group: "HR", hostId: "J-HR-018" },
+      "PFESIC(LALIT)-HR": { group: "HR", hostId: "J-HR-009" },
+      "Pallavi Bane": { group: "HR", hostId: "J-SA-013" },
+      "Pankaj Agare": { group: "HR", hostId: "J-HR-019" },
+      "Pradeep Dalvi": { group: "HR", hostId: "J-HR-026" },
+      "Pramesh Rajput": { group: "HR", hostId: "J-HR-022" },
+      "Pravin Vishram": { group: "HR", hostId: "J-HR-006" },
+      "Raj Bhagwat": { group: "HR", hostId: "J-HR-015" },
+      "Raj Salpal": { group: "HR", hostId: "J-HR-025" },
+      "Tejas Pavaskar": { group: "HR", hostId: "J-HR-013" },
+      "Uday Jadhay": { group: "HR", hostId: "A-HR-005" },
+      "Vinay Halide": { group: "HR", hostId: "J-HR-001" },
+      "Vivek Joshi": { group: "HR", hostId: "J-HR-007" },
+      "Yogesh Patil": { group: "HR", hostId: "J-HR-010" },
+      "Atish Raut": { group: "IPR", hostId: "A-IPR-003" },
+      "Prachi Jadhav": { group: "IPR", hostId: "J-EXP-010" },
+      "Gyanand Singh": { group: "LEGAL", hostId: "J-LEG-006" },
+      "Mayank Jain": { group: "LEGAL", hostId: "J-LEG-004" },
+      "Sujata Parab": { group: "LEGAL", hostId: "J-LEG-002" },
+      "Vasharani Katre": { group: "LEGAL", hostId: "A-LEG-001" },
+      "Bhavya Rajan": { group: "MDL", hostId: "J-MDL-004" },
+      "Dr. Kalpesh Dalvi": { group: "MDL", hostId: "J-MDL-006" },
+      "Gopal Kadam": { group: "MDL", hostId: "A-MDL-005" },
+      "Gopal Kadam": { group: "MDL", hostId: "J-MDL-005" },
+      "Nitin Kachhava": { group: "MDL", hostId: "A-MDL-007" },
+      "Nitin Kachhava": { group: "MDL", hostId: "J-MDL-007" },
+      "Prajalta Raje": { group: "MDL", hostId: "A-IPR-002" },
+      "Smita Prajapati": { group: "MDL", hostId: "J-MDL-001" },
+      "SALONI JADHAV": { group: "MTL", hostId: "J-BITC-012" },
+      "Praveen Khadse": { group: "Maintenance", hostId: "J-MAT-005" },
+      "Prisan Khan": { group: "Maintenance", hostId: "J-MAT-003" },
+      "Rohan Pawar": { group: "Maintenance", hostId: "J-MAT-006" },
+      "Sachin Zolekar": { group: "Maintenance", hostId: "A-MAT-001" },
+      "Sachin Zolekar": { group: "Maintenance", hostId: "A-MAT-009" },
+      "Vishal Kapre": { group: "Maintenance", hostId: "J-MAT-007" },
+      "Yogesh Zope": { group: "Maintenance", hostId: "J-MAT-011" },
+      "Yogesh Zope": { group: "Maintenance", hostId: "A-MAT-001" },
+      "Abhinav Singh": { group: "Marketing", hostId: "J-MKT-020" },
+      "Akharya Rathod": { group: "Marketing", hostId: "J-MKT-011" },
+      "Aleeza Biswal": { group: "Marketing", hostId: "J-MKT-025" },
+      "Amit Khachane": { group: "Marketing", hostId: "A-MKT-012" },
+      "Anand Jaiswar": { group: "Marketing", hostId: "J-MKT-019" },
+      "Ankur Gautam": { group: "Marketing", hostId: "J-MKT-038" },
+      "Bharat Mohan": { group: "Marketing", hostId: "A-MKT-024" },
+      "Deepika Kadam": { group: "Marketing", hostId: "J-MKT-056" },
+      "Dilip Patil": { group: "Marketing", hostId: "J-MKT-021" },
+      "Dipti Patil": { group: "Marketing", hostId: "J-MKT-046" },
+      "Gajanan Barde": { group: "Marketing", hostId: "A-MKT-067" },
+      "Jyoti Barde": { group: "Marketing", hostId: "A-MKT-068" },
+      "Kunal Vishnuwardhan": { group: "Marketing", hostId: "J-MKT-040" },
+      "Mandar Bivaikar": { group: "Marketing", hostId: "J-MKT-047" },
+      "Mandar Rame": { group: "Marketing", hostId: "J-MKT-009" },
+      "Megha Menon": { group: "Marketing", hostId: "J-MKT-013" },
+      "Meghavi Gandhi": { group: "Marketing", hostId: "J-MKT-014" },
+      "Nidhi Mishra": { group: "Marketing", hostId: "J-MKT-031" },
+      "Nilam Bhor": { group: "Marketing", hostId: "A-MKT-027" },
+      "Nilam Bhor": { group: "Marketing", hostId: "J-MKT-027" },
+      "Nkifer Bothera": { group: "Marketing", hostId: "J-MKT-005" },
+      "Pooja Gupta": { group: "Marketing", hostId: "J-MKT-008" },
+      "Pramod Ghaytdak": { group: "Marketing", hostId: "J-MKT-035" },
+      "Priya Khodape": { group: "Marketing", hostId: "J-MKT-066" },
+      "Ravindra Upadhyay": { group: "Marketing", hostId: "A-MKT-043" },
+      "Ravindra Upadhyay": { group: "Marketing", hostId: "J-MKT-043" },
+      "Rupesh Kumar": { group: "Marketing", hostId: "J-MKT-018" },
+      "Sachin Sakunde": { group: "Marketing", hostId: "J-MKT-007" },
+      "Satish Kamble": { group: "Marketing", hostId: "J-MKT-036" },
+      "Sandeep Arora": { group: "Marketing", hostId: "J-MKT-022" },
+      "Santosh Ranade": { group: "Marketing", hostId: "J-MKT-060" },
+      "Sapika Pujari": { group: "Marketing", hostId: "J-MKT-028" },
+      "Shoaib Khan": { group: "Marketing", hostId: "A-MKT-033" },
+      "Shrikant Bochare": { group: "Marketing", hostId: "J-MKT-006" },
+      "Sudarsahn @337": { group: "Marketing", hostId: "J-MKT-026" },
+      "Supriya Naik@155": { group: "Marketing", hostId: "A-MKT-002" },
+      "Sushant Naik": { group: "Marketing", hostId: "J-MKT-039" },
+      "Vaibhav Mantra": { group: "Marketing", hostId: "A-MKT-004" },
+      "Vidya Pawar": { group: "Marketing", hostId: "J-MKT-003" },
+      "Vijay Gupta": { group: "Marketing", hostId: "A-MKT-054" },
+      "Vijesh Pai": { group: "Marketing", hostId: "J-MKT-034" },
+      "Vishakha Ghadigaonkar": { group: "Marketing", hostId: "J-MKT-063" },
+      "Nehal Monde": { group: "PACKAGING", hostId: "A-PAC-011" },
+      "Nikee Belekar": { group: "PACKAGING", hostId: "J-PAC-002" },
+      "Nitin More": { group: "PACKAGING", hostId: "A-PAC-005" },
+      "Roshan Naik": { group: "PACKAGING", hostId: "A-PAC-004" },
+      "Roshani Saalim": { group: "PACKAGING", hostId: "A-PAC-015" },
+      "Satap Sanap": { group: "PACKAGING", hostId: "J-PAC-014" },
+      "Santosh Shinde": { group: "PACKAGING", hostId: "J-PAC-007" },
+      "Shailesh Jadhay": { group: "PACKAGING", hostId: "J-PAC-009" },
+      "Tejal Mohite": { group: "PACKAGING", hostId: "J-PAC-010" },
+      "Tripti Nakahre": { group: "PACKAGING", hostId: "J-PAC-001" },
+      "Vipin Gharge": { group: "PACKAGING", hostId: "J-PAC-006" },
+      "Aman Chaturvedi": { group: "PLANNING", hostId: "J-PLA-014" },
+      "Amol Shelar": { group: "PLANNING", hostId: "A-PLA-005" },
+      "Anil Darekar": { group: "PLANNING", hostId: "J-PLA-006" },
+      "Kishor Mhatre": { group: "PLANNING", hostId: "J-PLA-004" },
+      "Mangesh Karanjekar": { group: "PLANNING", hostId: "J-PLA-001" },
+      "Shashank Wapan": { group: "PLANNING", hostId: "J-PLA-010" },
+      "Siddhesh Patil": { group: "PLANNING", hostId: "A-PLA-015" },
+      "Vijay Wagh": { group: "PLANNING", hostId: "J-PLA-007" },
+      "Amiket Dooarklr": { group: "PURCHASE", hostId: "J-PUR-011" },
+      "Avinash Bhute": { group: "PURCHASE", hostId: "J-PUR-001" },
+      "Bhavuk Chaudhari": { group: "PURCHASE", hostId: "J-PUR-022" },
+      "Dhiraj Patil": { group: "PURCHASE", hostId: "A-PUR-014" },
+      "Mangesh Mane": { group: "PURCHASE", hostId: "J-PUR-015" },
+      "Nilesh Patil": { group: "PURCHASE", hostId: "J-PUR-008" },
+      "Nikesh Barot": { group: "PURCHASE", hostId: "J-PUR-004" },
+      "Prashant Dalvi": { group: "PURCHASE", hostId: "J-PUR-018" },
+      "Sandeep Naik": { group: "PURCHASE", hostId: "J-PUR-005" },
+      "Sanjay Sawant": { group: "PURCHASE", hostId: "J-PUR-019" },
+      "Tejal Mayekar": { group: "PURCHASE", hostId: "J-PUR-002" },
+      "Anj Sawant": { group: "Packaging", hostId: "J-PAC-008" },
+      "Ronak Barot": { group: "Product Portfolio", hostId: "J-PP-001" },
+      "Deepak Dhoade LP": { group: "R&D foods", hostId: "J-FDS-001" },
+      "Gopal Mule": { group: "R&D foods", hostId: "A-FDS-005" },
+      "Sumit Somner@307": { group: "R&D foods", hostId: "J-FDS-003" },
+      "Dnyaneshwar K": { group: "RDF", hostId: "J-RDF-023" },
+      "KALPESH PATIL": { group: "RDF", hostId: "J-RDF-025" },
+      "Umesh Gound": { group: "RDF", hostId: "J-RDF-037" },
+      "Aniket Pacharne": { group: "Regulatory Affairs", hostId: "A-RA-024" },
+      "Ashwini Meher": { group: "Regulatory Affairs", hostId: "J-RA-017" },
+      "Avani Sondagar": { group: "Regulatory Affairs", hostId: "J-RA-004" },
+      "Bhagyashree Patil": { group: "Regulatory Affairs", hostId: "J-RA-010" },
+      "Edyce L": { group: "Regulatory Affairs", hostId: "J-RA-025" },
+      "Hansa Chaudhary": { group: "Regulatory Affairs", hostId: "J-RA-020" },
+      "Mansi Hapaliya": { group: "Regulatory Affairs", hostId: "A-RA-014" },
+      "Mitali Naik": { group: "Regulatory Affairs", hostId: "A-RA-007" },
+      "Neetu Sharma": { group: "Regulatory Affairs", hostId: "J-RA-016" },
+      "Poonam Shende": { group: "Regulatory Affairs", hostId: "J-RA-002" },
+      "Prasanna Angane": { group: "Regulatory Affairs", hostId: "J-RA-019" },
+      "Pritam Debnath": { group: "Regulatory Affairs", hostId: "J-RA-009" },
+      "Pushkar Gupta@144": { group: "Regulatory Affairs", hostId: "J-RA-015" },
+      "Rahul Patil": { group: "Regulatory Affairs", hostId: "A-RA-006" },
+      "Rajesh Bhapkar": { group: "Regulatory Affairs", hostId: "J-RA-001" },
+      "Riska Borate": { group: "Regulatory Affairs", hostId: "J-RA-008" },
+      "Shital Kadam": { group: "Regulatory Affairs", hostId: "A-RA-018" },
+      "Shruti Sawant": { group: "Regulatory Affairs", hostId: "J-RA-005" },
+      "Sonali Sawant": { group: "Regulatory Affairs", hostId: "J-RA-023" },
+      "Subodh Singh": { group: "Regulatory Affairs", hostId: "A-MKT-051" },
+      "Vishal Bodke": { group: "Regulatory Affairs", hostId: "J-RA-011" },
+      "Dinesh Chodankar": { group: "SFE", hostId: "J-SFE-005" },
+      "Niketan Ghadi": { group: "SFE", hostId: "J-SFE-004" },
+      "Raghunath Pednekar": { group: "SFE", hostId: "J-SFE-003" },
+      "Sachin Alhat": { group: "SFE", hostId: "J-SFE-007" },
+      "Shashank More": { group: "SFE", hostId: "A-SFE-002" },
+      "Tanvi Yerunkar": { group: "SFE", hostId: "J-SFE-006" },
+      "Aashwin Shah": { group: "STG", hostId: "A-STG-002" },
+      "Harshal Jain": { group: "STG", hostId: "J-STG-003" },
+      "Jitendra Srivastava": { group: "STG", hostId: "A-STG-004" },
+      "kiran Hode": { group: "STG", hostId: "J-STG-001" }
+    };
+
     let currentQuestionIndex = 0;
     let userAnswers = new Array(questions.length).fill(null);
     let timerInterval;
     let timeRemaining = 60;
     let employeeName = '';
+    let employeeGroup = '';
     let employeeId = '';
     let isQuizSubmitted = false;
     let isReviewMode = false;
+    let submittedFromQuestionIndex = 0;
+    let violationCount = 0;
+    let isInFullscreen = false;
 
     const questionContent = document.getElementById("questionContent");
     const currentQuestionSpan = document.getElementById("currentQuestion");
@@ -760,17 +1104,528 @@
       }
     }
 
-    async function startQuiz(event) {
+    function startQuiz(event) {
       event.preventDefault();
-      employeeName = document.getElementById('employeeName').value;
-      employeeId = document.getElementById('employeeId').value;
+      employeeName = document.getElementById('employeeName').value.trim();
+      employeeGroup = document.getElementById('employeeGroup').value;
+      employeeId = document.getElementById('employeeId').value.trim();
       
+      // Verify employee data
+      const verificationMessage = document.getElementById('verificationMessage');
+      
+      if (!employeeDatabase[employeeName]) {
+        verificationMessage.style.display = 'block';
+        verificationMessage.style.background = '#ffebee';
+        verificationMessage.style.color = '#c62828';
+        verificationMessage.style.border = '1px solid #ef5350';
+        verificationMessage.innerHTML = '<strong>❌ Employee Not Found:</strong> The name you entered is not in our database. Please check and try again.';
+        return;
+      }
+      
+      const employeeData = employeeDatabase[employeeName];
+      
+      if (employeeData.group !== employeeGroup) {
+        verificationMessage.style.display = 'block';
+        verificationMessage.style.background = '#ffebee';
+        verificationMessage.style.color = '#c62828';
+        verificationMessage.style.border = '1px solid #ef5350';
+        verificationMessage.innerHTML = `<strong>❌ Group Mismatch:</strong> The group you selected (${employeeGroup}) does not match our records (${employeeData.group}). Please select the correct group.`;
+        return;
+      }
+      
+      if (employeeData.hostId !== employeeId) {
+        verificationMessage.style.display = 'block';
+        verificationMessage.style.background = '#ffebee';
+        verificationMessage.style.color = '#c62828';
+        verificationMessage.style.border = '1px solid #ef5350';
+        verificationMessage.innerHTML = `<strong>❌ Host ID Mismatch:</strong> The Host ID you entered (${employeeId}) does not match our records (${employeeData.hostId}). Please check your Host ID.`;
+        return;
+      }
+      
+      // All verifications passed
+      verificationMessage.style.display = 'none';
       document.getElementById('employeeForm').style.display = 'none';
       document.getElementById('quizWrapper').style.display = 'flex';
       
+      // Disable home icon during quiz
+      const homeIcon = document.getElementById('homeIcon');
+      if (homeIcon) {
+        homeIcon.classList.add('disabled');
+        homeIcon.style.pointerEvents = 'none';
+        homeIcon.onclick = (e) => {
+          e.preventDefault();
+          alert('Please submit the quiz before going home.');
+        };
+      }
+      
+      // Show quiz guidelines first
+      showQuizGuidelines();
+    }
+
+    function showQuizGuidelines() {
+      const splitScreenWrapper = document.querySelector('.split-screen-wrapper');
+      if (splitScreenWrapper) {
+        splitScreenWrapper.style.display = 'none';
+      }
+      
+      const guidelinesHTML = `
+        <div class="quiz-container" style="max-width: 900px; margin: 4rem auto; animation: fadeIn 1s ease;">
+          <h1>📋 Quiz Guidelines & Rules</h1>
+          <div style="background: #fff3cd; border-left: 4px solid #ff9800; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
+            <div style="color: #856404; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem;">⚠️ Important: Read Carefully</div>
+            <div style="color: #856404; font-size: 0.95rem; line-height: 1.6;">This is a proctored quiz. You must follow all guidelines and rules. Violations may result in automatic quiz submission and failure.</div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="background: #f0f7f0; border: 2px solid #2e7d32; padding: 1.5rem; border-radius: 8px;">
+              <div style="color: #2e7d32; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-check-circle"></i> Allowed
+              </div>
+              <ul style="color: #2e7d32; margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem;">
+                <li>Answer questions honestly</li>
+                <li>Take your time to read questions</li>
+                <li>Use the Previous/Next buttons</li>
+                <li>Clear answers and re-answer</li>
+                <li>Review all answers before submission</li>
+              </ul>
+            </div>
+            
+            <div style="background: #ffebee; border: 2px solid #f44336; padding: 1.5rem; border-radius: 8px;">
+              <div style="color: #f44336; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-times-circle"></i> NOT Allowed
+              </div>
+              <ul style="color: #f44336; margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem;">
+                <li>Copy or paste any content</li>
+                <li>Use developer tools (F12)</li>
+                <li>Right-click to inspect elements</li>
+                <li>Switch tabs or windows</li>
+                <li>Exit fullscreen mode</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
+            <div style="color: #1565c0; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem;">🛡️ Proctoring Monitoring</div>
+            <div style="color: #1565c0; font-size: 0.95rem; line-height: 1.6;">
+              This quiz is monitored for proctoring violations. The system will:
+              <ul style="margin-top: 0.8rem; margin-bottom: 0; padding-left: 1.5rem;">
+                <li><strong>First Violation:</strong> Show a warning message</li>
+                <li><strong>Second Violation:</strong> Automatically submit your quiz and mark it as violation</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div style="background: #f5f5f5; border: 1px solid #e0e0e0; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
+            <div style="font-weight: 600; color: #2e7d32; margin-bottom: 1rem;">✓ How to Start</div>
+            <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem; color: #333;">
+              <li>Double-click anywhere on the screen to enter fullscreen mode</li>
+              <li>Quiz will begin in fullscreen - this is mandatory</li>
+              <li>Fullscreen cannot be exited until quiz is submitted</li>
+            </ul>
+          </div>
+          
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button onclick="goBackToLogin()" style="flex: 1; min-width: 150px; padding: 0.9rem 1.5rem; background: transparent; color: #2e7d32; border: 2px solid #2e7d32; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95rem;">
+              ← Go Back
+            </button>
+            <button onclick="acceptGuidelinesAndStart()" style="flex: 1; min-width: 150px; padding: 0.9rem 1.5rem; background: #2e7d32; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95rem;">
+              I Understand & Agree →
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Replace quizWrapper with guidelines
+      document.getElementById('quizWrapper').style.display = 'none';
+      const container = document.createElement('div');
+      container.id = 'guidelinesContainer';
+      container.innerHTML = guidelinesHTML;
+      document.body.insertBefore(container, document.querySelector('.split-screen-wrapper'));
+      
+      // Add double-click listener for fullscreen
+      document.addEventListener('dblclick', handleDoubleClickFullscreen);
+    }
+
+    function handleDoubleClickFullscreen(e) {
+      // Only trigger if not on a button or input
+      if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+        // If violation recovery is in progress, restore question and re-enter fullscreen
+        if (violationCount > 0 && !isInFullscreen) {
+          requestFullscreen();
+        }
+      }
+    }
+
+    function acceptGuidelinesAndStart() {
+      const guidelinesContainer = document.getElementById('guidelinesContainer');
+      if (guidelinesContainer) {
+        guidelinesContainer.remove();
+      }
+      
+      document.getElementById('quizWrapper').style.display = 'flex';
+      
+      // Load questions and start quiz
+      loadAllQuestionsAndStart();
+    }
+
+    function goBackToLogin() {
+      const guidelinesContainer = document.getElementById('guidelinesContainer');
+      if (guidelinesContainer) {
+        guidelinesContainer.remove();
+      }
+      
+      document.getElementById('quizWrapper').style.display = 'none';
+      document.getElementById('employeeForm').style.display = 'block';
+      
+      // Re-enable home icon
+      const homeIcon = document.getElementById('homeIcon');
+      if (homeIcon) {
+        homeIcon.classList.remove('disabled');
+        homeIcon.style.pointerEvents = 'auto';
+        homeIcon.onclick = null;
+      }
+      
+      // Reset form
+      document.getElementById('empForm').reset();
+    }
+
+    async function loadAllQuestionsAndStart() {
       await loadAllQuestions();
       buildNavigator();
-      displayQuestion();
+      
+      // Add double-click listener for violation recovery
+      document.addEventListener('dblclick', handleDoubleClickFullscreen);
+      
+      // Directly enter fullscreen to start quiz
+      requestFullscreen();
+    }
+
+    function requestFullscreen() {
+      const elem = document.documentElement;
+      
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen().then(() => {
+          isInFullscreen = true;
+          displayQuestion();
+          enableProctoring();
+        }).catch(err => {
+          console.warn('Fullscreen request failed:', err);
+          alert('⚠️ Could not enter fullscreen mode. The quiz will continue in windowed mode.');
+          displayQuestion();
+          if (violationCount === 0) {
+            enableProctoring();
+          }
+        });
+      } else if (elem.webkitRequestFullscreen) {
+        // Safari
+        elem.webkitRequestFullscreen();
+        isInFullscreen = true;
+        displayQuestion();
+        if (violationCount === 0) {
+          enableProctoring();
+        }
+      } else if (elem.mozRequestFullScreen) {
+        // Firefox
+        elem.mozRequestFullScreen();
+        isInFullscreen = true;
+        displayQuestion();
+        if (violationCount === 0) {
+          enableProctoring();
+        }
+      } else if (elem.msRequestFullscreen) {
+        // IE/Edge
+        elem.msRequestFullscreen();
+        isInFullscreen = true;
+        displayQuestion();
+        if (violationCount === 0) {
+          enableProctoring();
+        }
+      }
+      
+      // Prevent exiting fullscreen
+      document.addEventListener('fullscreenchange', handleFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.addEventListener('msfullscreenchange', handleFullscreenChange);
+    }
+
+    function handleFullscreenChange() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement && 
+          !document.mozFullScreenElement && !document.msFullscreenElement) {
+        // User exited fullscreen
+        if (!isQuizSubmitted && isInFullscreen) {
+          isInFullscreen = false;
+          violationCount++;
+          
+          if (violationCount === 1) {
+            // First violation - show warning and ask to double-click
+            showViolationRecoveryPrompt();
+          } else if (violationCount >= 2) {
+            // Second violation - auto-submit
+            handleViolationAutoSubmit('FULLSCREEN_EXIT');
+          }
+        }
+      } else {
+        isInFullscreen = true;
+      }
+    }
+
+    function showViolationRecoveryPrompt() {
+      // Hide the question content
+      const questionContent = document.getElementById('questionContent');
+      if (questionContent) {
+        questionContent.innerHTML = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 2rem;">
+            <div style="text-align: center;">
+              <div style="font-size: 2rem; color: #ff9800; margin-bottom: 1rem;">⚠️ WARNING</div>
+              <div style="font-size: 1.2rem; color: #333; font-weight: 600; margin-bottom: 1rem;">You Exited Fullscreen!</div>
+              <div style="color: #666; font-size: 0.95rem; line-height: 1.6; max-width: 400px;">
+                This is your <strong>first and final warning</strong>. Exiting fullscreen again will result in automatic quiz submission and failure.
+              </div>
+            </div>
+            <div style="text-align: center; background: #e3f2fd; border: 2px solid #2196f3; padding: 2rem; border-radius: 8px;">
+              <div style="color: #1565c0; font-weight: 600; margin-bottom: 1rem; font-size: 1.1rem;">👇 DOUBLE-CLICK to Re-Enter Fullscreen</div>
+              <div style="color: #1565c0; font-size: 0.9rem;">Double-click anywhere on this screen to continue the quiz in fullscreen mode.</div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function handleViolationAutoSubmit(violationType) {
+      isQuizSubmitted = true;
+      violationCount = 0;
+      
+      let violationMessage = '';
+      if (violationType === 'FULLSCREEN_EXIT') {
+        violationMessage = 'Exiting fullscreen mode multiple times';
+      } else if (violationType === 'TAB_SWITCH') {
+        violationMessage = 'Switching tabs or windows multiple times';
+      }
+      
+      // Show violation message
+      alert(`🚫 VIOLATION DETECTED!\n\n${violationMessage}\n\nYour quiz has been automatically submitted due to proctoring rule violations. This submission will be marked as a violation.`);
+      
+      // Auto-submit the quiz
+      submitQuizWithViolation();
+    }
+
+    async function submitQuizWithViolation() {
+      saveCurrentAnswer();
+      
+      let score = 0;
+      userAnswers.forEach((answer, index) => {
+        const correctAnswer = questions[index].answer;
+        let isCorrect = false;
+        
+        if (Array.isArray(correctAnswer)) {
+          if (Array.isArray(answer)) {
+            isCorrect = answer.length === correctAnswer.length && 
+                       answer.every(a => correctAnswer.includes(a)) &&
+                       correctAnswer.every(c => answer.includes(c));
+          } else if (answer !== null) {
+            isCorrect = correctAnswer.includes(answer);
+          }
+        } else {
+          if (Array.isArray(answer)) {
+            isCorrect = answer.includes(correctAnswer);
+          } else {
+            isCorrect = answer === correctAnswer;
+          }
+        }
+        
+        if (isCorrect) {
+          score++;
+        }
+      });
+
+      const attempt = {
+        employeeName: employeeName,
+        employeeGroup: employeeGroup,
+        employeeId: employeeId,
+        timestamp: new Date().toISOString(),
+        score: score,
+        totalQuestions: questions.length,
+        userAnswers: userAnswers,
+        questions: questions,
+        violationFlag: true,
+        violationType: 'PROCTORING_VIOLATION'
+      };
+
+      // Save to Firebase
+      if (window.saveQuizAttemptToFirebase) {
+        try {
+          const firebaseAttempt = {
+            employeeName: employeeName,
+            employeeGroup: employeeGroup,
+            employeeId: employeeId,
+            timestamp: new Date().toISOString(),
+            score: score,
+            totalQuestions: questions.length,
+            userAnswersJSON: JSON.stringify(userAnswers),
+            violationFlag: true,
+            violationType: 'PROCTORING_VIOLATION'
+          };
+          await window.saveQuizAttemptToFirebase(firebaseAttempt);
+        } catch (err) {
+          console.error("Firebase save error:", err);
+        }
+      }
+
+      // Also save to localStorage
+      let attempts = JSON.parse(localStorage.getItem('quizAttempts') || '[]');
+      attempts.push(attempt);
+      localStorage.setItem('quizAttempts', JSON.stringify(attempts));
+
+      showViolationSummary(score);
+    }
+
+    function showViolationSummary(score) {
+      const percentage = Math.round((score / questions.length) * 100);
+
+      const html = `
+        <div class="performance-summary">
+          <div class="employee-info">
+            <strong>${employeeName}</strong> | Group: ${employeeGroup} | ID: ${employeeId}
+          </div>
+          <div style="font-size: 1.8rem; color: #f44336; font-weight: 700; margin-bottom: 1.5rem;">⚠️ VIOLATION - QUIZ TERMINATED</div>
+          <div style="background: #ffebee; border-left: 4px solid #f44336; padding: 1.5rem; border-radius: 6px; margin-bottom: 2rem;">
+            <div style="color: #f44336; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">Proctoring Violation Detected</div>
+            <div style="color: #f44336; font-size: 0.95rem; line-height: 1.6;">
+              Your quiz was automatically submitted due to multiple proctoring rule violations. This submission has been flagged and will be reviewed by the administrator.
+            </div>
+          </div>
+          <div class="summary-stats">
+            <div class="stat-box">
+              <div class="stat-label">Score</div>
+              <div class="stat-value">${score}/${questions.length}</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Percentage</div>
+              <div class="stat-value">${percentage}%</div>
+            </div>
+          </div>
+          <div style="background: #fff3cd; border-left: 4px solid #ff9800; padding: 1.5rem; margin-top: 1.5rem; border-radius: 6px;">
+            <div style="color: #856404; font-weight: 600; margin-bottom: 0.5rem;">⚠️ Note</div>
+            <div style="color: #856404; font-size: 0.95rem; line-height: 1.6;">
+              This quiz submission has been flagged for proctoring violations. The administrator will review this attempt and take appropriate action.
+            </div>
+          </div>
+        </div>
+      `;
+
+      const mainStage = document.getElementById('mainStage');
+      if (mainStage) {
+        mainStage.style.flex = '1 1 100%';
+        mainStage.innerHTML = html;
+      }
+
+      // Hide navigator
+      const navigator = document.getElementById('navigator');
+      if (navigator) {
+        navigator.style.display = 'none';
+      }
+      
+      // Re-enable home icon after violation submission
+      const homeIcon = document.getElementById('homeIcon');
+      if (homeIcon) {
+        homeIcon.classList.remove('disabled');
+        homeIcon.style.pointerEvents = 'auto';
+        homeIcon.onclick = null;
+      }
+    }
+
+    function enableProctoring() {
+      // Disable copy-paste
+      document.addEventListener('copy', (e) => {
+        e.preventDefault();
+        alert('⚠️ Copy is disabled during the quiz. Please focus on answering the questions.');
+      });
+      
+      document.addEventListener('cut', (e) => {
+        e.preventDefault();
+        alert('⚠️ Cut is disabled during the quiz. Please focus on answering the questions.');
+      });
+      
+      document.addEventListener('paste', (e) => {
+        e.preventDefault();
+        alert('⚠️ Paste is disabled during the quiz. Please focus on answering the questions.');
+      });
+      
+      // Disable right-click context menu
+      document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        alert('⚠️ Right-click is disabled during the quiz.');
+        return false;
+      });
+      
+      // Detect tab/window switching
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && !isQuizSubmitted) {
+          violationCount++;
+          
+          if (violationCount === 1) {
+            // First violation - show warning
+            alert('⚠️ WARNING! You switched away from the quiz tab. This is a violation of quiz rules.\n\nYou have 1 warning. Another violation will result in automatic quiz submission and failure.');
+          } else if (violationCount >= 2) {
+            // Second violation - auto-submit
+            handleViolationAutoSubmit('TAB_SWITCH');
+          }
+        }
+      });
+      
+      // Prevent keyboard shortcuts for dev tools and other functions
+      document.addEventListener('keydown', (e) => {
+        // F12 - Developer Tools
+        if (e.key === 'F12') {
+          e.preventDefault();
+          alert('⚠️ Developer tools are disabled during the quiz.');
+          return false;
+        }
+        
+        // Ctrl+Shift+I - Inspector
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+          e.preventDefault();
+          alert('⚠️ Developer tools are disabled during the quiz.');
+          return false;
+        }
+        
+        // Ctrl+Shift+J - Console
+        if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+          e.preventDefault();
+          alert('⚠️ Developer tools are disabled during the quiz.');
+          return false;
+        }
+        
+        // Ctrl+Shift+C - Element Inspector
+        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+          e.preventDefault();
+          alert('⚠️ Developer tools are disabled during the quiz.');
+          return false;
+        }
+        
+        // Ctrl+Shift+K - Developer Console
+        if (e.ctrlKey && e.shiftKey && e.key === 'K') {
+          e.preventDefault();
+          alert('⚠️ Developer tools are disabled during the quiz.');
+          return false;
+        }
+      });
+      
+      // Prevent opening new windows/tabs
+      window.addEventListener('beforeunload', (e) => {
+        if (!isQuizSubmitted) {
+          e.preventDefault();
+          e.returnValue = '';
+          return false;
+        }
+      });
+      
+      // Disable selection of text (optional, can be uncommented if needed)
+      // document.body.style.userSelect = 'none';
+      // document.body.style.webkitUserSelect = 'none';
+      
+      console.log('🔒 Proctoring features enabled. Quiz is now in secure mode.');
     }
 
     function buildNavigator() {
@@ -814,7 +1669,12 @@
 
     function displayQuestion() {
       const question = questions[currentQuestionIndex];
+      const currentQuestionSpan = document.getElementById('currentQuestion');
+      const totalQuestionsSpan = document.getElementById('totalQuestions');
+      const questionContent = document.getElementById("questionContent");
+      
       currentQuestionSpan.textContent = currentQuestionIndex + 1;
+      totalQuestionsSpan.textContent = questions.length;
       
       // Check if this question has multiple correct answers
       const hasMultipleAnswers = Array.isArray(question.answer);
@@ -912,6 +1772,13 @@
       prevBtn.disabled = currentQuestionIndex === 0;
       nextBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'block';
       submitBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+      
+      // Keep navigator submit button always visible when quiz is active (not submitted)
+      const submitNavBtn = document.getElementById('submitNavBtn');
+      if (submitNavBtn) {
+        submitNavBtn.style.display = isQuizSubmitted ? 'none' : 'flex';
+        submitNavBtn.disabled = isQuizSubmitted;
+      }
     }
 
     function saveCurrentAnswer() {
@@ -969,6 +1836,213 @@
       // Timer disabled
     }
 
+    async function submitQuizFromNavigator() {
+      if (isQuizSubmitted) return;
+      
+      // Save current answer before showing review
+      saveCurrentAnswer();
+      
+      // Store the question index from which submit was clicked
+      submittedFromQuestionIndex = currentQuestionIndex;
+      
+      // Show the pre-submission review page
+      showPreSubmissionReview();
+    }
+
+    function showPreSubmissionReview() {
+      // Hide the navigator
+      const navigator = document.getElementById('navigator');
+      if (navigator) {
+        navigator.style.display = 'none';
+      }
+      
+      // Make mainStage full width
+      const mainStage = document.getElementById('mainStage');
+      if (mainStage) {
+        mainStage.style.flex = '1 1 100%';
+      }
+      
+      let html = `
+        <div style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+          <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid #2e7d32; flex-shrink: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="font-weight: 600; color: #2e7d32; font-size: 1.1rem;">Review Before Submitting</div>
+            </div>
+            <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Please review your answers before final submission. You cannot change your answers after submitting.</div>
+          </div>
+          <div style="flex: 1; overflow-y: auto; padding-right: 0.5rem;">
+      `;
+
+      let attemptedCount = 0;
+      let notAttemptedCount = 0;
+
+      questions.forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        const isUnattempted = userAnswer === null;
+
+        if (isUnattempted) {
+          notAttemptedCount++;
+        } else {
+          attemptedCount++;
+        }
+
+        let statusBadge = '';
+        let statusColor = '';
+        if (isUnattempted) {
+          statusBadge = 'Not Attempted';
+          statusColor = '#ff9800';
+        } else {
+          statusBadge = '✓ Answered';
+          statusColor = '#2196f3';
+        }
+
+        html += `
+          <div style="background: #f9f9f9; border-left: 4px solid ${statusColor}; padding: 1.2rem; margin-bottom: 1rem; border-radius: 6px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+              <div style="font-weight: 700; color: #2e7d32; font-size: 1rem; flex: 1;">Q${index + 1}: ${question.q}</div>
+              <div style="background: ${statusColor}; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem; white-space: nowrap; margin-left: 1rem;">${statusBadge}</div>
+            </div>
+        `;
+
+        if (question.image && question.image.trim()) {
+          html += `<img src="${question.image}" alt="Question Image" style="width: 100%; max-height: 120px; object-fit: contain; border-radius: 4px; margin-bottom: 1rem;">`;
+        }
+
+        html += `<div style="background: #fff; border: 1px solid #e0e0e0; border-radius: 4px; padding: 1rem;">`;
+
+        // Show all options with user's answer highlighted
+        question.options.forEach((option, optIndex) => {
+          let optStyle = '';
+          let icon = '';
+
+          // Check if user selected this option
+          let userSelectedThis = false;
+          if (Array.isArray(userAnswer)) {
+            userSelectedThis = userAnswer.includes(optIndex);
+          } else {
+            userSelectedThis = optIndex === userAnswer;
+          }
+
+          if (userSelectedThis) {
+            optStyle = 'background: #e3f2fd; border-left: 3px solid #2196f3;';
+            icon = '<i class="fas fa-check-circle" style="color: #2196f3; margin-right: 0.5rem;"></i>';
+          }
+
+          let label = '';
+          if (userSelectedThis) {
+            label = '<span style="color: #2196f3; font-weight: 600; margin-left: auto;">(Your Answer)</span>';
+          }
+
+          html += `
+            <div style="padding: 0.8rem; margin-bottom: 0.5rem; border-radius: 4px; display: flex; align-items: center; ${optStyle}">
+              ${icon}
+              <span>${option}</span>
+              ${label}
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+
+        if (isUnattempted) {
+          html += `
+            <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 0.8rem; margin-top: 1rem; border-radius: 4px;">
+              <strong style="color: #ff9800;">Not Attempted</strong> - You did not select an answer for this question.
+            </div>
+          `;
+        } else {
+          html += `
+            <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 0.8rem; margin-top: 1rem; border-radius: 4px;">
+              <strong style="color: #2196f3;">Answered</strong>
+            </div>
+          `;
+        }
+
+        html += `</div>`;
+      });
+
+      // Summary section at the top of scroll
+      const summaryHtml = `
+        <div style="background: #f0f7f0; border: 2px solid #2e7d32; padding: 1.2rem; margin-bottom: 1.5rem; border-radius: 6px;">
+          <div style="font-weight: 700; color: #2e7d32; font-size: 1.1rem; margin-bottom: 1rem;">Summary</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="background: #fff; padding: 1rem; border-radius: 6px; border: 1px solid #e0e0e0;">
+              <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">Answered</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #2196f3;">${attemptedCount}</div>
+            </div>
+            <div style="background: #fff; padding: 1rem; border-radius: 6px; border: 1px solid #e0e0e0;">
+              <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">Not Attempted</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #ff9800;">${notAttemptedCount}</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      html += `
+          </div>
+          <div style="flex-shrink: 0; padding-top: 1rem; border-top: 2px solid #e0e0e0; display: flex; gap: 0.8rem; flex-wrap: wrap;">
+            <button onclick="cancelPreSubmissionReview()" style="background: transparent; color: #2e7d32; border: 2px solid #2e7d32; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; flex: 1; min-width: 120px;">
+              ← Back to Quiz
+            </button>
+            <button onclick="confirmFinalSubmit()" style="background: #4caf50; color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; flex: 1; min-width: 120px;">
+              Confirm & Submit
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Replace the main content with review page
+      const reviewContent = summaryHtml + html;
+      mainStage.innerHTML = reviewContent;
+    }
+
+    function cancelPreSubmissionReview() {
+      // Reset mainStage to original flex size (70%)
+      const mainStage = document.getElementById('mainStage');
+      if (mainStage) {
+        mainStage.style.flex = '0 0 70%';
+        
+        // Restore the original mainStage structure
+        mainStage.innerHTML = `
+          <div class="timer-section">
+            <div class="progress-info">
+              Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span>
+            </div>
+          </div>
+
+          <div class="question-content" id="questionContent">
+            <!-- Question will be inserted here -->
+          </div>
+
+          <div class="control-buttons">
+            <button class="btn-nav" id="prevBtn" onclick="previousQuestion()" type="button">← Previous</button>
+            <button class="btn-clear" id="clearBtn" onclick="clearOption()" type="button">Clear</button>
+            <button class="btn-nav" id="nextBtn" onclick="nextQuestion()" type="button">Next →</button>
+            <button class="btn-submit" id="submitBtn" onclick="submitQuiz()" type="button" style="display: none; flex: 1; padding: 0.7rem 1.5rem;">
+              <i class="fas fa-check-circle"></i> Submit Quiz
+            </button>
+          </div>
+        `;
+      }
+      
+      // Show the navigator again
+      const navigator = document.getElementById('navigator');
+      if (navigator) {
+        navigator.style.display = 'flex';
+      }
+      
+      // Go back to the question from which submit was clicked
+      currentQuestionIndex = submittedFromQuestionIndex;
+      displayQuestion();
+      updateButtonStates();
+      updateNavigator();
+    }
+
+    async function confirmFinalSubmit() {
+      // Proceed with final submission
+      await submitQuiz();
+    }
+
     async function submitQuiz() {
       saveCurrentAnswer();
       isQuizSubmitted = true;
@@ -1007,6 +2081,7 @@
 
       const attempt = {
         employeeName: employeeName,
+        employeeGroup: employeeGroup,
         employeeId: employeeId,
         timestamp: new Date().toISOString(),
         score: score,
@@ -1021,6 +2096,7 @@
           // Convert userAnswers to string to avoid nested arrays
           const firebaseAttempt = {
             employeeName: employeeName,
+            employeeGroup: employeeGroup,
             employeeId: employeeId,
             timestamp: new Date().toISOString(),
             score: score,
@@ -1049,13 +2125,25 @@
     }
 
     function showPerformanceSummary(score, percentage, isPassed) {
+      // Hide the navigator
+      const navigator = document.getElementById('navigator');
+      if (navigator) {
+        navigator.style.display = 'none';
+      }
+      
+      // Make mainStage full width
+      const mainStage = document.getElementById('mainStage');
+      if (mainStage) {
+        mainStage.style.flex = '1 1 100%';
+      }
+      
       const statusClass = isPassed ? 'status-passed' : 'status-failed';
       const statusText = isPassed ? '✓ PASSED' : '✗ FAILED';
 
       const html = `
         <div class="performance-summary">
           <div class="employee-info">
-            <strong>${employeeName}</strong> | ID: ${employeeId}
+            <strong>${employeeName}</strong> | Group: ${employeeGroup} | ID: ${employeeId}
           </div>
           <div class="summary-header">Assessment Complete!</div>
           <div class="summary-stats">
@@ -1079,14 +2167,22 @@
             <button class="retake-btn" onclick="showComprehensiveReview()" style="background: #2196f3; flex: 1; min-width: 150px;">
               <i class="fas fa-eye"></i> Review Quiz
             </button>
-            <button class="retake-btn" onclick="location.reload()" style="flex: 1; min-width: 150px;">
-              <i class="fas fa-redo"></i> Retake Quiz
+            <button class="retake-btn" onclick="window.location.href='index.html'" style="flex: 1; min-width: 150px;">
+              <i class="fas fa-home"></i> Return to Home
             </button>
           </div>
         </div>
       `;
 
       mainStage.innerHTML = html;
+      
+      // Re-enable home icon after submission
+      const homeIcon = document.getElementById('homeIcon');
+      if (homeIcon) {
+        homeIcon.classList.remove('disabled');
+        homeIcon.style.pointerEvents = 'auto';
+        homeIcon.onclick = null;
+      }
     }
 
     function updateResultMap(score) {
@@ -1128,6 +2224,12 @@
       });
 
       submitBtn.style.display = 'none';
+      
+      // Hide the navigator submit button when quiz is submitted
+      const submitNavBtn = document.getElementById('submitNavBtn');
+      if (submitNavBtn) {
+        submitNavBtn.style.display = 'none';
+      }
       
       let legendElement = navigator.querySelector('.result-legend');
       if (legendElement) {
@@ -1443,9 +2545,13 @@
     }
 
     function exitQuiz() {
-      if (confirm('Are you sure you want to exit? Your answers will not be saved.')) {
+      if (isQuizSubmitted) {
+        // Quiz already submitted, allow exit
         clearInterval(timerInterval);
         window.location.href = "index.html";
+      } else {
+        // Quiz not submitted, prevent exit
+        alert('Please submit the quiz before exiting. You cannot leave without submitting.');
       }
     }
 
