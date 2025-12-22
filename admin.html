@@ -92,6 +92,28 @@
       background: #1b4620;
     }
 
+    /* FDC Logo in Navbar */
+    .fdc-logo-nav {
+      position: fixed;
+      top: 8px;
+      left: 50%;
+      margin-left: -45px;
+      width: 90px;
+      height: 90px;
+      z-index: 1001;
+      opacity: 1;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fdc-logo-svg {
+      width: 90px;
+      height: 90px;
+      filter: drop-shadow(0 2px 4px rgba(46, 125, 50, 0.2));
+    }
+
     .dashboard {
       display: none;
       padding: 2rem;
@@ -520,6 +542,20 @@
   </style>
 </head>
 <body>
+  <!-- FDC Logo in Navbar -->
+  <div class="fdc-logo-nav">
+    <svg class="fdc-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gradientFDC" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#2e7d32;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#4caf50;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="100" cy="60" rx="85" ry="35" fill="none" stroke="url(#gradientFDC)" stroke-width="4"/>
+      <text x="100" y="75" font-size="50" font-weight="bold" fill="url(#gradientFDC)" text-anchor="middle" font-family="Arial">FDC</text>
+    </svg>
+  </div>
+
   <a href="index.html" class="home-icon" title="Back to Home">
     <i class="fas fa-home"></i>
   </a>
