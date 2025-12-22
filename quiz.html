@@ -14,9 +14,10 @@
     body {
       margin: 0;
       padding: 0;
-      background: #f5f5f5;
+      background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       color: #222;
+      overflow-x: hidden;
     }
 
     .home-icon {
@@ -68,15 +69,198 @@
 
     /* Employee Form Styles */
     .quiz-container {
-      max-width: 900px;
-      margin: 4rem auto;
-      background-color: #ffffff;
-      padding: 2rem;
-      border-radius: 8px;
+      max-width: 520px;
+      margin: 10rem auto 4rem auto;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      border-radius: 12px;
       border: 2px solid #2e7d32;
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
-      animation: fadeIn 1s ease;
+      box-shadow: 0 8px 32px rgba(46, 125, 50, 0.2);
+      animation: slideUp 0.7s ease;
       z-index: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quiz-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(76, 175, 80, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .quiz-container::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      left: -50%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(46, 125, 50, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .quiz-container h1 {
+      animation: fadeInDown 0.8s ease 0.1s both;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .quiz-container form > div {
+      animation: fadeInUp 0.6s ease both;
+      position: relative;
+      z-index: 2;
+    }
+
+    .quiz-container form > div:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .quiz-container form > div:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .quiz-container #verificationMessage {
+      animation-delay: 0.4s;
+    }
+
+    .quiz-container button[type="submit"] {
+      animation: fadeInUp 0.6s ease 0.5s both;
+    }
+
+    .quiz-container button[type="button"] {
+      animation: fadeInUp 0.6s ease 0.6s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* FDC Logo in Navbar */
+    .fdc-logo-nav {
+      position: fixed;
+      top: 8px;
+      left: 50%;
+      margin-left: -45px;
+      width: 90px;
+      height: 90px;
+      z-index: 1001;
+      opacity: 1;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fdc-logo-svg {
+      width: 90px;
+      height: 90px;
+      filter: drop-shadow(0 2px 4px rgba(46, 125, 50, 0.2));
+    }
+
+    /* Employee Form Input Styling */
+    .quiz-container input[type="email"],
+    .quiz-container input[type="text"] {
+      width: 100% !important;
+      padding: 0.9rem !important;
+      border: 2px solid #2e7d32 !important;
+      border-radius: 8px !important;
+      font-size: 1rem !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      transition: all 0.3s ease !important;
+      background: rgba(255, 255, 255, 0.8) !important;
+      color: #222 !important;
+    }
+
+    .quiz-container input[type="email"]:focus,
+    .quiz-container input[type="text"]:focus {
+      outline: none !important;
+      border-color: #4caf50 !important;
+      background: #ffffff !important;
+      box-shadow: 0 0 15px rgba(76, 175, 80, 0.3) !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .quiz-container input[type="email"]:hover,
+    .quiz-container input[type="text"]:hover {
+      border-color: #4caf50 !important;
+      background: #f9fff9 !important;
+    }
+
+    /* Button Styling */
+    .quiz-container button[type="submit"],
+    .quiz-container button[type="button"] {
+      width: 100% !important;
+      padding: 0.9rem !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      font-size: 1rem !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+      border: none !important;
+    }
+
+    .quiz-container button[type=\"submit\"] {
+      background: linear-gradient(135deg, #2e7d32, #4caf50) !important;
+      color: #fff !important;
+      margin-bottom: 0.5rem !important;
+      box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3) !important;
+    }
+
+    .quiz-container button[type=\"submit\"]:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4) !important;
+    }
+
+    .quiz-container button[type=\"submit\"]:active {
+      transform: translateY(-1px) !important;
+    }
+
+    .quiz-container button[type=\"button\"] {
+      background: rgba(46, 125, 50, 0.1) !important;
+      color: #2e7d32 !important;
+      border: 2px solid #2e7d32 !important;
+    }
+
+    .quiz-container button[type=\"button\"]:hover {
+      background: #2e7d32 !important;
+      color: #fff !important;
+      transform: translateY(-2px) !important;
     }
 
     h1 {
@@ -593,6 +777,20 @@
   </style>
 </head>
 <body>
+  <!-- FDC Logo in Navbar -->
+  <div class="fdc-logo-nav">
+    <svg class="fdc-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gradientFDC" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#2e7d32;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#4caf50;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="100" cy="60" rx="85" ry="35" fill="none" stroke="url(#gradientFDC)" stroke-width="4"/>
+      <text x="100" y="75" font-size="50" font-weight="bold" fill="url(#gradientFDC)" text-anchor="middle" font-family="Arial">FDC</text>
+    </svg>
+  </div>
+
   <a href="index.html" class="home-icon" id="homeIcon" title="Back to Home">
     <i class="fas fa-home"></i>
   </a>
@@ -604,44 +802,11 @@
     <h1>Employee Information</h1>
     <form onsubmit="startQuiz(event)" id="empForm">
       <div style="margin-bottom: 1rem;">
-        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Employee Name</label>
-        <input type="text" id="employeeName" placeholder="Enter your full name" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-      </div>
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Group</label>
-        <select id="employeeGroup" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-          <option value="">-- Select Group --</option>
-          <option value="IT Dept">IT Dept</option>
-          <option value="PURCHASE">PURCHASE</option>
-          <option value="ARDL">ARDL</option>
-          <option value="ARDL3 Doc.">ARDL3 Doc.</option>
-          <option value="ART">ART</option>
-          <option value="ACCOUNTS">ACCOUNTS</option>
-          <option value="BIOTECH">BIOTECH</option>
-          <option value="CQA">CQA</option>
-          <option value="Distribution">Distribution</option>
-          <option value="Documentation">Documentation</option>
-          <option value="Export (Formulations)">Export (Formulations)</option>
-          <option value="HR">HR</option>
-          <option value="MDL">MDL</option>
-          <option value="Maintenance">Maintenance</option>
-          <option value="Marketing">Marketing</option>
-          <option value="PACKAGING">PACKAGING</option>
-          <option value="PLANNING">PLANNING</option>
-          <option value="Product Portfolio">Product Portfolio</option>
-          <option value="R&D Foods">R&D Foods</option>
-          <option value="Regulatory Affairs">Regulatory Affairs</option>
-          <option value="SFE">SFE</option>
-          <option value="STG">STG</option>
-          <option value="CQC">CQC</option>
-          <option value="IPR">IPR</option>
-          <option value="LEGAL">LEGAL</option>
-          <option value="MTL">MTL</option>
-          <option value="Export (International)">Export (International)</option>
-        </select>
+        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Employee Email ID (FDC)</label>
+        <input type="email" id="employeeEmail" placeholder="yourname@fdcindia.com" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
       </div>
       <div style="margin-bottom: 1.5rem;">
-        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Employee ID - Host ID</label>
+        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Host ID (refer IPMsg)</label>
         <input type="text" id="employeeId" placeholder="Enter your Host ID (e.g., J-IT-003)" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
       </div>
       <div id="verificationMessage" style="margin-bottom: 1rem; padding: 0.8rem; border-radius: 6px; display: none;"></div>
@@ -792,260 +957,251 @@
       }
     ];
 
-    // Employee Database for Verification
+    // Employee Database for Verification - Email based authentication
     const employeeDatabase = {
-      "Sankat": { group: "IT Dept", hostId: "J-IT-003" },
-      "Anant Pandye": { group: "IT Dept", hostId: "J-IT-229" },
-      "Atharva More": { group: "IT Dept", hostId: "J-IT-018" },
-      "Brijesh Jaiswal": { group: "IT Dept", hostId: "A-IT-005" },
-      "Gaurav W": { group: "IT Dept", hostId: "J-IT-011" },
-      "Kalpesh Shah": { group: "IT Dept", hostId: "A-IT-001" },
-      "Kishor Dalvi": { group: "IT Dept", hostId: "J-IT-019" },
-      "Pawan Singh": { group: "IT Dept", hostId: "A-IT-006" },
-      "Payal Lohar": { group: "IT Dept", hostId: "A-IT-007" },
-      "Pragesh Mayekar": { group: "IT Dept", hostId: "A-IT-009" },
-      "Rajesh Nikharge": { group: "IT Dept", hostId: "J-IT-014" },
-      "SAP server": { group: "IT Dept", hostId: "FDCSAPOS4" },
-      "Shailesh Kudu": { group: "IT Dept", hostId: "J-IT-008" },
-      "Sumit Rame": { group: "IT Dept", hostId: "A-IT-002" },
-      "Swarna Chennakesavulu": { group: "IT Dept", hostId: "J-IT-020" },
-      "Uday Shukla": { group: "IT Dept", hostId: "A-IT-004" },
-      "Unnati Patel": { group: "IT Dept", hostId: "A-IT-015" },
-      "Vijith (Viji Pinarayi)": { group: "IT Dept", hostId: "J-IT-004" },
-      "Yogesh Yadav": { group: "IT Dept", hostId: "J-IT-013" },
-      "Abhijit Jadhav": { group: "PURCHASE", hostId: "J-PUR-010" },
-      "Kishor Satam": { group: "PURCHASE", hostId: "J-PUR-003" },
-      "Kharayan Thive": { group: "PURCHASE", hostId: "J-PUR-006" },
-      "Nidhi Gode": { group: "PURCHASE", hostId: "A-PUR-012" },
-      "Pranod Karolkar": { group: "PURCHASE", hostId: "J-PUR-017" },
-      "Ranjana Sondagar": { group: "PURCHASE", hostId: "J-PUR-016" },
-      "Ravindra Panchal": { group: "PURCHASE", hostId: "J-PUR-020" },
-      "Shrikant Gaile": { group: "PURCHASE", hostId: "A-PUR-021" },
-      "Vijay Jadhav": { group: "ARDL", hostId: "K-ARDL-003" },
-      "Anupama Yadav": { group: "ARDL3 Doc.", hostId: "J-DOC-007" },
-      "CO-DOCUMENTATION": { group: "ARDL3 Doc.", hostId: "J-DOC-002" },
-      "Rupesh Kelaskar": { group: "ARDL3 Doc.", hostId: "J-QA-012" },
-      "Anand Nestly": { group: "ART", hostId: "J-ART-007" },
-      "Jayvant Hire": { group: "ART", hostId: "J-ART-006" },
-      "Neeta Dalvi": { group: "ART", hostId: "J-ART-008" },
-      "Pooja Desai": { group: "ART", hostId: "J-ART-009" },
-      "RAVindra Mulam": { group: "ART", hostId: "J-ART-001" },
-      "Sameer Jadhav": { group: "ART", hostId: "J-ART-002" },
-      "Suhas Kadam": { group: "ART", hostId: "J-ART-003" },
-      "Varsha Yeram": { group: "ART", hostId: "J-ART-005" },
-      "Akash Chaurasia": { group: "ACCOUNTS", hostId: "J-ACC-002" },
-      "Shamal Bandivadekar Extn": { group: "ACCOUNTS", hostId: "A-ACC-034" },
-      "Yash Thakur": { group: "BIOTECH", hostId: "J-BITC-011" },
-      "Abhijeet Shinde": { group: "CQA", hostId: "A-QA-001" },
-      "Amol Rohakale": { group: "CQA", hostId: "A-QA-009" },
-      "Atul Sawangikar": { group: "CQA", hostId: "J-QA-014" },
-      "Bhushan Kolake": { group: "CQA", hostId: "J-QA-005" },
-      "Dattu Kolekar": { group: "CQA", hostId: "J-QA-008" },
-      "Deepak Satam": { group: "CQA", hostId: "J-QA-019" },
-      "Dinesh Yadav": { group: "CQA", hostId: "A-QA-004" },
-      "Ganesh Chotthe": { group: "CQA", hostId: "J-QA-021" },
-      "Jitendra Thakur": { group: "CQA", hostId: "A-QA-013" },
-      "Lalit Narkhede": { group: "CQA", hostId: "J-QA-015" },
-      "Nitin Naik": { group: "CQA", hostId: "J-QA-024" },
-      "Rahul Galaye": { group: "CQA", hostId: "J-QA-023" },
-      "Saket Rane": { group: "CQA", hostId: "A-QA-017" },
-      "Shrinivas Gharat": { group: "CQA", hostId: "J-QA-011" },
-      "Prashant Chadgaonkar": { group: "CQA", hostId: "J-QA-006" },
-      "Ajay Singh": { group: "CQC", hostId: "J-QA-003" },
-      "M Sundaram": { group: "CQC", hostId: "J-QA-018" },
-      "Nilesh Terdaikar": { group: "CQC", hostId: "J-QA-020" },
-      "Sarvesh Bane": { group: "CQC", hostId: "J-QA-022" },
-      "Archana Rawool": { group: "Distribution", hostId: "J-DIS-008" },
-      "Bhavna Rana": { group: "Distribution", hostId: "A-DIS-007" },
-      "Kavita Panchal": { group: "Distribution", hostId: "A-DIS-001" },
-      "Manjiri Alve": { group: "Distribution", hostId: "J-EXP-003" },
-      "Om Tuvrekar": { group: "Distribution", hostId: "J-DIS-006" },
-      "Prach Ghadi": { group: "Distribution", hostId: "J-EXP-005" },
-      "Prajita Patel": { group: "Distribution", hostId: "J-DIS-002" },
-      "Rahul Dalvi": { group: "Distribution", hostId: "A-DIS-017" },
-      "Rishi Nalkswadi": { group: "Distribution", hostId: "J-DIS-014" },
-      "Sachin Borase": { group: "Distribution", hostId: "A-DIS-015" },
-      "Sheetai Bhatale": { group: "Distribution", hostId: "J-DIS-013" },
-      "Shivaji Nalawade": { group: "Distribution", hostId: "J-DIS-011" },
-      "Shrutika More": { group: "Distribution", hostId: "J-DIS-016" },
-      "Sushant Patkar": { group: "Distribution", hostId: "J-DIS-010" },
-      "Yogesh N Sawant Ext": { group: "Distribution", hostId: "J-DIS-005" },
-      "Dipali Devekar": { group: "Documentation", hostId: "J-DOC-008" },
-      "Kanchan Gavand": { group: "Documentation", hostId: "J-DOC-010" },
-      "Ketaki Khandewaie": { group: "Documentation", hostId: "J-DOC-009" },
-      "Surekha Lande": { group: "Documentation", hostId: "J-DOC-004" },
-      "Tushar D": { group: "Documentation", hostId: "J-DOC-001" },
-      "Umika Pavaskar": { group: "Documentation", hostId: "A-DOC-005" },
-      "Utpala Lalit": { group: "Documentation", hostId: "J-DOC-003" },
-      "Hemali Pelu": { group: "Export (Formulations)", hostId: "J-EXP-012" },
-      "Jaswinder Gill": { group: "Export (Formulations)", hostId: "J-EXP-009" },
-      "Kaipesh Atul": { group: "Export (Formulations)", hostId: "A-EXP-010" },
-      "Krupali Sanghvi": { group: "Export (Formulations)", hostId: "J-EXP-015" },
-      "Nahid Risaldar": { group: "Export (Formulations)", hostId: "J-EXP-017" },
-      "Nishant Meshram": { group: "Export (Formulations)", hostId: "A-EXP-011" },
-      "Rajesh Khambal": { group: "Export (Formulations)", hostId: "J-EXP-016" },
-      "Shner Surte": { group: "Export (Formulations)", hostId: "J-EXP-014" },
-      "Sandeep Hegde": { group: "Export (Formulations)", hostId: "A-EXP-019" },
-      "Sanjivani Chandorkar": { group: "Export (Formulations)", hostId: "A-EXP-018" },
-      "Vinod Asif": { group: "Export (Formulations)", hostId: "A-EXP-007" },
-      "Sameer Sawant": { group: "Export (International)", hostId: "A-EXP-008" },
-      "Abhay Raut": { group: "HR", hostId: "J-HR-021" },
-      "Arpita Sahu": { group: "HR", hostId: "J-HR-012" },
-      "Ganesh Joshi": { group: "HR", hostId: "J-HR-029" },
-      "Jyoti Nayak": { group: "HR", hostId: "J-SA-012" },
-      "Kerry Barrowe": { group: "HR", hostId: "J-HR-004" },
-      "Kiran Kadam": { group: "HR", hostId: "J-HR-023" },
-      "Mangesh Malusare": { group: "HR", hostId: "J-HR-002" },
-      "Manoj Shetty": { group: "HR", hostId: "J-HR-003" },
-      "Maruti Bachantti": { group: "HR", hostId: "J-HR-014" },
-      "Neha Malik": { group: "HR", hostId: "J-HR-018" },
-      "PFESIC(LALIT)-HR": { group: "HR", hostId: "J-HR-009" },
-      "Pallavi Bane": { group: "HR", hostId: "J-SA-013" },
-      "Pankaj Agare": { group: "HR", hostId: "J-HR-019" },
-      "Pradeep Dalvi": { group: "HR", hostId: "J-HR-026" },
-      "Pramesh Rajput": { group: "HR", hostId: "J-HR-022" },
-      "Pravin Vishram": { group: "HR", hostId: "J-HR-006" },
-      "Raj Bhagwat": { group: "HR", hostId: "J-HR-015" },
-      "Raj Salpal": { group: "HR", hostId: "J-HR-025" },
-      "Tejas Pavaskar": { group: "HR", hostId: "J-HR-013" },
-      "Uday Jadhay": { group: "HR", hostId: "A-HR-005" },
-      "Vinay Halide": { group: "HR", hostId: "J-HR-001" },
-      "Vivek Joshi": { group: "HR", hostId: "J-HR-007" },
-      "Yogesh Patil": { group: "HR", hostId: "J-HR-010" },
-      "Atish Raut": { group: "IPR", hostId: "A-IPR-003" },
-      "Prachi Jadhav": { group: "IPR", hostId: "J-EXP-010" },
-      "Gyanand Singh": { group: "LEGAL", hostId: "J-LEG-006" },
-      "Mayank Jain": { group: "LEGAL", hostId: "J-LEG-004" },
-      "Sujata Parab": { group: "LEGAL", hostId: "J-LEG-002" },
-      "Vasharani Katre": { group: "LEGAL", hostId: "A-LEG-001" },
-      "Bhavya Rajan": { group: "MDL", hostId: "J-MDL-004" },
-      "Dr. Kalpesh Dalvi": { group: "MDL", hostId: "J-MDL-006" },
-      "Gopal Kadam": { group: "MDL", hostId: "A-MDL-005" },
-      "Gopal Kadam": { group: "MDL", hostId: "J-MDL-005" },
-      "Nitin Kachhava": { group: "MDL", hostId: "A-MDL-007" },
-      "Nitin Kachhava": { group: "MDL", hostId: "J-MDL-007" },
-      "Prajalta Raje": { group: "MDL", hostId: "A-IPR-002" },
-      "Smita Prajapati": { group: "MDL", hostId: "J-MDL-001" },
-      "SALONI JADHAV": { group: "MTL", hostId: "J-BITC-012" },
-      "Praveen Khadse": { group: "Maintenance", hostId: "J-MAT-005" },
-      "Prisan Khan": { group: "Maintenance", hostId: "J-MAT-003" },
-      "Rohan Pawar": { group: "Maintenance", hostId: "J-MAT-006" },
-      "Sachin Zolekar": { group: "Maintenance", hostId: "A-MAT-001" },
-      "Sachin Zolekar": { group: "Maintenance", hostId: "A-MAT-009" },
-      "Vishal Kapre": { group: "Maintenance", hostId: "J-MAT-007" },
-      "Yogesh Zope": { group: "Maintenance", hostId: "J-MAT-011" },
-      "Yogesh Zope": { group: "Maintenance", hostId: "A-MAT-001" },
-      "Abhinav Singh": { group: "Marketing", hostId: "J-MKT-020" },
-      "Akharya Rathod": { group: "Marketing", hostId: "J-MKT-011" },
-      "Aleeza Biswal": { group: "Marketing", hostId: "J-MKT-025" },
-      "Amit Khachane": { group: "Marketing", hostId: "A-MKT-012" },
-      "Anand Jaiswar": { group: "Marketing", hostId: "J-MKT-019" },
-      "Ankur Gautam": { group: "Marketing", hostId: "J-MKT-038" },
-      "Bharat Mohan": { group: "Marketing", hostId: "A-MKT-024" },
-      "Deepika Kadam": { group: "Marketing", hostId: "J-MKT-056" },
-      "Dilip Patil": { group: "Marketing", hostId: "J-MKT-021" },
-      "Dipti Patil": { group: "Marketing", hostId: "J-MKT-046" },
-      "Gajanan Barde": { group: "Marketing", hostId: "A-MKT-067" },
-      "Jyoti Barde": { group: "Marketing", hostId: "A-MKT-068" },
-      "Kunal Vishnuwardhan": { group: "Marketing", hostId: "J-MKT-040" },
-      "Mandar Bivaikar": { group: "Marketing", hostId: "J-MKT-047" },
-      "Mandar Rame": { group: "Marketing", hostId: "J-MKT-009" },
-      "Megha Menon": { group: "Marketing", hostId: "J-MKT-013" },
-      "Meghavi Gandhi": { group: "Marketing", hostId: "J-MKT-014" },
-      "Nidhi Mishra": { group: "Marketing", hostId: "J-MKT-031" },
-      "Nilam Bhor": { group: "Marketing", hostId: "A-MKT-027" },
-      "Nilam Bhor": { group: "Marketing", hostId: "J-MKT-027" },
-      "Nkifer Bothera": { group: "Marketing", hostId: "J-MKT-005" },
-      "Pooja Gupta": { group: "Marketing", hostId: "J-MKT-008" },
-      "Pramod Ghaytdak": { group: "Marketing", hostId: "J-MKT-035" },
-      "Priya Khodape": { group: "Marketing", hostId: "J-MKT-066" },
-      "Ravindra Upadhyay": { group: "Marketing", hostId: "A-MKT-043" },
-      "Ravindra Upadhyay": { group: "Marketing", hostId: "J-MKT-043" },
-      "Rupesh Kumar": { group: "Marketing", hostId: "J-MKT-018" },
-      "Sachin Sakunde": { group: "Marketing", hostId: "J-MKT-007" },
-      "Satish Kamble": { group: "Marketing", hostId: "J-MKT-036" },
-      "Sandeep Arora": { group: "Marketing", hostId: "J-MKT-022" },
-      "Santosh Ranade": { group: "Marketing", hostId: "J-MKT-060" },
-      "Sapika Pujari": { group: "Marketing", hostId: "J-MKT-028" },
-      "Shoaib Khan": { group: "Marketing", hostId: "A-MKT-033" },
-      "Shrikant Bochare": { group: "Marketing", hostId: "J-MKT-006" },
-      "Sudarsahn @337": { group: "Marketing", hostId: "J-MKT-026" },
-      "Supriya Naik@155": { group: "Marketing", hostId: "A-MKT-002" },
-      "Sushant Naik": { group: "Marketing", hostId: "J-MKT-039" },
-      "Vaibhav Mantra": { group: "Marketing", hostId: "A-MKT-004" },
-      "Vidya Pawar": { group: "Marketing", hostId: "J-MKT-003" },
-      "Vijay Gupta": { group: "Marketing", hostId: "A-MKT-054" },
-      "Vijesh Pai": { group: "Marketing", hostId: "J-MKT-034" },
-      "Vishakha Ghadigaonkar": { group: "Marketing", hostId: "J-MKT-063" },
-      "Nehal Monde": { group: "PACKAGING", hostId: "A-PAC-011" },
-      "Nikee Belekar": { group: "PACKAGING", hostId: "J-PAC-002" },
-      "Nitin More": { group: "PACKAGING", hostId: "A-PAC-005" },
-      "Roshan Naik": { group: "PACKAGING", hostId: "A-PAC-004" },
-      "Roshani Saalim": { group: "PACKAGING", hostId: "A-PAC-015" },
-      "Satap Sanap": { group: "PACKAGING", hostId: "J-PAC-014" },
-      "Santosh Shinde": { group: "PACKAGING", hostId: "J-PAC-007" },
-      "Shailesh Jadhay": { group: "PACKAGING", hostId: "J-PAC-009" },
-      "Tejal Mohite": { group: "PACKAGING", hostId: "J-PAC-010" },
-      "Tripti Nakahre": { group: "PACKAGING", hostId: "J-PAC-001" },
-      "Vipin Gharge": { group: "PACKAGING", hostId: "J-PAC-006" },
-      "Aman Chaturvedi": { group: "PLANNING", hostId: "J-PLA-014" },
-      "Amol Shelar": { group: "PLANNING", hostId: "A-PLA-005" },
-      "Anil Darekar": { group: "PLANNING", hostId: "J-PLA-006" },
-      "Kishor Mhatre": { group: "PLANNING", hostId: "J-PLA-004" },
-      "Mangesh Karanjekar": { group: "PLANNING", hostId: "J-PLA-001" },
-      "Shashank Wapan": { group: "PLANNING", hostId: "J-PLA-010" },
-      "Siddhesh Patil": { group: "PLANNING", hostId: "A-PLA-015" },
-      "Vijay Wagh": { group: "PLANNING", hostId: "J-PLA-007" },
-      "Amiket Dooarklr": { group: "PURCHASE", hostId: "J-PUR-011" },
-      "Avinash Bhute": { group: "PURCHASE", hostId: "J-PUR-001" },
-      "Bhavuk Chaudhari": { group: "PURCHASE", hostId: "J-PUR-022" },
-      "Dhiraj Patil": { group: "PURCHASE", hostId: "A-PUR-014" },
-      "Mangesh Mane": { group: "PURCHASE", hostId: "J-PUR-015" },
-      "Nilesh Patil": { group: "PURCHASE", hostId: "J-PUR-008" },
-      "Nikesh Barot": { group: "PURCHASE", hostId: "J-PUR-004" },
-      "Prashant Dalvi": { group: "PURCHASE", hostId: "J-PUR-018" },
-      "Sandeep Naik": { group: "PURCHASE", hostId: "J-PUR-005" },
-      "Sanjay Sawant": { group: "PURCHASE", hostId: "J-PUR-019" },
-      "Tejal Mayekar": { group: "PURCHASE", hostId: "J-PUR-002" },
-      "Anj Sawant": { group: "Packaging", hostId: "J-PAC-008" },
-      "Ronak Barot": { group: "Product Portfolio", hostId: "J-PP-001" },
-      "Deepak Dhoade LP": { group: "R&D foods", hostId: "J-FDS-001" },
-      "Gopal Mule": { group: "R&D foods", hostId: "A-FDS-005" },
-      "Sumit Somner@307": { group: "R&D foods", hostId: "J-FDS-003" },
-      "Dnyaneshwar K": { group: "RDF", hostId: "J-RDF-023" },
-      "KALPESH PATIL": { group: "RDF", hostId: "J-RDF-025" },
-      "Umesh Gound": { group: "RDF", hostId: "J-RDF-037" },
-      "Aniket Pacharne": { group: "Regulatory Affairs", hostId: "A-RA-024" },
-      "Ashwini Meher": { group: "Regulatory Affairs", hostId: "J-RA-017" },
-      "Avani Sondagar": { group: "Regulatory Affairs", hostId: "J-RA-004" },
-      "Bhagyashree Patil": { group: "Regulatory Affairs", hostId: "J-RA-010" },
-      "Edyce L": { group: "Regulatory Affairs", hostId: "J-RA-025" },
-      "Hansa Chaudhary": { group: "Regulatory Affairs", hostId: "J-RA-020" },
-      "Mansi Hapaliya": { group: "Regulatory Affairs", hostId: "A-RA-014" },
-      "Mitali Naik": { group: "Regulatory Affairs", hostId: "A-RA-007" },
-      "Neetu Sharma": { group: "Regulatory Affairs", hostId: "J-RA-016" },
-      "Poonam Shende": { group: "Regulatory Affairs", hostId: "J-RA-002" },
-      "Prasanna Angane": { group: "Regulatory Affairs", hostId: "J-RA-019" },
-      "Pritam Debnath": { group: "Regulatory Affairs", hostId: "J-RA-009" },
-      "Pushkar Gupta@144": { group: "Regulatory Affairs", hostId: "J-RA-015" },
-      "Rahul Patil": { group: "Regulatory Affairs", hostId: "A-RA-006" },
-      "Rajesh Bhapkar": { group: "Regulatory Affairs", hostId: "J-RA-001" },
-      "Riska Borate": { group: "Regulatory Affairs", hostId: "J-RA-008" },
-      "Shital Kadam": { group: "Regulatory Affairs", hostId: "A-RA-018" },
-      "Shruti Sawant": { group: "Regulatory Affairs", hostId: "J-RA-005" },
-      "Sonali Sawant": { group: "Regulatory Affairs", hostId: "J-RA-023" },
-      "Subodh Singh": { group: "Regulatory Affairs", hostId: "A-MKT-051" },
-      "Vishal Bodke": { group: "Regulatory Affairs", hostId: "J-RA-011" },
-      "Dinesh Chodankar": { group: "SFE", hostId: "J-SFE-005" },
-      "Niketan Ghadi": { group: "SFE", hostId: "J-SFE-004" },
-      "Raghunath Pednekar": { group: "SFE", hostId: "J-SFE-003" },
-      "Sachin Alhat": { group: "SFE", hostId: "J-SFE-007" },
-      "Shashank More": { group: "SFE", hostId: "A-SFE-002" },
-      "Tanvi Yerunkar": { group: "SFE", hostId: "J-SFE-006" },
-      "Aashwin Shah": { group: "STG", hostId: "A-STG-002" },
-      "Harshal Jain": { group: "STG", hostId: "J-STG-003" },
-      "Jitendra Srivastava": { group: "STG", hostId: "A-STG-004" },
-      "kiran Hode": { group: "STG", hostId: "J-STG-001" }
+      "sankat@fdcindia.com": { name: "Sankat", hostId: "J-IT-003", group: "IT Dept" },
+      "anant.pandye@fdcindia.com": { name: "Anant Pandye", hostId: "J-IT-229", group: "IT Dept" },
+      "atharva.more@fdcindia.com": { name: "Atharva More", hostId: "J-IT-018", group: "IT Dept" },
+      "brijesh.jaiswal@fdcindia.com": { name: "Brijesh Jaiswal", hostId: "A-IT-005", group: "IT Dept" },
+      "gaurav.w@fdcindia.com": { name: "Gaurav W", hostId: "J-IT-011", group: "IT Dept" },
+      "kalpesh.shah@fdcindia.com": { name: "Kalpesh Shah", hostId: "A-IT-001", group: "IT Dept" },
+      "kishor.dalvi@fdcindia.com": { name: "Kishor Dalvi", hostId: "J-IT-019", group: "IT Dept" },
+      "pawan.singh@fdcindia.com": { name: "Pawan Singh", hostId: "A-IT-006", group: "IT Dept" },
+      "payal.lohar@fdcindia.com": { name: "Payal Lohar", hostId: "A-IT-007", group: "IT Dept" },
+      "pragesh.mayekar@fdcindia.com": { name: "Pragesh Mayekar", hostId: "A-IT-009", group: "IT Dept" },
+      "rajesh.nikharge@fdcindia.com": { name: "Rajesh Nikharge", hostId: "J-IT-014", group: "IT Dept" },
+      "shailesh.kudu@fdcindia.com": { name: "Shailesh Kudu", hostId: "J-IT-008", group: "IT Dept" },
+      "sumit.rame@fdcindia.com": { name: "Sumit Rame", hostId: "A-IT-002", group: "IT Dept" },
+      "swarna.chennakesavulu@fdcindia.com": { name: "Swarna Chennakesavulu", hostId: "J-IT-020", group: "IT Dept" },
+      "uday.shukla@fdcindia.com": { name: "Uday Shukla", hostId: "A-IT-004", group: "IT Dept" },
+      "unnati.patel@fdcindia.com": { name: "Unnati Patel", hostId: "A-IT-015", group: "IT Dept" },
+      "vijith.pinarayi@fdcindia.com": { name: "Vijith (Viji Pinarayi)", hostId: "J-IT-004", group: "IT Dept" },
+      "yogesh.yadav@fdcindia.com": { name: "Yogesh Yadav", hostId: "J-IT-013", group: "IT Dept" },
+      "abhijit.jadhav@fdcindia.com": { name: "Abhijit Jadhav", hostId: "J-PUR-010", group: "PURCHASE" },
+      "kishor.satam@fdcindia.com": { name: "Kishor Satam", hostId: "J-PUR-003", group: "PURCHASE" },
+      "kharayan.thive@fdcindia.com": { name: "Kharayan Thive", hostId: "J-PUR-006", group: "PURCHASE" },
+      "nidhi.gode@fdcindia.com": { name: "Nidhi Gode", hostId: "A-PUR-012", group: "PURCHASE" },
+      "pranod.karolkar@fdcindia.com": { name: "Pranod Karolkar", hostId: "J-PUR-017", group: "PURCHASE" },
+      "ranjana.sondagar@fdcindia.com": { name: "Ranjana Sondagar", hostId: "J-PUR-016", group: "PURCHASE" },
+      "ravindra.panchal@fdcindia.com": { name: "Ravindra Panchal", hostId: "J-PUR-020", group: "PURCHASE" },
+      "shrikant.gaile@fdcindia.com": { name: "Shrikant Gaile", hostId: "A-PUR-021", group: "PURCHASE" },
+      "vijay.jadhav@fdcindia.com": { name: "Vijay Jadhav", hostId: "K-ARDL-003", group: "ARDL" },
+      "anupama.yadav@fdcindia.com": { name: "Anupama Yadav", hostId: "J-DOC-007", group: "ARDL3 Doc." },
+      "rupesh.kelaskar@fdcindia.com": { name: "Rupesh Kelaskar", hostId: "J-QA-012", group: "ARDL3 Doc." },
+      "anand.nestly@fdcindia.com": { name: "Anand Nestly", hostId: "J-ART-007", group: "ART" },
+      "jayvant.hire@fdcindia.com": { name: "Jayvant Hire", hostId: "J-ART-006", group: "ART" },
+      "neeta.dalvi@fdcindia.com": { name: "Neeta Dalvi", hostId: "J-ART-008", group: "ART" },
+      "pooja.desai@fdcindia.com": { name: "Pooja Desai", hostId: "J-ART-009", group: "ART" },
+      "ravindra.mulam@fdcindia.com": { name: "RAVindra Mulam", hostId: "J-ART-001", group: "ART" },
+      "sameer.jadhav@fdcindia.com": { name: "Sameer Jadhav", hostId: "J-ART-002", group: "ART" },
+      "suhas.kadam@fdcindia.com": { name: "Suhas Kadam", hostId: "J-ART-003", group: "ART" },
+      "varsha.yeram@fdcindia.com": { name: "Varsha Yeram", hostId: "J-ART-005", group: "ART" },
+      "akash.chaurasia@fdcindia.com": { name: "Akash Chaurasia", hostId: "J-ACC-002", group: "ACCOUNTS" },
+      "shamal.bandivadekar@fdcindia.com": { name: "Shamal Bandivadekar Extn", hostId: "A-ACC-034", group: "ACCOUNTS" },
+      "yash.thakur@fdcindia.com": { name: "Yash Thakur", hostId: "J-BITC-011", group: "BIOTECH" },
+      "abhijeet.shinde@fdcindia.com": { name: "Abhijeet Shinde", hostId: "A-QA-001", group: "CQA" },
+      "amol.rohakale@fdcindia.com": { name: "Amol Rohakale", hostId: "A-QA-009", group: "CQA" },
+      "atul.sawangikar@fdcindia.com": { name: "Atul Sawangikar", hostId: "J-QA-014", group: "CQA" },
+      "bhushan.kolake@fdcindia.com": { name: "Bhushan Kolake", hostId: "J-QA-005", group: "CQA" },
+      "dattu.kolekar@fdcindia.com": { name: "Dattu Kolekar", hostId: "J-QA-008", group: "CQA" },
+      "deepak.satam@fdcindia.com": { name: "Deepak Satam", hostId: "J-QA-019", group: "CQA" },
+      "dinesh.yadav@fdcindia.com": { name: "Dinesh Yadav", hostId: "A-QA-004", group: "CQA" },
+      "ganesh.chothe@fdcindia.com": { name: "Ganesh Chotthe", hostId: "J-QA-021", group: "CQA" },
+      "jitendra.thakur@fdcindia.com": { name: "Jitendra Thakur", hostId: "A-QA-013", group: "CQA" },
+      "lalit.narkhede@fdcindia.com": { name: "Lalit Narkhede", hostId: "J-QA-015", group: "CQA" },
+      "nitin.naik@fdcindia.com": { name: "Nitin Naik", hostId: "J-QA-024", group: "CQA" },
+      "rahul.galaye@fdcindia.com": { name: "Rahul Galaye", hostId: "J-QA-023", group: "CQA" },
+      "saket.rane@fdcindia.com": { name: "Saket Rane", hostId: "A-QA-017", group: "CQA" },
+      "shrinivas.gharat@fdcindia.com": { name: "Shrinivas Gharat", hostId: "J-QA-011", group: "CQA" },
+      "prashant.chadgaonkar@fdcindia.com": { name: "Prashant Chadgaonkar", hostId: "J-QA-006", group: "CQA" },
+      "ajay.singh@fdcindia.com": { name: "Ajay Singh", hostId: "J-QA-003", group: "CQC" },
+      "m.sundaram@fdcindia.com": { name: "M Sundaram", hostId: "J-QA-018", group: "CQC" },
+      "nilesh.terdalkar@fdcindia.com": { name: "Nilesh Terdaikar", hostId: "J-QA-020", group: "CQC" },
+      "sarvesh.bane@fdcindia.com": { name: "Sarvesh Bane", hostId: "J-QA-022", group: "CQC" },
+      "archana.rawool@fdcindia.com": { name: "Archana Rawool", hostId: "J-DIS-008", group: "Distribution" },
+      "bhavna.rana@fdcindia.com": { name: "Bhavna Rana", hostId: "A-DIS-007", group: "Distribution" },
+      "kavita.panchal@fdcindia.com": { name: "Kavita Panchal", hostId: "A-DIS-001", group: "Distribution" },
+      "manjiri.alve@fdcindia.com": { name: "Manjiri Alve", hostId: "J-EXP-003", group: "Distribution" },
+      "om.tuvrekar@fdcindia.com": { name: "Om Tuvrekar", hostId: "J-DIS-006", group: "Distribution" },
+      "prach.ghadi@fdcindia.com": { name: "Prach Ghadi", hostId: "J-EXP-005", group: "Distribution" },
+      "prajita.patel@fdcindia.com": { name: "Prajita Patel", hostId: "J-DIS-002", group: "Distribution" },
+      "rahul.dalvi@fdcindia.com": { name: "Rahul Dalvi", hostId: "A-DIS-017", group: "Distribution" },
+      "rishi.nalkswadi@fdcindia.com": { name: "Rishi Nalkswadi", hostId: "J-DIS-014", group: "Distribution" },
+      "sachin.borase@fdcindia.com": { name: "Sachin Borase", hostId: "A-DIS-015", group: "Distribution" },
+      "sheetal.bhatale@fdcindia.com": { name: "Sheetai Bhatale", hostId: "J-DIS-013", group: "Distribution" },
+      "shivaji.nalawade@fdcindia.com": { name: "Shivaji Nalawade", hostId: "J-DIS-011", group: "Distribution" },
+      "shrutika.more@fdcindia.com": { name: "Shrutika More", hostId: "J-DIS-016", group: "Distribution" },
+      "sushant.patkar@fdcindia.com": { name: "Sushant Patkar", hostId: "J-DIS-010", group: "Distribution" },
+      "yogesh.sawant@fdcindia.com": { name: "Yogesh N Sawant Ext", hostId: "J-DIS-005", group: "Distribution" },
+      "dipali.devekar@fdcindia.com": { name: "Dipali Devekar", hostId: "J-DOC-008", group: "Documentation" },
+      "kanchan.gavand@fdcindia.com": { name: "Kanchan Gavand", hostId: "J-DOC-010", group: "Documentation" },
+      "ketaki.khandewale@fdcindia.com": { name: "Ketaki Khandewaie", hostId: "J-DOC-009", group: "Documentation" },
+      "surekha.lande@fdcindia.com": { name: "Surekha Lande", hostId: "J-DOC-004", group: "Documentation" },
+      "tushar.d@fdcindia.com": { name: "Tushar D", hostId: "J-DOC-001", group: "Documentation" },
+      "umika.pavaskar@fdcindia.com": { name: "Umika Pavaskar", hostId: "A-DOC-005", group: "Documentation" },
+      "utpala.lalit@fdcindia.com": { name: "Utpala Lalit", hostId: "J-DOC-003", group: "Documentation" },
+      "hemali.pelu@fdcindia.com": { name: "Hemali Pelu", hostId: "J-EXP-012", group: "Export (Formulations)" },
+      "jaswinder.gill@fdcindia.com": { name: "Jaswinder Gill", hostId: "J-EXP-009", group: "Export (Formulations)" },
+      "kaipesh.atul@fdcindia.com": { name: "Kaipesh Atul", hostId: "A-EXP-010", group: "Export (Formulations)" },
+      "krupali.sanghvi@fdcindia.com": { name: "Krupali Sanghvi", hostId: "J-EXP-015", group: "Export (Formulations)" },
+      "nahid.risaldar@fdcindia.com": { name: "Nahid Risaldar", hostId: "J-EXP-017", group: "Export (Formulations)" },
+      "nishant.meshram@fdcindia.com": { name: "Nishant Meshram", hostId: "A-EXP-011", group: "Export (Formulations)" },
+      "rajesh.khambal@fdcindia.com": { name: "Rajesh Khambal", hostId: "J-EXP-016", group: "Export (Formulations)" },
+      "shner.surte@fdcindia.com": { name: "Shner Surte", hostId: "J-EXP-014", group: "Export (Formulations)" },
+      "sandeep.hegde@fdcindia.com": { name: "Sandeep Hegde", hostId: "A-EXP-019", group: "Export (Formulations)" },
+      "sanjivani.chandorkar@fdcindia.com": { name: "Sanjivani Chandorkar", hostId: "A-EXP-018", group: "Export (Formulations)" },
+      "vinod.asif@fdcindia.com": { name: "Vinod Asif", hostId: "A-EXP-007", group: "Export (Formulations)" },
+      "sameer.sawant@fdcindia.com": { name: "Sameer Sawant", hostId: "A-EXP-008", group: "Export (International)" },
+      "abhay.raut@fdcindia.com": { name: "Abhay Raut", hostId: "J-HR-021", group: "HR" },
+      "arpita.sahu@fdcindia.com": { name: "Arpita Sahu", hostId: "J-HR-012", group: "HR" },
+      "ganesh.joshi@fdcindia.com": { name: "Ganesh Joshi", hostId: "J-HR-029", group: "HR" },
+      "jyoti.nayak@fdcindia.com": { name: "Jyoti Nayak", hostId: "J-SA-012", group: "HR" },
+      "kerry.barrowe@fdcindia.com": { name: "Kerry Barrowe", hostId: "J-HR-004", group: "HR" },
+      "kiran.kadam@fdcindia.com": { name: "Kiran Kadam", hostId: "J-HR-023", group: "HR" },
+      "mangesh.malusare@fdcindia.com": { name: "Mangesh Malusare", hostId: "J-HR-002", group: "HR" },
+      "manoj.shetty@fdcindia.com": { name: "Manoj Shetty", hostId: "J-HR-003", group: "HR" },
+      "maruti.bachantti@fdcindia.com": { name: "Maruti Bachantti", hostId: "J-HR-014", group: "HR" },
+      "neha.malik@fdcindia.com": { name: "Neha Malik", hostId: "J-HR-018", group: "HR" },
+      "pallavi.bane@fdcindia.com": { name: "Pallavi Bane", hostId: "J-SA-013", group: "HR" },
+      "pankaj.agare@fdcindia.com": { name: "Pankaj Agare", hostId: "J-HR-019", group: "HR" },
+      "pradeep.dalvi@fdcindia.com": { name: "Pradeep Dalvi", hostId: "J-HR-026", group: "HR" },
+      "pramesh.rajput@fdcindia.com": { name: "Pramesh Rajput", hostId: "J-HR-022", group: "HR" },
+      "pravin.vishram@fdcindia.com": { name: "Pravin Vishram", hostId: "J-HR-006", group: "HR" },
+      "raj.bhagwat@fdcindia.com": { name: "Raj Bhagwat", hostId: "J-HR-015", group: "HR" },
+      "raj.salpal@fdcindia.com": { name: "Raj Salpal", hostId: "J-HR-025", group: "HR" },
+      "tejas.pavaskar@fdcindia.com": { name: "Tejas Pavaskar", hostId: "J-HR-013", group: "HR" },
+      "uday.jadhay@fdcindia.com": { name: "Uday Jadhay", hostId: "A-HR-005", group: "HR" },
+      "vinay.halide@fdcindia.com": { name: "Vinay Halide", hostId: "J-HR-001", group: "HR" },
+      "vivek.joshi@fdcindia.com": { name: "Vivek Joshi", hostId: "J-HR-007", group: "HR" },
+      "yogesh.patil@fdcindia.com": { name: "Yogesh Patil", hostId: "J-HR-010", group: "HR" },
+      "atish.raut@fdcindia.com": { name: "Atish Raut", hostId: "A-IPR-003", group: "IPR" },
+      "prachi.jadhav@fdcindia.com": { name: "Prachi Jadhav", hostId: "J-EXP-010", group: "IPR" },
+      "gyanand.singh@fdcindia.com": { name: "Gyanand Singh", hostId: "J-LEG-006", group: "LEGAL" },
+      "mayank.jain@fdcindia.com": { name: "Mayank Jain", hostId: "J-LEG-004", group: "LEGAL" },
+      "sujata.parab@fdcindia.com": { name: "Sujata Parab", hostId: "J-LEG-002", group: "LEGAL" },
+      "vasharani.katre@fdcindia.com": { name: "Vasharani Katre", hostId: "A-LEG-001", group: "LEGAL" },
+      "bhavya.rajan@fdcindia.com": { name: "Bhavya Rajan", hostId: "J-MDL-004", group: "MDL" },
+      "kalpesh.dalvi@fdcindia.com": { name: "Dr. Kalpesh Dalvi", hostId: "J-MDL-006", group: "MDL" },
+      "gopal.kadam@fdcindia.com": { name: "Gopal Kadam", hostId: "A-MDL-005", group: "MDL" },
+      "nitin.kachhava@fdcindia.com": { name: "Nitin Kachhava", hostId: "A-MDL-007", group: "MDL" },
+      "prajakta.raje@fdcindia.com": { name: "Prajalta Raje", hostId: "A-IPR-002", group: "MDL" },
+      "smita.prajapati@fdcindia.com": { name: "Smita Prajapati", hostId: "J-MDL-001", group: "MDL" },
+      "saloni.jadhav@fdcindia.com": { name: "SALONI JADHAV", hostId: "J-BITC-012", group: "MTL" },
+      "praveen.khadse@fdcindia.com": { name: "Praveen Khadse", hostId: "J-MAT-005", group: "Maintenance" },
+      "prisan.khan@fdcindia.com": { name: "Prisan Khan", hostId: "J-MAT-003", group: "Maintenance" },
+      "rohan.pawar@fdcindia.com": { name: "Rohan Pawar", hostId: "J-MAT-006", group: "Maintenance" },
+      "sachin.zolekar@fdcindia.com": { name: "Sachin Zolekar", hostId: "A-MAT-001", group: "Maintenance" },
+      "vishal.kapre@fdcindia.com": { name: "Vishal Kapre", hostId: "J-MAT-007", group: "Maintenance" },
+      "yogesh.zope@fdcindia.com": { name: "Yogesh Zope", hostId: "J-MAT-011", group: "Maintenance" },
+      "abhinav.singh@fdcindia.com": { name: "Abhinav Singh", hostId: "J-MKT-020", group: "Marketing" },
+      "akharya.rathod@fdcindia.com": { name: "Akharya Rathod", hostId: "J-MKT-011", group: "Marketing" },
+      "aleeza.biswal@fdcindia.com": { name: "Aleeza Biswal", hostId: "J-MKT-025", group: "Marketing" },
+      "amit.khachane@fdcindia.com": { name: "Amit Khachane", hostId: "A-MKT-012", group: "Marketing" },
+      "anand.jaiswar@fdcindia.com": { name: "Anand Jaiswar", hostId: "J-MKT-019", group: "Marketing" },
+      "ankur.gautam@fdcindia.com": { name: "Ankur Gautam", hostId: "J-MKT-038", group: "Marketing" },
+      "bharat.mohan@fdcindia.com": { name: "Bharat Mohan", hostId: "A-MKT-024", group: "Marketing" },
+      "deepika.kadam@fdcindia.com": { name: "Deepika Kadam", hostId: "J-MKT-056", group: "Marketing" },
+      "dilip.patil@fdcindia.com": { name: "Dilip Patil", hostId: "J-MKT-021", group: "Marketing" },
+      "dipti.patil@fdcindia.com": { name: "Dipti Patil", hostId: "J-MKT-046", group: "Marketing" },
+      "gajanan.barde@fdcindia.com": { name: "Gajanan Barde", hostId: "A-MKT-067", group: "Marketing" },
+      "jyoti.barde@fdcindia.com": { name: "Jyoti Barde", hostId: "A-MKT-068", group: "Marketing" },
+      "kunal.vishnuwardhan@fdcindia.com": { name: "Kunal Vishnuwardhan", hostId: "J-MKT-040", group: "Marketing" },
+      "mandar.bivalkar@fdcindia.com": { name: "Mandar Bivaikar", hostId: "J-MKT-047", group: "Marketing" },
+      "mandar.rane@fdcindia.com": { name: "Mandar Rame", hostId: "J-MKT-009", group: "Marketing" },
+      "megha.menon@fdcindia.com": { name: "Megha Menon", hostId: "J-MKT-013", group: "Marketing" },
+      "meghavi.gandhi@fdcindia.com": { name: "Meghavi Gandhi", hostId: "J-MKT-014", group: "Marketing" },
+      "nidhi.mishra@fdcindia.com": { name: "Nidhi Mishra", hostId: "J-MKT-031", group: "Marketing" },
+      "nilam.bhor@fdcindia.com": { name: "Nilam Bhor", hostId: "A-MKT-027", group: "Marketing" },
+      "nkifer.bothera@fdcindia.com": { name: "Nkifer Bothera", hostId: "J-MKT-005", group: "Marketing" },
+      "pooja.gupta@fdcindia.com": { name: "Pooja Gupta", hostId: "J-MKT-008", group: "Marketing" },
+      "pramod.ghaytidak@fdcindia.com": { name: "Pramod Ghaytdak", hostId: "J-MKT-035", group: "Marketing" },
+      "priya.khodape@fdcindia.com": { name: "Priya Khodape", hostId: "J-MKT-066", group: "Marketing" },
+      "ravindra.upadhyay@fdcindia.com": { name: "Ravindra Upadhyay", hostId: "A-MKT-043", group: "Marketing" },
+      "rupesh.kumar@fdcindia.com": { name: "Rupesh Kumar", hostId: "J-MKT-018", group: "Marketing" },
+      "sachin.sakunde@fdcindia.com": { name: "Sachin Sakunde", hostId: "J-MKT-007", group: "Marketing" },
+      "satish.kamble@fdcindia.com": { name: "Satish Kamble", hostId: "J-MKT-036", group: "Marketing" },
+      "sandeep.arora@fdcindia.com": { name: "Sandeep Arora", hostId: "J-MKT-022", group: "Marketing" },
+      "santosh.ranade@fdcindia.com": { name: "Santosh Ranade", hostId: "J-MKT-060", group: "Marketing" },
+      "sapika.pujari@fdcindia.com": { name: "Sapika Pujari", hostId: "J-MKT-028", group: "Marketing" },
+      "shoaib.khan@fdcindia.com": { name: "Shoaib Khan", hostId: "A-MKT-033", group: "Marketing" },
+      "shrikant.bochare@fdcindia.com": { name: "Shrikant Bochare", hostId: "J-MKT-006", group: "Marketing" },
+      "sudarshan.337@fdcindia.com": { name: "Sudarsahn @337", hostId: "J-MKT-026", group: "Marketing" },
+      "supriya.naik@fdcindia.com": { name: "Supriya Naik@155", hostId: "A-MKT-002", group: "Marketing" },
+      "sushant.naik@fdcindia.com": { name: "Sushant Naik", hostId: "J-MKT-039", group: "Marketing" },
+      "vaibhav.mantra@fdcindia.com": { name: "Vaibhav Mantra", hostId: "A-MKT-004", group: "Marketing" },
+      "vidya.pawar@fdcindia.com": { name: "Vidya Pawar", hostId: "J-MKT-003", group: "Marketing" },
+      "vijay.gupta@fdcindia.com": { name: "Vijay Gupta", hostId: "A-MKT-054", group: "Marketing" },
+      "vijesh.pai@fdcindia.com": { name: "Vijesh Pai", hostId: "J-MKT-034", group: "Marketing" },
+      "vishakha.ghadigaonkar@fdcindia.com": { name: "Vishakha Ghadigaonkar", hostId: "J-MKT-063", group: "Marketing" },
+      "nehali.monde@fdcindia.com": { name: "Nehal Monde", hostId: "A-PAC-011", group: "PACKAGING" },
+      "nikee.belekar@fdcindia.com": { name: "Nikee Belekar", hostId: "J-PAC-002", group: "PACKAGING" },
+      "nitin.more@fdcindia.com": { name: "Nitin More", hostId: "A-PAC-005", group: "PACKAGING" },
+      "roshan.naik@fdcindia.com": { name: "Roshan Naik", hostId: "A-PAC-004", group: "PACKAGING" },
+      "roshani.saalim@fdcindia.com": { name: "Roshani Saalim", hostId: "A-PAC-015", group: "PACKAGING" },
+      "satap.sanap@fdcindia.com": { name: "Satap Sanap", hostId: "J-PAC-014", group: "PACKAGING" },
+      "santosh.shinde@fdcindia.com": { name: "Santosh Shinde", hostId: "J-PAC-007", group: "PACKAGING" },
+      "shailesh.jadhay@fdcindia.com": { name: "Shailesh Jadhay", hostId: "J-PAC-009", group: "PACKAGING" },
+      "tejal.mohite@fdcindia.com": { name: "Tejal Mohite", hostId: "J-PAC-010", group: "PACKAGING" },
+      "tripti.nakahre@fdcindia.com": { name: "Tripti Nakahre", hostId: "J-PAC-001", group: "PACKAGING" },
+      "vipin.gharge@fdcindia.com": { name: "Vipin Gharge", hostId: "J-PAC-006", group: "PACKAGING" },
+      "anj.sawant@fdcindia.com": { name: "Anj Sawant", hostId: "J-PAC-008", group: "Packaging" },
+      "aman.chaturvedi@fdcindia.com": { name: "Aman Chaturvedi", hostId: "J-PLA-014", group: "PLANNING" },
+      "amolb.shelar@fdcindia.com": { name: "Amol Shelar", hostId: "A-PLA-005", group: "PLANNING" },
+      "anildarekar@fdcindia.com": { name: "Anil Darekar", hostId: "J-PLA-006", group: "PLANNING" },
+      "kishor.mhatre@fdcindia.com": { name: "Kishor Mhatre", hostId: "J-PLA-004", group: "PLANNING" },
+      "mangesh.karanjekar@fdcindia.com": { name: "Mangesh Karanjekar", hostId: "J-PLA-001", group: "PLANNING" },
+      "shashank.wapan@fdcindia.com": { name: "Shashank Wapan", hostId: "J-PLA-010", group: "PLANNING" },
+      "siddhesh.patil@fdcindia.com": { name: "Siddhesh Patil", hostId: "A-PLA-015", group: "PLANNING" },
+      "vijay.wagh@fdcindia.com": { name: "Vijay Wagh", hostId: "J-PLA-007", group: "PLANNING" },
+      "amiket.dooarklr@fdcindia.com": { name: "Amiket Dooarklr", hostId: "J-PUR-011", group: "PURCHASE" },
+      "avinash.bhute@fdcindia.com": { name: "Avinash Bhute", hostId: "J-PUR-001", group: "PURCHASE" },
+      "bhavuk.chaudhari@fdcindia.com": { name: "Bhavuk Chaudhari", hostId: "J-PUR-022", group: "PURCHASE" },
+      "dhiraj.patil@fdcindia.com": { name: "Dhiraj Patil", hostId: "A-PUR-014", group: "PURCHASE" },
+      "mangesh.mane@fdcindia.com": { name: "Mangesh Mane", hostId: "J-PUR-015", group: "PURCHASE" },
+      "nilesh.patil@fdcindia.com": { name: "Nilesh Patil", hostId: "J-PUR-008", group: "PURCHASE" },
+      "nikesh.barot@fdcindia.com": { name: "Nikesh Barot", hostId: "J-PUR-004", group: "PURCHASE" },
+      "prashant.dalvi@fdcindia.com": { name: "Prashant Dalvi", hostId: "J-PUR-018", group: "PURCHASE" },
+      "sandeep.naik@fdcindia.com": { name: "Sandeep Naik", hostId: "J-PUR-005", group: "PURCHASE" },
+      "sanjay.sawant@fdcindia.com": { name: "Sanjay Sawant", hostId: "J-PUR-019", group: "PURCHASE" },
+      "tejal.mayekar@fdcindia.com": { name: "Tejal Mayekar", hostId: "J-PUR-002", group: "PURCHASE" },
+      "ronak.barot@fdcindia.com": { name: "Ronak Barot", hostId: "J-PP-001", group: "Product Portfolio" },
+      "deepak.dhodade@fdcindia.com": { name: "Deepak Dhoade LP", hostId: "J-FDS-001", group: "R&D foods" },
+      "gopal.mule@fdcindia.com": { name: "Gopal Mule", hostId: "A-FDS-005", group: "R&D foods" },
+      "sumit.somner@fdcindia.com": { name: "Sumit Somner@307", hostId: "J-FDS-003", group: "R&D foods" },
+      "dnyaneshwar.k@fdcindia.com": { name: "Dnyaneshwar K", hostId: "J-RDF-023", group: "RDF" },
+      "kalpesh.patil@fdcindia.com": { name: "KALPESH PATIL", hostId: "J-RDF-025", group: "RDF" },
+      "umesh.gound@fdcindia.com": { name: "Umesh Gound", hostId: "J-RDF-037", group: "RDF" },
+      "aniket.pacharne@fdcindia.com": { name: "Aniket Pacharne", hostId: "A-RA-024", group: "Regulatory Affairs" },
+      "ashwini.meher@fdcindia.com": { name: "Ashwini Meher", hostId: "J-RA-017", group: "Regulatory Affairs" },
+      "avani.sondagar@fdcindia.com": { name: "Avani Sondagar", hostId: "J-RA-004", group: "Regulatory Affairs" },
+      "bhagyashree.patil@fdcindia.com": { name: "Bhagyashree Patil", hostId: "J-RA-010", group: "Regulatory Affairs" },
+      "edyce.l@fdcindia.com": { name: "Edyce L", hostId: "J-RA-025", group: "Regulatory Affairs" },
+      "hansa.chaudhary@fdcindia.com": { name: "Hansa Chaudhary", hostId: "J-RA-020", group: "Regulatory Affairs" },
+      "mansi.hapaliya@fdcindia.com": { name: "Mansi Hapaliya", hostId: "A-RA-014", group: "Regulatory Affairs" },
+      "mitali.naik@fdcindia.com": { name: "Mitali Naik", hostId: "A-RA-007", group: "Regulatory Affairs" },
+      "neetu.sharma@fdcindia.com": { name: "Neetu Sharma", hostId: "J-RA-016", group: "Regulatory Affairs" },
+      "poonam.shende@fdcindia.com": { name: "Poonam Shende", hostId: "J-RA-002", group: "Regulatory Affairs" },
+      "prasanna.angane@fdcindia.com": { name: "Prasanna Angane", hostId: "J-RA-019", group: "Regulatory Affairs" },
+      "pritam.debnath@fdcindia.com": { name: "Pritam Debnath", hostId: "J-RA-009", group: "Regulatory Affairs" },
+      "pushkar.gupta@fdcindia.com": { name: "Pushkar Gupta@144", hostId: "J-RA-015", group: "Regulatory Affairs" },
+      "rahul.patil@fdcindia.com": { name: "Rahul Patil", hostId: "A-RA-006", group: "Regulatory Affairs" },
+      "rajesh.bhapkar@fdcindia.com": { name: "Rajesh Bhapkar", hostId: "J-RA-001", group: "Regulatory Affairs" },
+      "riska.borate@fdcindia.com": { name: "Riska Borate", hostId: "J-RA-008", group: "Regulatory Affairs" },
+      "shital.kadam@fdcindia.com": { name: "Shital Kadam", hostId: "A-RA-018", group: "Regulatory Affairs" },
+      "shruti.sawant@fdcindia.com": { name: "Shruti Sawant", hostId: "J-RA-005", group: "Regulatory Affairs" },
+      "sonali.sawant@fdcindia.com": { name: "Sonali Sawant", hostId: "J-RA-023", group: "Regulatory Affairs" },
+      "subodh.singh@fdcindia.com": { name: "Subodh Singh", hostId: "A-MKT-051", group: "Regulatory Affairs" },
+      "vishal.bodke@fdcindia.com": { name: "Vishal Bodke", hostId: "J-RA-011", group: "Regulatory Affairs" },
+      "dinesh.chodankar@fdcindia.com": { name: "Dinesh Chodankar", hostId: "J-SFE-005", group: "SFE" },
+      "niketan.ghadi@fdcindia.com": { name: "Niketan Ghadi", hostId: "J-SFE-004", group: "SFE" },
+      "raghunath.pednekar@fdcindia.com": { name: "Raghunath Pednekar", hostId: "J-SFE-003", group: "SFE" },
+      "sachin.alhat@fdcindia.com": { name: "Sachin Alhat", hostId: "J-SFE-007", group: "SFE" },
+      "shashank.more@fdcindia.com": { name: "Shashank More", hostId: "A-SFE-002", group: "SFE" },
+      "tanvi.yerunkar@fdcindia.com": { name: "Tanvi Yerunkar", hostId: "J-SFE-006", group: "SFE" },
+      "ashwin.shah@fdcindia.com": { name: "Aashwin Shah", hostId: "A-STG-002", group: "STG" },
+      "harshal.jain@fdcindia.com": { name: "Harshal Jain", hostId: "J-STG-003", group: "STG" },
+      "jitendra.srivastava@fdcindia.com": { name: "Jitendra Srivastava", hostId: "A-STG-004", group: "STG" },
+      "kiran.hode@fdcindia.com": { name: "kiran Hode", hostId: "J-STG-001", group: "STG" }
     };
 
     let currentQuestionIndex = 0;
@@ -1106,46 +1262,54 @@
 
     function startQuiz(event) {
       event.preventDefault();
-      employeeName = document.getElementById('employeeName').value.trim();
-      employeeGroup = document.getElementById('employeeGroup').value;
+      const employeeEmail = document.getElementById('employeeEmail').value.trim().toLowerCase();
       employeeId = document.getElementById('employeeId').value.trim();
       
       // Verify employee data
       const verificationMessage = document.getElementById('verificationMessage');
       
-      if (!employeeDatabase[employeeName]) {
+      console.log("Checking email:", employeeEmail);
+      console.log("Checking hostId:", employeeId);
+      console.log("Database keys sample:", Object.keys(employeeDatabase).slice(0, 5));
+      
+      if (!employeeDatabase[employeeEmail]) {
         verificationMessage.style.display = 'block';
         verificationMessage.style.background = '#ffebee';
         verificationMessage.style.color = '#c62828';
         verificationMessage.style.border = '1px solid #ef5350';
-        verificationMessage.innerHTML = '<strong>❌ Employee Not Found:</strong> The name you entered is not in our database. Please check and try again.';
+        verificationMessage.innerHTML = '<strong>❌ Email Not Found:</strong> The email address you entered is not in our database. Please check and try again.';
         return;
       }
       
-      const employeeData = employeeDatabase[employeeName];
-      
-      if (employeeData.group !== employeeGroup) {
-        verificationMessage.style.display = 'block';
-        verificationMessage.style.background = '#ffebee';
-        verificationMessage.style.color = '#c62828';
-        verificationMessage.style.border = '1px solid #ef5350';
-        verificationMessage.innerHTML = `<strong>❌ Group Mismatch:</strong> The group you selected (${employeeGroup}) does not match our records (${employeeData.group}). Please select the correct group.`;
-        return;
-      }
+      const employeeData = employeeDatabase[employeeEmail];
+      console.log("Employee data found:", employeeData);
       
       if (employeeData.hostId !== employeeId) {
         verificationMessage.style.display = 'block';
         verificationMessage.style.background = '#ffebee';
         verificationMessage.style.color = '#c62828';
         verificationMessage.style.border = '1px solid #ef5350';
-        verificationMessage.innerHTML = `<strong>❌ Host ID Mismatch:</strong> The Host ID you entered (${employeeId}) does not match our records (${employeeData.hostId}). Please check your Host ID.`;
+        verificationMessage.innerHTML = `❌ Host ID Mismatch: The Host ID you entered does not match the Email ID you entered. Please check your Host ID again.`;
         return;
       }
       
-      // All verifications passed
+      // All verifications passed - store employee name for later use
+      employeeName = employeeData.name;
+      employeeGroup = employeeData.group;
+      
+      console.log("Verification passed! Employee:", employeeName);
+      
       verificationMessage.style.display = 'none';
-      document.getElementById('employeeForm').style.display = 'none';
-      document.getElementById('quizWrapper').style.display = 'flex';
+      const employeeForm = document.getElementById('employeeForm');
+      const quizWrapper = document.getElementById('quizWrapper');
+      
+      if (employeeForm) {
+        employeeForm.style.display = 'none';
+      }
+      
+      if (quizWrapper) {
+        quizWrapper.style.display = 'flex';
+      }
       
       // Disable home icon during quiz
       const homeIcon = document.getElementById('homeIcon');
@@ -1170,7 +1334,11 @@
       
       const guidelinesHTML = `
         <div class="quiz-container" style="max-width: 900px; margin: 4rem auto; animation: fadeIn 1s ease;">
-          <h1>📋 Quiz Guidelines & Rules</h1>
+          <h1>Quiz Guidelines & Rules</h1>
+          <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
+            <div style="color: #2e7d32; font-weight: 600; font-size: 1.1rem;">Welcome, ${employeeName}!</div>
+            <div style="color: #388e3c; font-size: 0.95rem; margin-top: 0.5rem;">Your email ID, Host ID and employee information have been verified successfully. You can now proceed with the quiz.</div>
+          </div>
           <div style="background: #fff3cd; border-left: 4px solid #ff9800; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
             <div style="color: #856404; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem;">⚠️ Important: Read Carefully</div>
             <div style="color: #856404; font-size: 0.95rem; line-height: 1.6;">This is a proctored quiz. You must follow all guidelines and rules. Violations may result in automatic quiz submission and failure.</div>
@@ -1855,7 +2023,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <div style="font-weight: 600; color: #2e7d32; font-size: 1.1rem;">Review Before Submitting</div>
             </div>
-            <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Please review your answers before final submission. You cannot change your answers after submitting.</div>
+            <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Please scroll down and review your answers before final submission. You cannot change your answers after submitting.</div>
           </div>
           <div style="flex: 1; overflow-y: auto; padding-right: 0.5rem;">
       `;
@@ -2579,3 +2747,4 @@
   </script>
 </body>
 </html>
+
