@@ -16,8 +16,10 @@
     html, body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
-      color: #222;
+      color: #333;
       overflow-x: hidden;
+      font-weight: 500;
+      letter-spacing: 0.3px;
     }
 
     /* Navigation Bar */
@@ -66,7 +68,7 @@
       border: none;
       padding: 0.7rem 1.5rem;
       border-radius: 8px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -130,10 +132,18 @@
       height: 90px;
       z-index: 1001;
       opacity: 1;
-      pointer-events: none;
+      pointer-events: auto;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+    }
+
+    .fdc-logo-nav:hover {
+      transform: scale(1.05);
     }
 
     .fdc-logo-svg {
@@ -272,6 +282,7 @@
       margin-bottom: 1rem;
       line-height: 1.2;
       animation: fadeInDown 0.8s ease 0.2s both;
+      letter-spacing: -0.8px;
     }
 
     @keyframes fadeInDown {
@@ -332,7 +343,7 @@
       border: 2px solid #2e7d32;
       padding: 1rem 2rem;
       border-radius: 10px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -382,19 +393,30 @@
       font-size: 0.85rem;
       color: #666;
       font-weight: 500;
-      margin-top: 2rem;
+      margin-top: 3.5rem;
+      display: block;
     }
 
     .made-by-inline a {
       color: #2e7d32;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       transition: all 0.3s ease;
+      white-space: nowrap;
     }
 
     .made-by-inline a:hover {
       color: #1b4620;
       text-decoration: underline;
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #2e7d32;
+      font-weight: 600;
+      margin-top: 1rem;
+      white-space: nowrap;
     }
 
     /* Secondary Options */
@@ -412,7 +434,7 @@
       border: 1px solid rgba(46, 125, 50, 0.3);
       padding: 0.75rem 1.5rem;
       border-radius: 8px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-size: 0.95rem;
@@ -674,7 +696,6 @@
     <div class="nav-container">
       <div class="logo" onclick="window.location.href='index.html'">
         <i class="fas fa-shield-alt"></i>
-        <span>SecureAware</span>
       </div>
       <button class="admin-btn" onclick="window.location.href='admin.html'">
         <i class="fas fa-lock"></i> Admin Dashboard
@@ -683,7 +704,7 @@
   </nav>
 
   <!-- FDC Logo in Navbar -->
-  <div class="fdc-logo-nav">
+  <a href="https://www.fdcindia.com/" target="_blank" class="fdc-logo-nav" title="Visit FDC India">
     <svg class="fdc-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="gradientFDC" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -694,13 +715,16 @@
       <ellipse cx="100" cy="60" rx="85" ry="35" fill="none" stroke="url(#gradientFDC)" stroke-width="4"/>
       <text x="100" y="75" font-size="50" font-weight="bold" fill="url(#gradientFDC)" text-anchor="middle" font-family="Arial">FDC</text>
     </svg>
-  </div>
+  </a>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-background"></div>
     
     <div class="hero-content">
+      <!-- Hero Text -->
+      <h1>Phishing Awareness Portal</h1>
+      
       <!-- Animation Container -->
       <div class="animation-container">
         <!-- Floating Icons -->
@@ -725,9 +749,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Hero Text -->
-      <h1>Phishing Awareness Portal</h1>
       <p class="subtitle">Stay Safe from Phishing Attacks</p>
       <p class="description">
         Interactive training platform designed to help you identify, understand, and protect against phishing threats. 
@@ -736,17 +757,15 @@
 
       <!-- Buttons -->
       <div class="buttons-container">
-        <button class="video-btn" onclick="openVideoModal()">
-          <i class="fas fa-play-circle"></i> Watch Awareness Video
-        </button>
         <button class="quiz-cta-btn" onclick="window.location.href='quiz.html'">
-          <i class="fas fa-graduation-cap"></i> Attempt Quiz Now
+          Attempt Quiz Now
         </button>
       </div>
 
       <!-- Made By -->
       <div class="made-by-inline">
         Made by <a href="http://www.linkedin.com/in/atharva-more-8118b6283" target="_blank">Atharva More</a>
+        <div class="copyright">Copyright © 2025 FDC | All Rights Reserved.</div>
       </div>
 
       <!-- Secondary Options -->
