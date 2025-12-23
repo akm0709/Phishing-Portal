@@ -16,36 +16,220 @@
       padding: 0;
       background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: #222;
+      color: #333;
       overflow-x: hidden;
+      position: relative;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 1px 1px, rgba(46, 125, 50, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    /* Floating Security Shapes Container */
+    .bg-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .floating-shape {
+      position: absolute;
+      opacity: 0.15;
+      filter: drop-shadow(0 2px 4px rgba(46, 125, 50, 0.1));
+    }
+
+    .shape-1 {
+      width: 120px;
+      height: 120px;
+      top: 10%;
+      left: 5%;
+      animation: float-shape-1 20s ease-in-out infinite;
+    }
+
+    .shape-2 {
+      width: 100px;
+      height: 100px;
+      top: 20%;
+      right: 10%;
+      animation: float-shape-2 25s ease-in-out infinite;
+    }
+
+    .shape-3 {
+      width: 80px;
+      height: 80px;
+      top: 50%;
+      left: 15%;
+      animation: float-shape-3 18s ease-in-out infinite;
+    }
+
+    .shape-4 {
+      width: 110px;
+      height: 110px;
+      bottom: 15%;
+      right: 8%;
+      animation: float-shape-4 22s ease-in-out infinite;
+    }
+
+    .shape-5 {
+      width: 90px;
+      height: 90px;
+      top: 60%;
+      right: 25%;
+      animation: float-shape-5 24s ease-in-out infinite;
+    }
+
+    .shape-6 {
+      width: 70px;
+      height: 70px;
+      bottom: 30%;
+      left: 50%;
+      animation: float-shape-6 19s ease-in-out infinite;
+    }
+
+    .shape-7 {
+      width: 95px;
+      height: 95px;
+      top: 30%;
+      left: 60%;
+      animation: float-shape-7 23s ease-in-out infinite;
+    }
+
+    .shape-8 {
+      width: 85px;
+      height: 85px;
+      bottom: 10%;
+      left: 30%;
+      animation: float-shape-8 21s ease-in-out infinite;
+    }
+
+    @keyframes float-shape-1 {
+      0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+      25% { transform: translateX(30px) translateY(-30px) rotate(90deg); }
+      50% { transform: translateX(0px) translateY(-60px) rotate(180deg); }
+      75% { transform: translateX(-30px) translateY(-30px) rotate(270deg); }
+    }
+
+    @keyframes float-shape-2 {
+      0%, 100% { transform: translateX(0px) translateY(0px) scale(1); }
+      25% { transform: translateX(-40px) translateY(-40px) scale(1.1); }
+      50% { transform: translateX(0px) translateY(-80px) scale(1); }
+      75% { transform: translateX(40px) translateY(-40px) scale(1.1); }
+    }
+
+    @keyframes float-shape-3 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-50px) rotate(120deg); }
+      66% { transform: translateY(-100px) rotate(240deg); }
+    }
+
+    @keyframes float-shape-4 {
+      0%, 100% { transform: translateX(0px) translateY(0px); }
+      50% { transform: translateX(-60px) translateY(-60px); }
+    }
+
+    @keyframes float-shape-5 {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-80px) scale(1.15); }
+    }
+
+    @keyframes float-shape-6 {
+      0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+      50% { transform: translateX(70px) translateY(-70px) rotate(180deg); }
+    }
+
+    @keyframes float-shape-7 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-40px) rotate(120deg); }
+      66% { transform: translateY(-80px) rotate(240deg); }
+    }
+
+    @keyframes float-shape-8 {
+      0%, 100% { transform: translateX(0px) translateY(0px) scale(1); }
+      25% { transform: translateX(50px) translateY(-50px) scale(0.9); }
+      50% { transform: translateX(0px) translateY(-100px) scale(1); }
+      75% { transform: translateX(-50px) translateY(-50px) scale(0.9); }
+    }
+
+    @media (max-width: 768px) {
+      .floating-shape {
+        opacity: 0.08;
+      }
+
+      .shape-1 { width: 80px; height: 80px; }
+      .shape-2 { width: 70px; height: 70px; }
+      .shape-3 { width: 60px; height: 60px; }
+      .shape-4 { width: 75px; height: 75px; }
+      .shape-5 { width: 65px; height: 65px; }
+      .shape-6 { width: 55px; height: 55px; }
+      .shape-7 { width: 70px; height: 70px; }
+      .shape-8 { width: 60px; height: 60px; }
     }
 
     .home-icon {
       position: fixed;
-      top: 1.5rem;
-      left: 1.5rem;
-      width: 3rem;
-      height: 3rem;
-      background: #2e7d32;
+      top: 1.8rem;
+      left: 2rem;
+      width: 3.2rem;
+      height: 3.2rem;
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
       color: #fff;
-      border: 2px solid #2e7d32;
+      border: 2px solid #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
+      line-height: 1;
       cursor: pointer;
       transition: all 0.3s ease;
-      z-index: 1000;
+      z-index: 1001;
       text-decoration: none;
-      box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+      box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    }
+
+    .home-icon i {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      margin-top: 0.15rem;
     }
 
     .home-icon:hover {
       background: #fff;
       color: #2e7d32;
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+      transform: scale(1.12) translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+      border-color: #2e7d32;
     }
 
     .home-icon.disabled {
@@ -70,10 +254,10 @@
     /* Employee Form Styles */
     .quiz-container {
       max-width: 520px;
-      margin: 10rem auto 4rem auto;
+      margin: 5.5rem auto 4rem auto;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(10px);
-      padding: 2.5rem;
+      padding: 1.5rem;
       border-radius: 12px;
       border: 2px solid #2e7d32;
       box-shadow: 0 8px 32px rgba(46, 125, 50, 0.2);
@@ -159,6 +343,64 @@
       animation: fadeInUp 0.6s ease 0.6s both;
     }
 
+    .back-home-btn-quiz {
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.6);
+      color: #2e7d32;
+      border: 1px solid rgba(46, 125, 50, 0.3);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin-top: 2rem;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      letter-spacing: 0.2px;
+    }
+
+    .back-home-btn-quiz:hover {
+      background: rgba(46, 125, 50, 0.1);
+      border-color: #2e7d32;
+      transform: translateY(-2px);
+    }
+
+    /* Guidelines Card System */
+    .guidelines-card {
+      border-left: 5px solid #2e7d32;
+      background: #ffffff;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    .guidelines-card:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    /* Copyright Footer */
+    .copyright-footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #2e7d32;
+      font-weight: 600;
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #2e7d32;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -180,10 +422,24 @@
       height: 90px;
       z-index: 1001;
       opacity: 1;
-      pointer-events: none;
+      pointer-events: auto;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+    }
+
+    .fdc-logo-nav:hover {
+      transform: scale(1.05);
+    }
+
+    .fdc-logo-nav.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
     }
 
     .fdc-logo-svg {
@@ -200,10 +456,11 @@
       border: 2px solid #2e7d32 !important;
       border-radius: 8px !important;
       font-size: 1rem !important;
+      font-weight: 500 !important;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       transition: all 0.3s ease !important;
       background: rgba(255, 255, 255, 0.8) !important;
-      color: #222 !important;
+      color: #333 !important;
     }
 
     .quiz-container input[type="email"]:focus,
@@ -227,7 +484,7 @@
       width: 100% !important;
       padding: 0.9rem !important;
       border-radius: 8px !important;
-      font-weight: 600 !important;
+      font-weight: 700 !important;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       font-size: 1rem !important;
       cursor: pointer !important;
@@ -269,8 +526,9 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin-bottom: 2rem;
       text-shadow: none;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 2rem;
+      letter-spacing: -0.5px;
     }
 
     /* Split Screen Layout */
@@ -319,7 +577,7 @@
     .progress-info {
       font-size: 0.95rem;
       color: #222;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .timer {
@@ -354,7 +612,7 @@
     .question-text {
       font-size: 1.1rem;
       color: #222;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 1rem;
       line-height: 1.6;
       flex-shrink: 0;
@@ -411,7 +669,7 @@
     .options label.selected {
       background: #e8f5e9;
       border-color: #2e7d32;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .control-buttons {
@@ -431,7 +689,7 @@
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.3s ease;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
     }
 
@@ -493,7 +751,7 @@
       margin-top: 0.4rem;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       transition: all 0.3s ease;
       flex-shrink: 0;
       font-size: 0.85rem;
@@ -512,7 +770,7 @@
       margin-bottom: 0.6rem;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       transition: all 0.3s ease;
       flex-shrink: 0;
       font-size: 0.9rem;
@@ -560,7 +818,7 @@
       color: #222;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.75rem;
       transition: all 0.3s ease;
       display: flex;
@@ -641,7 +899,7 @@
       font-size: 0.9rem;
       color: #666;
       margin-bottom: 0.5rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .stat-value {
@@ -727,6 +985,55 @@
       to { opacity: 1; }
     }
 
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    /* Loading Spinner Animation */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
+      animation: fadeIn 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .loading-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px solid rgba(255, 255, 255, 0.2);
+      border-top: 8px solid #4caf50;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .loading-text {
+      position: fixed;
+      top: 55%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      z-index: 5001;
+    }
+
     /* Responsive Design */
     @media (max-width: 1024px) {
       .split-screen-wrapper {
@@ -777,8 +1084,54 @@
   </style>
 </head>
 <body>
+  <!-- Floating Security Shapes Background -->
+  <div class="bg-shapes">
+    <!-- Lock Icon -->
+    <svg class="floating-shape shape-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+    
+    <!-- Shield Icon -->
+    <svg class="floating-shape shape-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </svg>
+
+    <!-- Hexagon Pattern -->
+    <svg class="floating-shape shape-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M21 16.04c0 .537-.292 1.034-.761 1.3l-5.646 3.686a2.25 2.25 0 0 1-2.386 0L6.76 17.34A2.25 2.25 0 0 1 6 16.04V7.96c0-.537.292-1.034.761-1.3l5.646-3.686a2.25 2.25 0 0 1 2.386 0l5.646 3.686c.469.266.761.763.761 1.3v8.08z"></path>
+    </svg>
+
+    <!-- Lock Icon (Different shade) -->
+    <svg class="floating-shape shape-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+
+    <!-- Shield Icon (Different shade) -->
+    <svg class="floating-shape shape-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </svg>
+
+    <!-- Hexagon Pattern (Different shade) -->
+    <svg class="floating-shape shape-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M21 16.04c0 .537-.292 1.034-.761 1.3l-5.646 3.686a2.25 2.25 0 0 1-2.386 0L6.76 17.34A2.25 2.25 0 0 1 6 16.04V7.96c0-.537.292-1.034.761-1.3l5.646-3.686a2.25 2.25 0 0 1 2.386 0l5.646 3.686c.469.266.761.763.761 1.3v8.08z"></path>
+    </svg>
+
+    <!-- Lock Icon (Small) -->
+    <svg class="floating-shape shape-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+
+    <!-- Shield Icon (Small) -->
+    <svg class="floating-shape shape-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </svg>
+  </div>
+
   <!-- FDC Logo in Navbar -->
-  <div class="fdc-logo-nav">
+  <a href="https://www.fdcindia.com/" target="_blank" class="fdc-logo-nav" id="fdcLogoLink" title="Visit FDC India">
     <svg class="fdc-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="gradientFDC" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -789,7 +1142,7 @@
       <ellipse cx="100" cy="60" rx="85" ry="35" fill="none" stroke="url(#gradientFDC)" stroke-width="4"/>
       <text x="100" y="75" font-size="50" font-weight="bold" fill="url(#gradientFDC)" text-anchor="middle" font-family="Arial">FDC</text>
     </svg>
-  </div>
+  </a>
 
   <a href="index.html" class="home-icon" id="homeIcon" title="Back to Home">
     <i class="fas fa-home"></i>
@@ -799,20 +1152,24 @@
 
   <!-- Employee Information Form -->
   <div class="quiz-container" id="employeeForm">
-    <h1>Employee Information</h1>
+    <h1>Employee Login</h1>
     <form onsubmit="startQuiz(event)" id="empForm">
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Employee Email ID (FDC)</label>
+      <div style="margin-bottom: 0.8rem;">
+        <label style="display: block; margin-bottom: 0.4rem; color: #2e7d32; font-weight: 700;">Employee Email ID (FDC)</label>
         <input type="email" id="employeeEmail" placeholder="yourname@fdcindia.com" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
       </div>
-      <div style="margin-bottom: 1.5rem;">
-        <label style="display: block; margin-bottom: 0.5rem; color: #2e7d32; font-weight: 600;">Host ID (refer IPMsg)</label>
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; margin-bottom: 0.4rem; color: #2e7d32; font-weight: 700;">Host ID (refer IPMsg)</label>
         <input type="text" id="employeeId" placeholder="Enter your Host ID (e.g., J-IT-003)" required style="width: 100%; padding: 0.8rem; border: 1px solid #2e7d32; border-radius: 6px; font-size: 1rem; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
       </div>
       <div id="verificationMessage" style="margin-bottom: 1rem; padding: 0.8rem; border-radius: 6px; display: none;"></div>
-      <button type="submit" style="width: 100%; padding: 0.8rem; background: #2e7d32; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Start Quiz</button>
-      <button type="button" onclick="goBack()" style="width: 100%; margin-top: 0.5rem; padding: 0.8rem; background: transparent; color: #2e7d32; border: 2px solid #2e7d32; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Back to Home</button>
+      <button type="submit" style="width: 100%; padding: 0.8rem; background: #2e7d32; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Start Quiz</button>
+      <a href="index.html" class="back-home-btn-quiz">Back to Home</a>
     </form>
+    <!-- Copyright Footer -->
+    <div class="copyright-footer" id="copyrightFooter">
+      Copyright © 2025 FDC | All Rights Reserved.
+    </div>
   </div>
 
   <!-- Split Screen Quiz Interface -->
@@ -854,108 +1211,40 @@
   </div>
 
   <script>
-    const questions = [
-      {
-        q: "You receive an email from your bank asking to confirm your login info via a link. What do you do?",
-        options: [
-          "Click the link and enter info",
-          "Ignore it",
-          "Contact bank using official site",
-          "Forward it to a friend"
-        ],
-        answer: 2
-      },
-      {
-        q: "Which of these is a common sign of a phishing attempt?",
-        options: [
-          "Personalized greeting",
-          "Unusual sender address",
-          "Secure https link",
-          "Familiar company logo"
-        ],
-        answer: 1
-      },
-      {
-        q: "What is the safest way to verify a suspicious link?",
-        options: [
-          "Click it and see",
-          "Check hover preview",
-          "Ask in comments",
-          "Guess based on URL"
-        ],
-        answer: 1
-      },
-      {
-        q: "You get a message saying you won a prize and need to pay a fee to claim it. What's the best action?",
-        options: [
-          "Pay quickly",
-          "Reply with details",
-          "Ignore or report it",
-          "Try it for fun"
-        ],
-        answer: 2
-      },
-      {
-        q: "Which of the following is NOT recommended to prevent phishing?",
-        options: [
-          "Use multi-factor authentication",
-          "Ignore security updates",
-          "Verify URLs",
-          "Check email sender"
-        ],
-        answer: 1
-      },
-      {
-        q: "Why is it risky to reuse the same password?",
-        options: [
-          "Slower typing",
-          "Harder to remember",
-          "One breach = all accounts compromised",
-          "Sites require changes"
-        ],
-        answer: 2
-      },
-      {
-        q: "What should you do if you clicked a phishing link by mistake?",
-        options: [
-          "Nothing, it's fine",
-          "Tell friends",
-          "Change passwords, scan device",
-          "Buy antivirus"
-        ],
-        answer: 2
-      },
-      {
-        q: "An email urges urgent action and threatens account closure. You should:",
-        options: [
-          "Panic and act",
-          "Click fast",
-          "Verify via official contact",
-          "Reply to email"
-        ],
-        answer: 2
-      },
-      {
-        q: "Which type of file is MOST likely to carry phishing malware?",
-        options: [
-          ".jpg",
-          ".docx",
-          ".mp3",
-          ".txt"
-        ],
-        answer: 1
-      },
-      {
-        q: "What's the best defense against phishing?",
-        options: [
-          "Being skeptical and aware",
-          "Fast clicking",
-          "Trusting everyone",
-          "Avoiding the internet"
-        ],
-        answer: 0
+    // Default questions (fallback if not modified by admin)
+    const DEFAULT_QUIZ_QUESTIONS = [];
+
+    // Load and merge all questions (default + custom)
+    function initializeAllQuestions() {
+      // Load only custom questions (ignore default questions)
+      let customQuestions = [];
+      const storedCustom = localStorage.getItem('customQuestions');
+      if (storedCustom) {
+        try {
+          customQuestions = JSON.parse(storedCustom);
+          console.log("Loaded custom questions from localStorage:", customQuestions.length, "questions");
+        } catch (e) {
+          console.warn("Error parsing custom questions", e);
+        }
       }
-    ];
+
+      // Remove duplicates by question ID
+      const uniqueMap = new Map();
+      customQuestions.forEach(q => {
+        if (!uniqueMap.has(q.id)) {
+          uniqueMap.set(q.id, q);
+        }
+      });
+      customQuestions = Array.from(uniqueMap.values());
+      console.log("After deduplication:", customQuestions.length, "unique questions");
+
+      // Return all custom questions (no limit)
+      console.log("Total questions initialized:", customQuestions.length);
+      return customQuestions;
+    }
+
+    // Initialize questions
+    let questions = initializeAllQuestions();
 
     // Employee Database for Verification - Email based authentication
     const employeeDatabase = {
@@ -1216,6 +1505,9 @@
     let submittedFromQuestionIndex = 0;
     let violationCount = 0;
     let isInFullscreen = false;
+    let isInRecoveryMode = false;
+    let resumingAfterViolation = false;
+    let isReturningToVideo = false; // Track if user is coming back to rewatch video
 
     const questionContent = document.getElementById("questionContent");
     const currentQuestionSpan = document.getElementById("currentQuestion");
@@ -1230,33 +1522,22 @@
 
     totalQuestionsSpan.textContent = questions.length;
 
-    async function loadAllQuestions() {
+    async function syncCustomQuestionsFromFirebase() {
       if (window.fetchCustomQuestionsFromFirebase) {
         try {
           const custom = await window.fetchCustomQuestionsFromFirebase();
           if (custom && custom.length > 0) {
-            questions.push(...custom);
-            userAnswers = new Array(questions.length).fill(null);
-            totalQuestionsSpan.textContent = questions.length;
+            console.log("✅ Firebase has", custom.length, "custom questions");
+            // Don't add to quiz - already loaded from localStorage in initializeAllQuestions
+            console.log("📊 Quiz questions remain at:", questions.length);
+          } else {
+            console.log("ℹ️ No custom questions from Firebase");
           }
         } catch (err) {
-          console.warn("Firebase custom questions unavailable:", err);
-          const customQuestions = localStorage.getItem('customQuestions');
-          if (customQuestions) {
-            const custom = JSON.parse(customQuestions);
-            questions.push(...custom);
-            userAnswers = new Array(questions.length).fill(null);
-            totalQuestionsSpan.textContent = questions.length;
-          }
+          console.warn("⚠️ Firebase custom questions unavailable:", err);
         }
       } else {
-        const customQuestions = localStorage.getItem('customQuestions');
-        if (customQuestions) {
-          const custom = JSON.parse(customQuestions);
-          questions.push(...custom);
-          userAnswers = new Array(questions.length).fill(null);
-          totalQuestionsSpan.textContent = questions.length;
-        }
+        console.log("ℹ️ Firebase module not loaded");
       }
     }
 
@@ -1311,19 +1592,8 @@
         quizWrapper.style.display = 'flex';
       }
       
-      // Disable home icon during quiz
-      const homeIcon = document.getElementById('homeIcon');
-      if (homeIcon) {
-        homeIcon.classList.add('disabled');
-        homeIcon.style.pointerEvents = 'none';
-        homeIcon.onclick = (e) => {
-          e.preventDefault();
-          alert('Please submit the quiz before going home.');
-        };
-      }
-      
-      // Show quiz guidelines first
-      showQuizGuidelines();
+      // Show mandatory awareness video first
+      showMandatoryAwarenessVideo();
     }
 
     function showQuizGuidelines() {
@@ -1335,55 +1605,78 @@
       const guidelinesHTML = `
         <div class="quiz-container" style="max-width: 900px; margin: 4rem auto; animation: fadeIn 1s ease;">
           <h1>Quiz Guidelines & Rules</h1>
-          <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
-            <div style="color: #2e7d32; font-weight: 600; font-size: 1.1rem;">Welcome, ${employeeName}!</div>
-            <div style="color: #388e3c; font-size: 0.95rem; margin-top: 0.5rem;">Your email ID, Host ID and employee information have been verified successfully. You can now proceed with the quiz.</div>
-          </div>
-          <div style="background: #fff3cd; border-left: 4px solid #ff9800; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
-            <div style="color: #856404; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem;">⚠️ Important: Read Carefully</div>
-            <div style="color: #856404; font-size: 0.95rem; line-height: 1.6;">This is a proctored quiz. You must follow all guidelines and rules. Violations may result in automatic quiz submission and failure.</div>
-          </div>
           
-          <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem;">
-            <div style="background: #ffebee; border: 2px solid #f44336; padding: 1.5rem; border-radius: 8px;">
-              <div style="color: #f44336; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                <i class="fas fa-ban"></i> Prohibitions
-              </div>
-              <ul style="color: #f44336; margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem;">
-                <li>Copy or paste any content</li>
-                <li>Use developer tools (F12)</li>
-                <li>Right-click to inspect elements</li>
-                <li>Switch tabs or windows</li>
-                <li>Exit fullscreen mode</li>
-              </ul>
+          <!-- Welcome Card -->
+          <div class="guidelines-card" style="border-left-color: #4caf50; background: linear-gradient(135deg, rgba(76, 175, 80, 0.03) 0%, rgba(76, 175, 80, 0.02) 100%);">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <i class="fas fa-check-circle" style="color: #4caf50; font-size: 1.5rem;"></i>
+              <div style="font-weight: 800; font-size: 1rem; color: #2e7d32; text-transform: uppercase; letter-spacing: 0.5px;">Welcome, ${employeeName}!</div>
+            </div>
+            <div style="color: #388e3c; font-size: 0.95rem; line-height: 1.6; font-family: 'Inter', sans-serif;">
+            You have been logged in successfully. Before you start the quiz, read the guidelines and rules below carefully.
             </div>
           </div>
-          
-          <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
-            <div style="color: #1565c0; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem;">🛡️ Proctoring Monitoring</div>
-            <div style="color: #1565c0; font-size: 0.95rem; line-height: 1.6;">
-              This quiz is monitored for proctoring violations. The system will:
-              <ul style="margin-top: 0.8rem; margin-bottom: 0; padding-left: 1.5rem;">
-                <li><strong>First Violation:</strong> Show a warning message</li>
-                <li><strong>Second Violation:</strong> Automatically submit your quiz and mark it as violation</li>
-              </ul>
+
+          <!-- Important Card -->
+          <div class="guidelines-card" style="border-left-color: #ff9800; background: linear-gradient(135deg, rgba(255, 152, 0, 0.03) 0%, rgba(255, 152, 0, 0.02) 100%);">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <i class="fas fa-exclamation-triangle" style="color: #ff9800; font-size: 1.5rem;"></i>
+              <div style="font-weight: 800; font-size: 1rem; color: #856404; text-transform: uppercase; letter-spacing: 0.5px;">Important Notice</div>
+            </div>
+            <div style="color: #856404; font-size: 0.95rem; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              <strong>This is a proctored quiz.</strong> You must follow all guidelines and rules strictly. Any violations may result in <strong>automatic quiz submission and failure</strong>.
             </div>
           </div>
-          
-          <div style="background: #f5f5f5; border: 1px solid #e0e0e0; padding: 1.5rem; margin-bottom: 2rem; border-radius: 6px;">
-            <div style="font-weight: 600; color: #2e7d32; margin-bottom: 1rem;">✓ How to Start</div>
-            <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem; color: #333;">
-              <li>Double-click anywhere on the screen to enter fullscreen mode</li>
-              <li>Quiz will begin in fullscreen - this is mandatory</li>
-              <li>Fullscreen cannot be exited until quiz is submitted</li>
+
+          <!-- Prohibitions Card -->
+          <div class="guidelines-card" style="border-left-color: #f44336; background: linear-gradient(135deg, rgba(244, 67, 54, 0.03) 0%, rgba(244, 67, 54, 0.02) 100%);">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <i class="fas fa-ban" style="color: #f44336; font-size: 1.5rem;"></i>
+              <div style="font-weight: 800; font-size: 1rem; color: #f44336; text-transform: uppercase; letter-spacing: 0.5px;">Prohibited Actions</div>
+            </div>
+            <ul style="color: #f44336; margin: 0; padding-left: 0; list-style: none; line-height: 1.8; font-size: 0.95rem; font-family: 'Inter', sans-serif;">
+              <li style="margin-bottom: 0.6rem;"><i class="fas fa-arrow-right" style="color: #f44336; margin-right: 0.6rem; font-size: 0.85rem;"></i><strong>Copy or paste</strong> any content</li>
+              <li style="margin-bottom: 0.6rem;"><i class="fas fa-arrow-right" style="color: #f44336; margin-right: 0.6rem; font-size: 0.85rem;"></i><strong>Use developer tools</strong> (F12, Ctrl+Shift+I)</li>
+              <li style="margin-bottom: 0.6rem;"><i class="fas fa-arrow-right" style="color: #f44336; margin-right: 0.6rem; font-size: 0.85rem;"></i><strong>Right-click</strong> to inspect elements</li>
+              <li style="margin-bottom: 0.6rem;"><i class="fas fa-arrow-right" style="color: #f44336; margin-right: 0.6rem; font-size: 0.85rem;"></i><strong>Switch tabs or windows</strong> during quiz</li>
+              <li style="margin-bottom: 0;"><i class="fas fa-arrow-right" style="color: #f44336; margin-right: 0.6rem; font-size: 0.85rem;"></i><strong>Exit fullscreen mode</strong> under any circumstances</li>
             </ul>
           </div>
-          
-          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <button onclick="goBackToLogin()" style="flex: 1; min-width: 150px; padding: 0.9rem 1.5rem; background: transparent; color: #2e7d32; border: 2px solid #2e7d32; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95rem;">
-              ← Go Back
+
+          <!-- Monitoring Card -->
+          <div class="guidelines-card" style="border-left-color: #2196f3; background: linear-gradient(135deg, rgba(33, 150, 243, 0.03) 0%, rgba(33, 150, 243, 0.02) 100%);">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <i class="fas fa-shield-alt" style="color: #2196f3; font-size: 1.5rem;"></i>
+              <div style="font-weight: 800; font-size: 1rem; color: #1565c0; text-transform: uppercase; letter-spacing: 0.5px;">Proctored Monitoring</div>
+            </div>
+            <div style="color: #1565c0; font-size: 0.95rem; line-height: 1.6; font-family: 'Inter', sans-serif; margin-bottom: 1rem;">
+              <strong>This quiz is actively monitored</strong> for proctoring violations. The system will track and enforce compliance:
+            </div>
+            <ul style="color: #1565c0; margin: 0; padding-left: 0; list-style: none; line-height: 1.8; font-size: 0.95rem; font-family: 'Inter', sans-serif;">
+              <li style="margin-bottom: 0.6rem;"><i class="fas fa-arrow-right" style="color: #2196f3; margin-right: 0.6rem; font-size: 0.85rem;"></i><strong>1st Violation:</strong> Warning message displayed</li>
+              <li style="margin-bottom: 0;"><i class="fas fa-arrow-right" style="color: #2196f3; margin-right: 0.6rem; font-size: 0.85rem;"></i><strong>2nd Violation:</strong> Quiz auto-submitted as violation</li>
+            </ul>
+          </div>
+
+          <!-- How to Start Card -->
+          <div class="guidelines-card" style="border-left-color: #2e7d32; background: linear-gradient(135deg, rgba(46, 125, 50, 0.03) 0%, rgba(46, 125, 50, 0.02) 100%);">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <i class="fas fa-play-circle" style="color: #2e7d32; font-size: 1.5rem;"></i>
+              <div style="font-weight: 800; font-size: 1rem; color: #2e7d32; text-transform: uppercase; letter-spacing: 0.5px;">How to Start</div>
+            </div>
+            <ul style="color: #2e7d32; margin: 0; padding-left: 0; list-style: none; line-height: 1.8; font-size: 0.95rem; font-family: 'Inter', sans-serif;">
+              <li style="margin-bottom: 0.6rem;"><i class="fas fa-check" style="color: #2e7d32; margin-right: 0.6rem; font-size: 0.85rem;"></i><strong>Double-click anywhere</strong> on the screen to enter fullscreen</li>
+              <li style="margin-bottom: 0.6rem;"><i class="fas fa-check" style="color: #2e7d32; margin-right: 0.6rem; font-size: 0.85rem;"></i>Quiz will begin in <strong>fullscreen mode</strong> - this is mandatory</li>
+              <li style="margin-bottom: 0;"><i class="fas fa-check" style="color: #2e7d32; margin-right: 0.6rem; font-size: 0.85rem;"></i>Fullscreen <strong>cannot be exited</strong> until you submit the quiz</li>
+            </ul>
+          </div>
+
+          <!-- Action Buttons -->
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
+            <button onclick="goBackToVideo()" style="flex: 1; min-width: 150px; padding: 0.9rem 1.5rem; background: transparent; color: #2e7d32; border: 2px solid #2e7d32; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease; font-family: 'Inter', sans-serif;">
+              ← Back to Video
             </button>
-            <button onclick="acceptGuidelinesAndStart()" style="flex: 1; min-width: 150px; padding: 0.9rem 1.5rem; background: #2e7d32; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95rem;">
+            <button onclick="acceptGuidelinesAndStart()" style="flex: 1; min-width: 150px; padding: 0.9rem 1.5rem; background: #2e7d32; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);">
               I Understand & Agree →
             </button>
           </div>
@@ -1406,9 +1699,226 @@
       if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
         // If violation recovery is in progress, restore question and re-enter fullscreen
         if (violationCount > 0 && !isInFullscreen) {
+          // Re-enable all question navigator buttons
+          const navigatorGrid = document.getElementById('navigatorGrid');
+          if (navigatorGrid) {
+            const buttons = navigatorGrid.querySelectorAll('.question-btn');
+            buttons.forEach(btn => {
+              btn.style.pointerEvents = 'auto';
+              btn.style.opacity = '1';
+              btn.style.cursor = 'pointer';
+              btn.disabled = false;
+            });
+          }
+          
           requestFullscreen();
         }
       }
+    }
+
+    function showMandatoryAwarenessVideo() {
+      const splitScreenWrapper = document.querySelector('.split-screen-wrapper');
+      if (splitScreenWrapper) {
+        splitScreenWrapper.style.display = 'none';
+      }
+      
+      const videoHTML = `
+        <div class="quiz-container" style="max-width: 900px; margin: 4rem auto; animation: fadeIn 1s ease;">
+          <h1 style="text-align: center; margin-bottom: 1.5rem;">Mandatory Awareness Video</h1>
+          
+          <!-- Video Info Card -->
+          <div class="guidelines-card" style="border-left-color: #2e7d32; background: linear-gradient(135deg, rgba(46, 125, 50, 0.03) 0%, rgba(46, 125, 50, 0.02) 100%); margin-bottom: 2rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <i class="fas fa-video" style="color: #2e7d32; font-size: 1.5rem;"></i>
+              <div style="font-weight: 800; font-size: 1rem; color: #2e7d32; text-transform: uppercase; letter-spacing: 0.5px;">Important</div>
+            </div>
+            <div style="color: #2e7d32; font-size: 0.95rem; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Before proceeding to the quiz, you <strong>must watch the complete Phishing Awareness Video</strong> to understand the threats and best practices. This is a mandatory requirement to start the assessment.
+            </div>
+          </div>
+          
+          <!-- Video Container -->
+          <div style="background: #f5f7fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+            <div class="video-embed" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
+              <iframe id="awarenessVideoIframe" width="560" height="315" src="https://www.youtube.com/embed/Y7zNlEMDmI4?si=xgLvPLtPPL9obO5K" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          
+          <!-- Progress Indicator -->
+          <div style="background: #fff3cd; border-left: 4px solid #ff9800; padding: 1rem; border-radius: 6px; margin-bottom: 2rem;">
+            <div style="color: #856404; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <i class="fas fa-clock"></i>
+              <span id="videoWatchStatus">Watching video... Please wait</span>
+            </div>
+            <div style="width: 100%; height: 6px; background: rgba(255, 152, 0, 0.2); border-radius: 3px; overflow: hidden;">
+              <div id="videoProgressBar" style="height: 100%; background: linear-gradient(90deg, #ff9800, #ffc107); width: 0%; transition: width 0.5s ease; border-radius: 3px;"></div>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button onclick="goBackToLogin()" style="flex: 1; min-width: 150px; padding: 0.9rem 1.5rem; background: transparent; color: #2e7d32; border: 2px solid #2e7d32; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease; font-family: 'Inter', sans-serif;">
+              ← Back to Login
+            </button>
+            <button id="proceedAfterVideoBtn" onclick="acceptVideoAndShowGuidelines()" style="flex: 1; min-width: 150px; padding: 0.9rem 1.5rem; background: #2e7d32; color: #fff; border: none; border-radius: 6px; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3); opacity: 0.6; cursor: not-allowed;">
+              <i class="fas fa-play-circle"></i> Proceed to Guidelines
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Replace quizWrapper with video page
+      document.getElementById('quizWrapper').style.display = 'none';
+      const container = document.createElement('div');
+      container.id = 'videoContainer';
+      container.innerHTML = videoHTML;
+      document.body.insertBefore(container, document.querySelector('.split-screen-wrapper'));
+      
+      // Track video watch time
+      trackVideoProgress();
+    }
+    
+    function trackVideoProgress() {
+      const proceedBtn = document.getElementById('proceedAfterVideoBtn');
+      const statusText = document.getElementById('videoWatchStatus');
+      const progressBar = document.getElementById('videoProgressBar');
+      
+      let requiredWatchTime = 60; // 60 seconds - minimum watch time before proceeding
+      let elapsed = 0;
+      let buttonEnabled = false;
+      let timerInterval = null;
+      let pollInterval = null;
+      
+      // If user is returning to watch video again, enable button immediately
+      if (isReturningToVideo) {
+        // Function to enable the button
+        function enableProceedButton(reason = 'returning-to-video') {
+          if (buttonEnabled) return;
+          buttonEnabled = true;
+          
+          if (timerInterval) clearInterval(timerInterval);
+          if (pollInterval) clearInterval(pollInterval);
+          
+          proceedBtn.removeAttribute('disabled');
+          proceedBtn.disabled = false;
+          proceedBtn.style.opacity = '1';
+          proceedBtn.style.pointerEvents = 'auto';
+          proceedBtn.style.cursor = 'pointer';
+          proceedBtn.style.backgroundColor = '#2e7d32';
+          
+          statusText.innerHTML = '<i class="fas fa-check-circle" style="color: #4caf50;"></i> Video ready! You can proceed to the guidelines.';
+          progressBar.style.width = '100%';
+          
+          console.log("Proceed button enabled (" + reason + ")");
+        }
+        
+        // Enable immediately for returning users
+        enableProceedButton('returning-to-video');
+        return; // Exit early - no need for timer for returning users
+      }
+      
+      // Normal flow for first-time viewers
+      // Function to enable the button
+      function enableProceedButton(reason = 'timer') {
+        if (buttonEnabled) return;
+        buttonEnabled = true;
+        
+        if (timerInterval) clearInterval(timerInterval);
+        if (pollInterval) clearInterval(pollInterval);
+        
+        proceedBtn.removeAttribute('disabled');
+        proceedBtn.disabled = false;
+        proceedBtn.style.opacity = '1';
+        proceedBtn.style.pointerEvents = 'auto';
+        proceedBtn.style.cursor = 'pointer';
+        proceedBtn.style.backgroundColor = '#2e7d32';
+        
+        statusText.innerHTML = '<i class="fas fa-check-circle" style="color: #4caf50;"></i> Video watched! You can now proceed to the guidelines.';
+        progressBar.style.width = '100%';
+        
+        console.log("Proceed button enabled (" + reason + ")");
+      }
+      
+      // Load YouTube API
+      const tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      let scriptExists = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
+      if (!scriptExists) {
+        document.head.appendChild(tag);
+      }
+      
+      // Wait for YouTube API and create player
+      setTimeout(() => {
+        try {
+          if (window.YT && window.YT.Player) {
+            const player = new YT.Player('awarenessVideoIframe', {
+              events: {
+                'onStateChange': function(event) {
+                  // 0 = ended, 1 = playing, 2 = paused
+                  if (event.data === 0) {
+                    // Video ended - enable button immediately
+                    enableProceedButton('video-ended');
+                  }
+                }
+              }
+            });
+            
+            // Also continuously poll for video completion
+            pollInterval = setInterval(() => {
+              try {
+                if (player && player.getCurrentTime && player.getDuration) {
+                  const currentTime = player.getCurrentTime();
+                  const duration = player.getDuration();
+                  
+                  // If video is 95%+ watched, enable button
+                  if (duration > 0 && currentTime >= duration * 0.95 && !buttonEnabled) {
+                    enableProceedButton('video-progress-95%');
+                  }
+                  
+                  // Update progress bar based on video play time
+                  const videoProgress = (currentTime / duration) * 100;
+                  progressBar.style.width = Math.min(videoProgress, 100) + '%';
+                }
+              } catch (err) {
+                // Silent - API might not be ready yet
+              }
+            }, 500);
+          }
+        } catch (err) {
+          console.log("YouTube API integration skipped, using timer fallback");
+        }
+      }, 1500);
+      
+      // Fallback: Simple countdown timer (minimum time requirement)
+      timerInterval = setInterval(() => {
+        elapsed++;
+        
+        // Update progress bar (0-100%)
+        const progress = Math.min((elapsed / requiredWatchTime) * 100, 100);
+        progressBar.style.width = progress + '%';
+        
+        // Update status text with countdown
+        const remaining = Math.max(requiredWatchTime - elapsed, 0);
+        if (remaining > 0 && !buttonEnabled) {
+          statusText.innerHTML = `<i class="fas fa-play" style="color: #ff9800;"></i> Watching video... (${remaining}s remaining)`;
+        }
+        
+        // Enable button after required time
+        if (elapsed >= requiredWatchTime && !buttonEnabled) {
+          clearInterval(timerInterval);
+          enableProceedButton('timer-elapsed');
+        }
+      }, 1000); // Update every second
+    }
+    
+    function acceptVideoAndShowGuidelines() {
+      const videoContainer = document.getElementById('videoContainer');
+      if (videoContainer) {
+        videoContainer.remove();
+      }
+      
+      // Show quiz guidelines next
+      showQuizGuidelines();
     }
 
     function acceptGuidelinesAndStart() {
@@ -1419,11 +1929,32 @@
       
       document.getElementById('quizWrapper').style.display = 'flex';
       
+      // Hide home icon once actual quiz starts
+      const homeIcon = document.getElementById('homeIcon');
+      if (homeIcon) {
+        homeIcon.style.display = 'none';
+      }
+
+      // Disable FDC logo link once actual quiz starts
+      const fdcLogoLink = document.getElementById('fdcLogoLink');
+      if (fdcLogoLink) {
+        fdcLogoLink.classList.add('disabled');
+        fdcLogoLink.onclick = (e) => {
+          e.preventDefault();
+          alert('Please submit the quiz before leaving.');
+        };
+      }
+      
       // Load questions and start quiz
       loadAllQuestionsAndStart();
     }
 
     function goBackToLogin() {
+      const videoContainer = document.getElementById('videoContainer');
+      if (videoContainer) {
+        videoContainer.remove();
+      }
+      
       const guidelinesContainer = document.getElementById('guidelinesContainer');
       if (guidelinesContainer) {
         guidelinesContainer.remove();
@@ -1444,8 +1975,29 @@
       document.getElementById('empForm').reset();
     }
 
+    function goBackToVideo() {
+      const guidelinesContainer = document.getElementById('guidelinesContainer');
+      if (guidelinesContainer) {
+        guidelinesContainer.remove();
+      }
+      
+      // Set flag to indicate user is returning to video
+      isReturningToVideo = true;
+      
+      // Show the video page again
+      showMandatoryAwarenessVideo();
+    }
+
+    function goBackToHome() {
+      // Redirect to home/index page
+      window.location.href = '/';
+    }
+
     async function loadAllQuestionsAndStart() {
-      await loadAllQuestions();
+      console.log("🚀 Loading all questions and starting quiz...");
+      console.log("📊 Questions before Firebase sync:", questions.length);
+      await syncCustomQuestionsFromFirebase();
+      console.log("📊 Questions after Firebase sync:", questions.length);
       buildNavigator();
       
       // Add double-click listener for violation recovery
@@ -1453,6 +2005,64 @@
       
       // Directly enter fullscreen to start quiz
       requestFullscreen();
+    }
+
+    function showFullscreenRequiredError() {
+      const quizWrapper = document.getElementById('quizWrapper');
+      if (quizWrapper) {
+        quizWrapper.innerHTML = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; width: 100%; background: linear-gradient(135deg, #ffebee 0%, #fff3e0 100%); padding: 2rem;">
+            <!-- Error Container -->
+            <div style="background: #fff; border-left: 6px solid #d32f2f; border-radius: 12px; padding: 2.5rem; max-width: 600px; width: 100%; box-shadow: 0 8px 32px rgba(211, 47, 47, 0.2);">
+              
+              <!-- Header with Icon -->
+              <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+                <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: #d32f2f;"></i>
+                <div style="font-size: 2rem; font-weight: 800; color: #d32f2f; letter-spacing: 0.05em;">ERROR</div>
+              </div>
+
+              <!-- Sub-heading -->
+              <div style="text-align: center; font-size: 1.5rem; font-weight: 700; color: #c62828; margin-bottom: 1.5rem; font-family: 'Inter', sans-serif;">
+                Fullscreen Mode Required
+              </div>
+
+              <!-- Error Message -->
+              <div style="text-align: center; color: #424242; font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; font-family: 'Inter', sans-serif;">
+                <div style="background: #ffebee; border-left: 4px solid #d32f2f; padding: 1.5rem; border-radius: 6px; margin-bottom: 1.5rem;">
+                  <strong style="color: #c62828; font-size: 1.1rem;">The quiz cannot continue in windowed mode.</strong>
+                  <br><br>
+                  <span style="color: #666;">Fullscreen mode is mandatory for this quiz to ensure test integrity and proctoring compliance. This quiz is designed to work only in fullscreen mode.</span>
+                </div>
+                <div style="color: #666; font-size: 0.95rem; background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem;">
+                  <strong>Possible reasons:</strong>
+                  <ul style="text-align: left; display: inline-block; margin: 0.5rem 0;">
+                    <li>Fullscreen mode is disabled in your browser settings</li>
+                    <li>Browser doesn't support fullscreen API</li>
+                    <li>Fullscreen permission was denied</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Instructions -->
+              <div style="background: #e3f2fd; border: 2px solid #1976d2; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; box-shadow: 0 4px 12px rgba(25, 118, 210, 0.1);">
+                <div style="font-weight: 700; color: #1565c0; font-size: 1.1rem; margin-bottom: 1rem; font-family: 'Inter', sans-serif;">What to do:</div>
+                <div style="color: #1565c0; font-size: 0.95rem; line-height: 1.8; font-family: 'Inter', sans-serif;">
+                  <strong>1.</strong> Check your browser settings and enable fullscreen mode<br>
+                  <strong>2.</strong> Allow fullscreen permission when prompted<br>
+                  <strong>3.</strong> Reload this page and try again<br>
+                  <strong>4.</strong> If the issue persists, try a different browser
+                </div>
+              </div>
+
+              <!-- Compliance Notice -->
+              <div style="background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem; text-align: center; font-size: 0.85rem; color: #666; font-family: 'Inter', sans-serif; line-height: 1.6;">
+                <i class="fas fa-shield-alt" style="color: #d32f2f; margin-right: 0.5rem;"></i>
+                <strong style="color: #d32f2f;">Security Requirement:</strong> Fullscreen mode is required to prevent cheating and ensure fair assessment for all participants.
+              </div>
+            </div>
+          </div>
+        `;
+      }
     }
 
     function requestFullscreen() {
@@ -1465,36 +2075,51 @@
           enableProctoring();
         }).catch(err => {
           console.warn('Fullscreen request failed:', err);
-          alert('⚠️ Could not enter fullscreen mode. The quiz will continue in windowed mode.');
+          showFullscreenRequiredError();
+        });
+      } else if (elem.webkitRequestFullscreen) {
+        // Safari
+        try {
+          elem.webkitRequestFullscreen();
+          isInFullscreen = true;
           displayQuestion();
           if (violationCount === 0) {
             enableProctoring();
           }
-        });
-      } else if (elem.webkitRequestFullscreen) {
-        // Safari
-        elem.webkitRequestFullscreen();
-        isInFullscreen = true;
-        displayQuestion();
-        if (violationCount === 0) {
-          enableProctoring();
+        } catch (err) {
+          console.warn('Fullscreen request failed:', err);
+          showFullscreenRequiredError();
         }
       } else if (elem.mozRequestFullScreen) {
         // Firefox
-        elem.mozRequestFullScreen();
-        isInFullscreen = true;
-        displayQuestion();
-        if (violationCount === 0) {
-          enableProctoring();
+        try {
+          elem.mozRequestFullScreen();
+          isInFullscreen = true;
+          displayQuestion();
+          if (violationCount === 0) {
+            enableProctoring();
+          }
+        } catch (err) {
+          console.warn('Fullscreen request failed:', err);
+          showFullscreenRequiredError();
         }
       } else if (elem.msRequestFullscreen) {
         // IE/Edge
-        elem.msRequestFullscreen();
-        isInFullscreen = true;
-        displayQuestion();
-        if (violationCount === 0) {
-          enableProctoring();
+        try {
+          elem.msRequestFullscreen();
+          isInFullscreen = true;
+          displayQuestion();
+          if (violationCount === 0) {
+            enableProctoring();
+          }
+        } catch (err) {
+          console.warn('Fullscreen request failed:', err);
+          showFullscreenRequiredError();
         }
+      } else {
+        // Fullscreen API not supported
+        console.error('Fullscreen API not supported in this browser');
+        showFullscreenRequiredError();
       }
       
       // Prevent exiting fullscreen
@@ -1508,12 +2133,13 @@
       if (!document.fullscreenElement && !document.webkitFullscreenElement && 
           !document.mozFullScreenElement && !document.msFullscreenElement) {
         // User exited fullscreen
-        if (!isQuizSubmitted && isInFullscreen) {
+        if (!isQuizSubmitted && isInFullscreen && !isInRecoveryMode) {
           isInFullscreen = false;
           violationCount++;
           
           if (violationCount === 1) {
             // First violation - show warning and ask to double-click
+            isInRecoveryMode = true;
             showViolationRecoveryPrompt();
           } else if (violationCount >= 2) {
             // Second violation - auto-submit
@@ -1521,29 +2147,299 @@
           }
         }
       } else {
+        // Fullscreen entered
         isInFullscreen = true;
+        isInRecoveryMode = false;
+        
+        // If resuming after violation, display the question
+        if (resumingAfterViolation) {
+          resumingAfterViolation = false;
+          displayQuestion();
+        }
       }
     }
 
     function showViolationRecoveryPrompt() {
+      // Disable all question navigator buttons
+      const navigatorGrid = document.getElementById('navigatorGrid');
+      if (navigatorGrid) {
+        const buttons = navigatorGrid.querySelectorAll('.question-btn');
+        buttons.forEach(btn => {
+          btn.style.pointerEvents = 'none';
+          btn.style.opacity = '0.5';
+          btn.style.cursor = 'not-allowed';
+          btn.disabled = true;
+        });
+      }
+
+      // Disable all control buttons (Previous, Clear, Next, Submit Quiz, Exit Quiz)
+      if (prevBtn) {
+        prevBtn.disabled = true;
+        prevBtn.style.pointerEvents = 'none';
+        prevBtn.style.opacity = '0.5';
+        prevBtn.style.cursor = 'not-allowed';
+      }
+      if (clearBtn) {
+        clearBtn.disabled = true;
+        clearBtn.style.pointerEvents = 'none';
+        clearBtn.style.opacity = '0.5';
+        clearBtn.style.cursor = 'not-allowed';
+      }
+      if (nextBtn) {
+        nextBtn.disabled = true;
+        nextBtn.style.pointerEvents = 'none';
+        nextBtn.style.opacity = '0.5';
+        nextBtn.style.cursor = 'not-allowed';
+      }
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.pointerEvents = 'none';
+        submitBtn.style.opacity = '0.5';
+        submitBtn.style.cursor = 'not-allowed';
+      }
+      
+      // Disable submit and exit buttons in navigator
+      const submitNavBtn = document.getElementById('submitNavBtn');
+      const exitBtn = document.querySelector('.btn-exit');
+      if (submitNavBtn) {
+        submitNavBtn.disabled = true;
+        submitNavBtn.style.pointerEvents = 'none';
+        submitNavBtn.style.opacity = '0.5';
+        submitNavBtn.style.cursor = 'not-allowed';
+      }
+      if (exitBtn) {
+        exitBtn.disabled = true;
+        exitBtn.style.pointerEvents = 'none';
+        exitBtn.style.opacity = '0.5';
+        exitBtn.style.cursor = 'not-allowed';
+      }
+
       // Hide the question content
       const questionContent = document.getElementById('questionContent');
       if (questionContent) {
         questionContent.innerHTML = `
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 2rem;">
-            <div style="text-align: center;">
-              <div style="font-size: 2rem; color: #ff9800; margin-bottom: 1rem;">⚠️ WARNING</div>
-              <div style="font-size: 1.2rem; color: #333; font-weight: 600; margin-bottom: 1rem;">You Exited Fullscreen!</div>
-              <div style="color: #666; font-size: 0.95rem; line-height: 1.6; max-width: 400px;">
-                This is your <strong>first and final warning</strong>. Exiting fullscreen again will result in automatic quiz submission and failure.
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; background: linear-gradient(135deg, #ffebee 0%, #fff3e0 100%); padding: 2rem;">
+            <!-- Main Warning Container -->
+            <div style="background: #fff; border-left: 6px solid #f44336; border-radius: 12px; padding: 2.5rem; max-width: 500px; width: 100%; box-shadow: 0 8px 32px rgba(244, 67, 54, 0.15); animation: slideInDown 0.6s ease-out;">
+              
+              <!-- Header with Icon -->
+              <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #f44336; animation: pulse 1.5s ease-in-out infinite;"></i>
+                <div style="font-size: 1.8rem; font-weight: 800; color: #f44336; letter-spacing: 0.05em;">WARNING</div>
+              </div>
+
+              <!-- Sub-heading -->
+              <div style="text-align: center; font-size: 1.4rem; font-weight: 700; color: #d32f2f; margin-bottom: 1.5rem; font-family: 'Inter', sans-serif;">
+                You Exited Fullscreen!
+              </div>
+
+              <!-- Warning Message -->
+              <div style="text-align: center; color: #424242; font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; font-family: 'Inter', sans-serif;">
+                <div style="background: #ffebee; border-left: 4px solid #f44336; padding: 1.2rem; border-radius: 6px; margin-bottom: 1.5rem;">
+                  <strong style="color: #c62828; font-size: 1.05rem;">This is your first and final warning.</strong>
+                  <br>
+                  <strong style="color: #d32f2f;">Exiting fullscreen again will result in automatic quiz submission and failure.</strong>
+                </div>
+                <div style="color: #666; font-size: 0.95rem;">
+                  Maintain fullscreen mode to ensure quiz integrity and proctoring compliance.
+                </div>
+              </div>
+
+              <!-- Action Card -->
+              <div style="background: #e3f2fd; border: 2px solid #2196f3; border-radius: 8px; padding: 1.8rem; margin-bottom: 1.5rem; text-align: center; box-shadow: 0 4px 12px rgba(33, 150, 243, 0.1);">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem;">
+                  <i class="fas fa-mouse-pointer" style="font-size: 1.5rem; color: #1565c0;"></i>
+                  <div style="font-weight: 700; color: #1565c0; font-size: 1.15rem; font-family: 'Inter', sans-serif;">ACTION REQUIRED</div>
+                </div>
+                <div style="color: #1565c0; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">
+                  DOUBLE-CLICK anywhere to Re-Enter Fullscreen
+                </div>
+                <div style="color: #0d47a1; font-size: 0.9rem; font-family: 'Inter', sans-serif;">
+                  Double-click on this screen to continue the quiz in fullscreen mode.
+                </div>
+              </div>
+
+              <!-- Compliance Notice -->
+              <div style="background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem; text-align: center; font-size: 0.85rem; color: #666; font-family: 'Inter', sans-serif; line-height: 1.6;">
+                <i class="fas fa-shield-alt" style="color: #2e7d32; margin-right: 0.5rem;"></i>
+                <strong style="color: #2e7d32;">Security Notice:</strong> Your quiz is being monitored. All violations are recorded.
               </div>
             </div>
-            <div style="text-align: center; background: #e3f2fd; border: 2px solid #2196f3; padding: 2rem; border-radius: 8px;">
-              <div style="color: #1565c0; font-weight: 600; margin-bottom: 1rem; font-size: 1.1rem;">👇 DOUBLE-CLICK to Re-Enter Fullscreen</div>
-              <div style="color: #1565c0; font-size: 0.9rem;">Double-click anywhere on this screen to continue the quiz in fullscreen mode.</div>
-            </div>
           </div>
+          <style>
+            @keyframes slideInDown {
+              from {
+                opacity: 0;
+                transform: translateY(-30px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+            @keyframes pulse {
+              0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+              }
+              50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+              }
+            }
+          </style>
         `;
+
+        // Add double-click handler to resume quiz
+        questionContent.addEventListener('dblclick', handleDoubleClickToResume, { once: false });
+      }
+    }
+
+    function handleDoubleClickToResume(event) {
+      console.log('🔄 Double-click detected - attempting to resume quiz');
+      
+      // Stop event propagation
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      
+      // Remove the double-click listener from the question content
+      const questionContent = document.getElementById('questionContent');
+      if (questionContent) {
+        questionContent.removeEventListener('dblclick', handleDoubleClickToResume);
+        // Clear the warning message IMMEDIATELY and completely
+        questionContent.innerHTML = '';
+        questionContent.style.display = 'block';
+        questionContent.style.visibility = 'visible';
+      }
+
+      // Exit recovery mode
+      isInRecoveryMode = false;
+      resumingAfterViolation = true;
+      
+      // Re-enable all control buttons
+      if (prevBtn) {
+        prevBtn.disabled = false;
+        prevBtn.style.pointerEvents = 'auto';
+        prevBtn.style.opacity = '1';
+        prevBtn.style.cursor = 'pointer';
+      }
+      if (clearBtn) {
+        clearBtn.disabled = false;
+        clearBtn.style.pointerEvents = 'auto';
+        clearBtn.style.opacity = '1';
+        clearBtn.style.cursor = 'pointer';
+      }
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.style.pointerEvents = 'auto';
+        nextBtn.style.opacity = '1';
+        nextBtn.style.cursor = 'pointer';
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.style.pointerEvents = 'auto';
+        submitBtn.style.opacity = '1';
+        submitBtn.style.cursor = 'pointer';
+      }
+
+      // Re-enable submit and exit buttons in navigator
+      const submitNavBtn = document.getElementById('submitNavBtn');
+      const exitBtn = document.querySelector('.btn-exit');
+      if (submitNavBtn) {
+        submitNavBtn.disabled = false;
+        submitNavBtn.style.pointerEvents = 'auto';
+        submitNavBtn.style.opacity = '1';
+        submitNavBtn.style.cursor = 'pointer';
+      }
+      if (exitBtn) {
+        exitBtn.disabled = false;
+        exitBtn.style.pointerEvents = 'auto';
+        exitBtn.style.opacity = '1';
+        exitBtn.style.cursor = 'pointer';
+      }
+
+      // Re-enable navigator grid buttons
+      const navigatorGrid = document.getElementById('navigatorGrid');
+      if (navigatorGrid) {
+        const buttons = navigatorGrid.querySelectorAll('.question-btn');
+        buttons.forEach(btn => {
+          btn.style.pointerEvents = 'auto';
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
+          btn.disabled = false;
+        });
+      }
+
+      // Function to safely display question
+      const safeDisplayQuestion = () => {
+        console.log('📝 Calling displayQuestion()...');
+        try {
+          // Ensure content is clear first
+          const qc = document.getElementById('questionContent');
+          if (qc) {
+            qc.innerHTML = '';
+          }
+          
+          // Now display the question
+          displayQuestion();
+          console.log('✅ displayQuestion() completed successfully');
+          resumingAfterViolation = false;
+        } catch (err) {
+          console.error('❌ Error in displayQuestion():', err);
+          resumingAfterViolation = false;
+        }
+      };
+
+      // Use immediate synchronous call first with short timeout
+      safeDisplayQuestion();
+      
+      // Request fullscreen with additional fallback
+      const elem = document.documentElement;
+      
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen().then(() => {
+          console.log('✅ Fullscreen entered successfully');
+          isInFullscreen = true;
+          safeDisplayQuestion();
+        }).catch(err => {
+          console.log("Fullscreen request failed during resume:", err);
+          isInFullscreen = true;
+        });
+      } else if (elem.webkitRequestFullscreen) {
+        try {
+          elem.webkitRequestFullscreen();
+          isInFullscreen = true;
+          console.log('✅ Fullscreen entered (webkit)');
+          setTimeout(safeDisplayQuestion, 100);
+        } catch (err) {
+          console.log("Fullscreen request failed during resume:", err);
+          isInFullscreen = true;
+        }
+      } else if (elem.mozRequestFullScreen) {
+        try {
+          elem.mozRequestFullScreen();
+          isInFullscreen = true;
+          console.log('✅ Fullscreen entered (mozilla)');
+          setTimeout(safeDisplayQuestion, 100);
+        } catch (err) {
+          console.log("Fullscreen request failed during resume:", err);
+          isInFullscreen = true;
+        }
+      } else if (elem.msRequestFullscreen) {
+        try {
+          elem.msRequestFullscreen();
+          isInFullscreen = true;
+          console.log('✅ Fullscreen entered (ms)');
+          setTimeout(safeDisplayQuestion, 100);
+        } catch (err) {
+          console.log("Fullscreen request failed during resume:", err);
+          isInFullscreen = true;
+        }
+      } else {
+        console.log('❌ Fullscreen API not supported');
+        isInFullscreen = true;
       }
     }
 
@@ -1639,17 +2535,23 @@
       const percentage = Math.round((score / questions.length) * 100);
 
       const html = `
-        <div class="performance-summary">
-          <div class="employee-info">
-            <strong>${employeeName}</strong> | Group: ${employeeGroup} | ID: ${employeeId}
-          </div>
-          <div style="font-size: 1.8rem; color: #f44336; font-weight: 700; margin-bottom: 1.5rem;">⚠️ VIOLATION - QUIZ TERMINATED</div>
-          <div style="background: #ffebee; border-left: 4px solid #f44336; padding: 1.5rem; border-radius: 6px; margin-bottom: 2rem;">
-            <div style="color: #f44336; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">Proctoring Violation Detected</div>
-            <div style="color: #f44336; font-size: 0.95rem; line-height: 1.6;">
-              Your quiz was automatically submitted due to multiple proctoring rule violations. This submission has been flagged and will be reviewed by the administrator.
+        <div style="position: relative;">
+          <!-- Home Icon Button (Top Left) -->
+          <a href="/" onclick="goBackToHome()" style="position: absolute; top: 1.5rem; left: 1.5rem; width: 3rem; height: 3rem; background: #2e7d32; color: #fff; border: 2px solid #2e7d32; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; text-decoration: none; box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2); transition: all 0.3s ease; z-index: 100;" onmouseover="this.style.background='#fff'; this.style.color='#2e7d32'; this.style.boxShadow='0 4px 12px rgba(46, 125, 50, 0.3)'" onmouseout="this.style.background='#2e7d32'; this.style.color='#fff'; this.style.boxShadow='0 2px 8px rgba(46, 125, 50, 0.2)'">
+            <i class="fas fa-home"></i>
+          </a>
+          
+          <div class="performance-summary">
+            <div class="employee-info">
+              <strong>${employeeName}</strong> | Group: ${employeeGroup} | ID: ${employeeId}
             </div>
-          </div>
+            <div style="font-size: 1.8rem; color: #f44336; font-weight: 700; margin-bottom: 1.5rem;">⚠️ VIOLATION - QUIZ TERMINATED</div>
+            <div style="background: #ffebee; border-left: 4px solid #f44336; padding: 1.5rem; border-radius: 6px; margin-bottom: 2rem;">
+              <div style="color: #f44336; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">Proctoring Violation Detected</div>
+              <div style="color: #f44336; font-size: 0.95rem; line-height: 1.6;">
+                Your quiz was automatically submitted due to multiple proctoring rule violations. This submission has been flagged and will be reviewed by the administrator.
+              </div>
+            </div>
           <div class="summary-stats">
             <div class="stat-box">
               <div class="stat-label">Score</div>
@@ -1661,10 +2563,18 @@
             </div>
           </div>
           <div style="background: #fff3cd; border-left: 4px solid #ff9800; padding: 1.5rem; margin-top: 1.5rem; border-radius: 6px;">
-            <div style="color: #856404; font-weight: 600; margin-bottom: 0.5rem;">⚠️ Note</div>
+            <div style="color: #856404; font-weight: 700; margin-bottom: 0.5rem;">⚠️ Note</div>
             <div style="color: #856404; font-size: 0.95rem; line-height: 1.6;">
               This quiz submission has been flagged for proctoring violations. The administrator will review this attempt and take appropriate action.
             </div>
+          </div>
+          
+          <!-- Back to Home Button (Bottom Center) -->
+          <div style="display: flex; justify-content: center; margin-top: 2.5rem; padding-bottom: 1.5rem;">
+            <button onclick="goBackToHome()" style="padding: 0.9rem 2.5rem; background: linear-gradient(135deg, #2e7d32, #4caf50); color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(46, 125, 50, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(46, 125, 50, 0.3)'">
+              ← Back to Home
+            </button>
+          </div>
           </div>
         </div>
       `;
@@ -1673,6 +2583,8 @@
       if (mainStage) {
         mainStage.style.flex = '1 1 100%';
         mainStage.innerHTML = html;
+        // Add copyright footer to violation results page
+        appendCopyrightFooter(mainStage);
       }
 
       // Hide navigator
@@ -1823,7 +2735,21 @@
     }
 
     function displayQuestion() {
+      // Safety check - ensure questions are loaded
+      if (!questions || questions.length === 0) {
+        console.error("No questions available to display!");
+        document.getElementById("questionContent").innerHTML = '<div style="color: red; text-align: center; padding: 2rem;">Error: No questions available. Please refresh the page.</div>';
+        return;
+      }
+
       const question = questions[currentQuestionIndex];
+      
+      // Safety check for question existence
+      if (!question) {
+        console.error("Question at index " + currentQuestionIndex + " is undefined!");
+        return;
+      }
+
       const currentQuestionSpan = document.getElementById('currentQuestion');
       const totalQuestionsSpan = document.getElementById('totalQuestions');
       const questionContent = document.getElementById("questionContent");
@@ -2021,7 +2947,7 @@
         <div style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
           <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid #2e7d32; flex-shrink: 0;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div style="font-weight: 600; color: #2e7d32; font-size: 1.1rem;">Review Before Submitting</div>
+              <div style="font-weight: 700; color: #2e7d32; font-size: 1.1rem;">Review Before Submitting</div>
             </div>
             <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Please scroll down and review your answers before final submission. You cannot change your answers after submitting.</div>
           </div>
@@ -2199,6 +3125,12 @@
     }
 
     async function submitQuiz() {
+      // Show loading overlay
+      showLoadingOverlay();
+      
+      // Simulate processing delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
       saveCurrentAnswer();
       isQuizSubmitted = true;
       
@@ -2275,8 +3207,33 @@
       const percentage = Math.round((score / questions.length) * 100);
       const isPassed = percentage >= 70;
 
+      // Hide loading overlay and show results
+      hideLoadingOverlay();
       showPerformanceSummary(score, percentage, isPassed);
       updateResultMap(score);
+    }
+
+    function showLoadingOverlay() {
+      const overlay = document.createElement('div');
+      overlay.className = 'loading-overlay';
+      overlay.id = 'loadingOverlay';
+      overlay.innerHTML = `
+        <div>
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Evaluating Your Responses...</div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    function hideLoadingOverlay() {
+      const overlay = document.getElementById('loadingOverlay');
+      if (overlay) {
+        overlay.style.animation = 'fadeOut 0.3s ease forwards';
+        setTimeout(() => {
+          overlay.remove();
+        }, 300);
+      }
     }
 
     function showPerformanceSummary(score, percentage, isPassed) {
@@ -2331,12 +3288,13 @@
 
       mainStage.innerHTML = html;
       
+      // Add copyright footer to results page
+      appendCopyrightFooter(mainStage);
+      
       // Re-enable home icon after submission
       const homeIcon = document.getElementById('homeIcon');
       if (homeIcon) {
-        homeIcon.classList.remove('disabled');
-        homeIcon.style.pointerEvents = 'auto';
-        homeIcon.onclick = null;
+        homeIcon.style.display = 'block';
       }
     }
 
@@ -2713,6 +3671,18 @@
     function goBack() {
       clearInterval(timerInterval);
       window.location.href = "index.html";
+    }
+
+    function appendCopyrightFooter(containerElement) {
+      // Check if copyright already exists
+      if (containerElement.querySelector('.copyright-footer')) {
+        return;
+      }
+      const copyrightFooter = document.createElement('div');
+      copyrightFooter.className = 'copyright-footer';
+      copyrightFooter.style.marginTop = '2rem';
+      copyrightFooter.textContent = 'Copyright © 2025 FDC | All Rights Reserved.';
+      containerElement.appendChild(copyrightFooter);
     }
   </script>
 
