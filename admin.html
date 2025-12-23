@@ -14,54 +14,280 @@
     body {
       margin: 0;
       padding: 0;
-      background: #ffffff;
+      background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: #222;
+      color: #333;
+      position: relative;
+      overflow-x: hidden;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 1px 1px, rgba(46, 125, 50, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    /* Floating Security Shapes Container */
+    .bg-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .floating-shape {
+      position: absolute;
+      opacity: 0.15;
+      filter: drop-shadow(0 2px 4px rgba(46, 125, 50, 0.1));
+    }
+
+    .shape-1 {
+      width: 120px;
+      height: 120px;
+      top: 10%;
+      left: 5%;
+      animation: float-shape-1 20s ease-in-out infinite;
+    }
+
+    .shape-2 {
+      width: 100px;
+      height: 100px;
+      top: 20%;
+      right: 10%;
+      animation: float-shape-2 25s ease-in-out infinite;
+    }
+
+    .shape-3 {
+      width: 80px;
+      height: 80px;
+      top: 50%;
+      left: 15%;
+      animation: float-shape-3 18s ease-in-out infinite;
+    }
+
+    .shape-4 {
+      width: 110px;
+      height: 110px;
+      bottom: 15%;
+      right: 8%;
+      animation: float-shape-4 22s ease-in-out infinite;
+    }
+
+    .shape-5 {
+      width: 90px;
+      height: 90px;
+      top: 60%;
+      right: 25%;
+      animation: float-shape-5 24s ease-in-out infinite;
+    }
+
+    .shape-6 {
+      width: 70px;
+      height: 70px;
+      bottom: 30%;
+      left: 50%;
+      animation: float-shape-6 19s ease-in-out infinite;
+    }
+
+    .shape-7 {
+      width: 95px;
+      height: 95px;
+      top: 30%;
+      left: 60%;
+      animation: float-shape-7 23s ease-in-out infinite;
+    }
+
+    .shape-8 {
+      width: 85px;
+      height: 85px;
+      bottom: 10%;
+      left: 30%;
+      animation: float-shape-8 21s ease-in-out infinite;
+    }
+
+    @keyframes float-shape-1 {
+      0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+      25% { transform: translateX(30px) translateY(-30px) rotate(90deg); }
+      50% { transform: translateX(0px) translateY(-60px) rotate(180deg); }
+      75% { transform: translateX(-30px) translateY(-30px) rotate(270deg); }
+    }
+
+    @keyframes float-shape-2 {
+      0%, 100% { transform: translateX(0px) translateY(0px) scale(1); }
+      25% { transform: translateX(-40px) translateY(-40px) scale(1.1); }
+      50% { transform: translateX(0px) translateY(-80px) scale(1); }
+      75% { transform: translateX(40px) translateY(-40px) scale(1.1); }
+    }
+
+    @keyframes float-shape-3 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-50px) rotate(120deg); }
+      66% { transform: translateY(-100px) rotate(240deg); }
+    }
+
+    @keyframes float-shape-4 {
+      0%, 100% { transform: translateX(0px) translateY(0px); }
+      50% { transform: translateX(-60px) translateY(-60px); }
+    }
+
+    @keyframes float-shape-5 {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-80px) scale(1.15); }
+    }
+
+    @keyframes float-shape-6 {
+      0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+      50% { transform: translateX(70px) translateY(-70px) rotate(180deg); }
+    }
+
+    @keyframes float-shape-7 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-40px) rotate(120deg); }
+      66% { transform: translateY(-80px) rotate(240deg); }
+    }
+
+    @keyframes float-shape-8 {
+      0%, 100% { transform: translateX(0px) translateY(0px) scale(1); }
+      25% { transform: translateX(50px) translateY(-50px) scale(0.9); }
+      50% { transform: translateX(0px) translateY(-100px) scale(1); }
+      75% { transform: translateX(-50px) translateY(-50px) scale(0.9); }
+    }
+
+    @media (max-width: 768px) {
+      .floating-shape {
+        opacity: 0.08;
+      }
+
+      .shape-1 { width: 80px; height: 80px; }
+      .shape-2 { width: 70px; height: 70px; }
+      .shape-3 { width: 60px; height: 60px; }
+      .shape-4 { width: 75px; height: 75px; }
+      .shape-5 { width: 65px; height: 65px; }
+      .shape-6 { width: 55px; height: 55px; }
+      .shape-7 { width: 70px; height: 70px; }
+      .shape-8 { width: 60px; height: 60px; }
     }
 
     .home-icon {
       position: fixed;
-      top: 1.5rem;
-      left: 1.5rem;
-      width: 3rem;
-      height: 3rem;
-      background: #2e7d32;
+      top: 1.8rem;
+      left: 2rem;
+      width: 3.2rem;
+      height: 3.2rem;
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
       color: #fff;
-      border: 2px solid #2e7d32;
+      border: 2px solid #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
+      line-height: 1;
       cursor: pointer;
       transition: all 0.3s ease;
-      z-index: 1000;
+      z-index: 1001;
       text-decoration: none;
-      box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+      box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    }
+
+    .home-icon i {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      margin-top: 0.15rem;
     }
 
     .home-icon:hover {
       background: #fff;
       color: #2e7d32;
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+      transform: scale(1.12) translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+      border-color: #2e7d32;
+    }
+
+    .home-icon.disabled {
+      background: #ccc;
+      color: #888;
+      border-color: #ccc;
+      cursor: not-allowed;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .home-icon.disabled:hover {
+      background: #ccc;
+      color: #888;
+      transform: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .login-container {
       max-width: 400px;
-      margin: 10rem auto;
+      margin: 5.5rem auto;
       background-color: #ffffff;
       padding: 2rem;
       border-radius: 8px;
       border: 2px solid #2e7d32;
       text-align: center;
+      animation: fadeInUp 0.8s ease 0.3s both;
     }
 
     .login-container h1 {
       color: #2e7d32;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin-bottom: 2rem;
-      font-weight: 700;
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+      animation: fadeInDown 0.8s ease 0.2s both;
     }
 
     .login-form input {
@@ -71,7 +297,10 @@
       border: 1px solid #2e7d32;
       border-radius: 6px;
       font-size: 1rem;
+      font-weight: 500;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #333;
+      animation: fadeInUp 0.8s ease 0.4s both;
     }
 
     .login-form button {
@@ -82,14 +311,49 @@
       border: none;
       border-radius: 6px;
       font-size: 1.1rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: 0.3s ease;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      letter-spacing: 0.2px;
+      animation: fadeInUp 0.8s ease 0.5s both;
     }
 
     .login-form button:hover {
       background: #1b4620;
+    }
+
+    .back-home-btn {
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.6);
+      color: #2e7d32;
+      border: 1px solid rgba(46, 125, 50, 0.3);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin-top: 2rem;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      letter-spacing: 0.2px;
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+
+    .back-home-btn:hover {
+      background: rgba(46, 125, 50, 0.1);
+      border-color: #2e7d32;
+      transform: translateY(-2px);
+    }
+
+    .login-container .copyright-footer {
+      margin-top: 2rem;
+      border-top: 1px solid #2e7d32;
+      padding-top: 1rem;
     }
 
     /* FDC Logo in Navbar */
@@ -102,10 +366,18 @@
       height: 90px;
       z-index: 1001;
       opacity: 1;
-      pointer-events: none;
+      pointer-events: auto;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+    }
+
+    .fdc-logo-nav:hover {
+      transform: scale(1.05);
     }
 
     .fdc-logo-svg {
@@ -150,7 +422,7 @@
       padding: 0.6rem 1.2rem;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       transition: 0.3s ease;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
@@ -175,7 +447,7 @@
       border-bottom: 3px solid transparent;
       cursor: pointer;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       transition: 0.3s ease;
     }
@@ -220,7 +492,7 @@
     .login-table th {
       padding: 1rem;
       text-align: left;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .login-table td {
@@ -237,7 +509,7 @@
       color: #fff;
       padding: 0.4rem 0.8rem;
       border-radius: 4px;
-      font-weight: 600;
+      font-weight: 700;
       text-align: center;
       display: inline-block;
     }
@@ -247,7 +519,7 @@
       color: #fff;
       padding: 0.4rem 0.8rem;
       border-radius: 4px;
-      font-weight: 600;
+      font-weight: 700;
       text-align: center;
       display: inline-block;
     }
@@ -268,7 +540,7 @@
       display: block;
       margin-bottom: 0.5rem;
       color: #2e7d32;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .form-group input,
@@ -338,7 +610,7 @@
       border-radius: 6px;
       font-size: 1rem;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       transition: 0.3s ease;
     }
@@ -398,7 +670,7 @@
     .question-card h3 {
       color: #2e7d32;
       margin-top: 0;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .question-card p {
@@ -483,6 +755,9 @@
       border-radius: 6px;
       margin-bottom: 1rem;
       animation: slideDown 0.5s ease;
+      max-width: 600px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     .error-message {
@@ -492,6 +767,9 @@
       border-radius: 6px;
       margin-bottom: 1rem;
       animation: slideDown 0.5s ease;
+      max-width: 600px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     @keyframes slideDown {
@@ -512,13 +790,27 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin-bottom: 1rem;
     }
 
     .export-btn:hover {
       background: #1b4620;
+    }
+
+    /* Copyright Footer */
+    .copyright-footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #2e7d32;
+      font-weight: 600;
+      padding: 1rem;
+      border-top: 1px solid #2e7d32;
+      margin-top: 1.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     @media (max-width: 768px) {
@@ -542,8 +834,54 @@
   </style>
 </head>
 <body>
+  <!-- Floating Security Shapes Background -->
+  <div class="bg-shapes">
+    <!-- Lock Icon -->
+    <svg class="floating-shape shape-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+    
+    <!-- Shield Icon -->
+    <svg class="floating-shape shape-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </svg>
+
+    <!-- Hexagon Pattern -->
+    <svg class="floating-shape shape-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M21 16.04c0 .537-.292 1.034-.761 1.3l-5.646 3.686a2.25 2.25 0 0 1-2.386 0L6.76 17.34A2.25 2.25 0 0 1 6 16.04V7.96c0-.537.292-1.034.761-1.3l5.646-3.686a2.25 2.25 0 0 1 2.386 0l5.646 3.686c.469.266.761.763.761 1.3v8.08z"></path>
+    </svg>
+
+    <!-- Lock Icon (Different shade) -->
+    <svg class="floating-shape shape-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+
+    <!-- Shield Icon (Different shade) -->
+    <svg class="floating-shape shape-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </svg>
+
+    <!-- Hexagon Pattern (Different shade) -->
+    <svg class="floating-shape shape-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M21 16.04c0 .537-.292 1.034-.761 1.3l-5.646 3.686a2.25 2.25 0 0 1-2.386 0L6.76 17.34A2.25 2.25 0 0 1 6 16.04V7.96c0-.537.292-1.034.761-1.3l5.646-3.686a2.25 2.25 0 0 1 2.386 0l5.646 3.686c.469.266.761.763.761 1.3v8.08z"></path>
+    </svg>
+
+    <!-- Lock Icon (Small) -->
+    <svg class="floating-shape shape-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+
+    <!-- Shield Icon (Small) -->
+    <svg class="floating-shape shape-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#2e7d32">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </svg>
+  </div>
+
   <!-- FDC Logo in Navbar -->
-  <div class="fdc-logo-nav">
+  <a href="https://www.fdcindia.com/" target="_blank" class="fdc-logo-nav" title="Visit FDC India">
     <svg class="fdc-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="gradientFDC" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -554,7 +892,7 @@
       <ellipse cx="100" cy="60" rx="85" ry="35" fill="none" stroke="url(#gradientFDC)" stroke-width="4"/>
       <text x="100" y="75" font-size="50" font-weight="bold" fill="url(#gradientFDC)" text-anchor="middle" font-family="Arial">FDC</text>
     </svg>
-  </div>
+  </a>
 
   <a href="index.html" class="home-icon" title="Back to Home">
     <i class="fas fa-home"></i>
@@ -562,13 +900,16 @@
 
   <!-- Login Screen -->
   <div class="login-container" id="loginScreen">
-    <h1>Admin Dashboard</h1>
+    <h1>Admin Login</h1>
     <form class="login-form" onsubmit="handleLogin(event)">
       <input type="text" id="username" placeholder="Username" required>
       <input type="password" id="password" placeholder="Password" required>
       <button type="submit">Login</button>
+      <a href="index.html" class="back-home-btn">Back to Home</a>
     </form>
-    <p style="margin-top: 1rem; color: #999; font-size: 0.9rem;">Demo: admin / password</p>
+    <div class="copyright-footer">
+      Copyright © 2025 FDC | All Rights Reserved.
+    </div>
   </div>
 
   <!-- Dashboard Screen -->
@@ -661,9 +1002,21 @@
           </div>
         </form>
 
-        <h2>Custom Questions</h2>
+        <h2>All Questions</h2>
+        <div id="bulkDeleteControls" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #2e7d32;">
+          <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <button class="btn btn-secondary" onclick="selectAllQuestions()" style="background: #2e7d32; color: #fff;">Select All</button>
+            <button class="btn btn-secondary" onclick="deselectAllQuestions()" style="background: #999; color: #fff;">Deselect All</button>
+            <span id="selectionCount" style="font-weight: 700; color: #2e7d32;">0 selected</span>
+            <button class="btn btn-danger" onclick="bulkDeleteQuestions()" style="margin-left: auto;">Delete Selected</button>
+            <button class="btn btn-secondary" onclick="exitSelectionMode()" style="background: #999; color: #fff;">Cancel</button>
+          </div>
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <button class="btn btn-primary" onclick="enterSelectionMode()">Delete Multiple Questions</button>
+        </div>
         <div id="questionsList" class="question-list">
-          <div class="empty-state">No custom questions added yet</div>
+          <div class="empty-state">No questions available</div>
         </div>
       </div>
     </div>
@@ -674,6 +1027,12 @@
     const ADMIN_USERNAME = 'admin';
     const ADMIN_PASSWORD = 'password';
     const DEFAULT_PASS_SCORE = 70; // Pass if 70% or higher
+    
+    // Global variables - declare at the top
+    let DEFAULT_QUESTIONS = [];
+    let currentViewMode = 'all'; // Always show all questions
+    let selectionMode = false;
+    let selectedQuestions = new Set();
 
     // Load data from localStorage (fallback)
     function loadLoginData() {
@@ -692,14 +1051,20 @@
 
     function loadCustomQuestions() {
       const data = localStorage.getItem('customQuestions');
-      return data ? JSON.parse(data) : [];
+      const questions = data ? JSON.parse(data) : [];
+      console.log("📂 Loaded from localStorage:", questions.length, "custom questions");
+      return questions;
     }
 
     function saveCustomQuestions(questions) {
+      console.log("💾 Saving", questions.length, "custom questions to localStorage");
       localStorage.setItem('customQuestions', JSON.stringify(questions));
+      console.log("✅ Saved to localStorage successfully");
+      
       if (window.saveCustomQuestionsToFirebase) {
+        console.log("🔗 Syncing to Firebase...");
         window.saveCustomQuestionsToFirebase(questions).catch(err => {
-          console.warn("Firebase sync failed for custom questions:", err);
+          console.warn("⚠️ Firebase sync failed for custom questions:", err);
         });
       }
     }
@@ -719,15 +1084,34 @@
     // Authentication
     function handleLogin(event) {
       event.preventDefault();
+      console.log("🔐 Login attempted...");
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
       if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        console.log("✅ Credentials valid!");
         sessionStorage.setItem('adminLoggedIn', 'true');
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('dashboard').classList.add('active');
+        console.log("✅ Session storage set");
+        
+        const loginScreen = document.getElementById('loginScreen');
+        const dashboard = document.getElementById('dashboard');
+        
+        console.log("📄 loginScreen element:", loginScreen !== null);
+        console.log("📄 dashboard element:", dashboard !== null);
+        
+        if (loginScreen) {
+          loginScreen.style.display = 'none';
+          console.log("✅ Login screen hidden");
+        }
+        if (dashboard) {
+          dashboard.classList.add('active');
+          console.log("✅ Dashboard shown");
+        }
+        
         loadDashboardData();
+        console.log("✅ Dashboard data loaded");
       } else {
+        console.log("❌ Invalid credentials");
         alert('Invalid credentials');
       }
     }
@@ -739,18 +1123,28 @@
 
     // Check if admin is logged in
     function checkAdminLogin() {
-      if (!sessionStorage.getItem('adminLoggedIn')) {
-        document.getElementById('loginScreen').style.display = 'block';
-        document.getElementById('dashboard').classList.remove('active');
+      console.log("🔍 Checking admin login status...");
+      const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
+      console.log("📌 Admin logged in:", isLoggedIn);
+      
+      const loginScreen = document.getElementById('loginScreen');
+      const dashboard = document.getElementById('dashboard');
+      
+      if (!isLoggedIn) {
+        console.log("❌ Not logged in - showing login screen");
+        if (loginScreen) loginScreen.style.display = 'block';
+        if (dashboard) dashboard.classList.remove('active');
       } else {
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('dashboard').classList.add('active');
+        console.log("✅ Logged in - showing dashboard");
+        if (loginScreen) loginScreen.style.display = 'none';
+        if (dashboard) dashboard.classList.add('active');
         loadDashboardData();
       }
     }
 
     // Switch tabs
     function switchTab(tabName) {
+      console.log("📑 Switching to tab:", tabName);
       // Hide all tabs
       document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
@@ -760,8 +1154,17 @@
       });
 
       // Show selected tab
-      document.getElementById(tabName).classList.add('active');
-      event.target.classList.add('active');
+      const tabElement = document.getElementById(tabName);
+      if (tabElement) {
+        tabElement.classList.add('active');
+        console.log("✅ Tab", tabName, "shown");
+      } else {
+        console.error("❌ Tab element not found:", tabName);
+      }
+      
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
 
       if (tabName === 'login-data') {
         loadLoginDataTable();
@@ -806,13 +1209,13 @@
 
         return `
           <tr>
-            <td><span style="cursor: pointer; color: #2e7d32; font-weight: 600;" onclick="viewEmployeeReview(${index})">${attempt.employeeName}</span></td>
+            <td><span style="cursor: pointer; color: #2e7d32; font-weight: 700;" onclick="viewEmployeeReview(${index})">${attempt.employeeName}</span></td>
             <td>${attempt.employeeId}</td>
             <td>${formattedDate}</td>
             <td>${attempt.score}/${attempt.totalQuestions}</td>
             <td>${percentage}%</td>
             <td><span class="${statusClass}">${statusText}</span></td>
-            <td><button class="btn btn-sm" onclick="viewEmployeeReview(${index})" style="background: #2196f3; color: #fff; padding: 0.4rem 0.8rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">View</button></td>
+            <td><button class="btn btn-sm" onclick="viewEmployeeReview(${index})" style="background: #2196f3; color: #fff; padding: 0.4rem 0.8rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 700;">View</button></td>
           </tr>
         `;
       }).join('');
@@ -843,6 +1246,138 @@
     }
 
     // Question Management
+
+    // Load default questions from localStorage (if admin modified them)
+    function loadDefaultQuestionsFromStorage() {
+      const stored = localStorage.getItem('defaultQuestions');
+      if (stored) {
+        return JSON.parse(stored);
+      }
+      return DEFAULT_QUESTIONS;
+    }
+
+    // Save default questions to localStorage
+    function saveDefaultQuestionsToStorage(questions) {
+      localStorage.setItem('defaultQuestions', JSON.stringify(questions));
+      if (window.saveDefaultQuestionsToFirebase) {
+        window.saveDefaultQuestionsToFirebase(questions).catch(err => {
+          console.warn("Firebase sync failed for default questions:", err);
+        });
+      }
+    }
+
+    // Initialize DEFAULT_QUESTIONS from storage if available
+    DEFAULT_QUESTIONS = loadDefaultQuestionsFromStorage();
+
+    function enterSelectionMode() {
+      selectionMode = true;
+      selectedQuestions.clear();
+      document.getElementById('bulkDeleteControls').style.display = 'block';
+      loadCustomQuestionsList();
+    }
+
+    function exitSelectionMode() {
+      selectionMode = false;
+      selectedQuestions.clear();
+      document.getElementById('bulkDeleteControls').style.display = 'none';
+      updateSelectionCount();
+      loadCustomQuestionsList();
+    }
+
+    function toggleQuestionSelection(questionId) {
+      if (selectedQuestions.has(questionId)) {
+        selectedQuestions.delete(questionId);
+      } else {
+        selectedQuestions.add(questionId);
+      }
+      updateSelectionCount();
+    }
+
+    function updateSelectionCount() {
+      const count = selectedQuestions.size;
+      document.getElementById('selectionCount').textContent = count + ' selected';
+    }
+
+    function selectAllQuestions() {
+      const questionsList = document.getElementById('questionsList');
+      const checkboxes = questionsList.querySelectorAll('input[type="checkbox"][data-question-id]');
+      checkboxes.forEach(checkbox => {
+        const questionId = checkbox.getAttribute('data-question-id');
+        selectedQuestions.add(questionId);
+        checkbox.checked = true;
+      });
+      updateSelectionCount();
+    }
+
+    function deselectAllQuestions() {
+      const questionsList = document.getElementById('questionsList');
+      const checkboxes = questionsList.querySelectorAll('input[type="checkbox"][data-question-id]');
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      selectedQuestions.clear();
+      updateSelectionCount();
+    }
+
+    function bulkDeleteQuestions() {
+      if (selectedQuestions.size === 0) {
+        alert('Please select at least one question to delete');
+        return;
+      }
+
+      const count = selectedQuestions.size;
+      const message = count === 1 ? 'Delete 1 question?' : `Delete ${count} questions?`;
+      
+      if (!confirm(message)) return;
+
+      console.log("🗑️ Starting bulk delete. Selected questions:", Array.from(selectedQuestions));
+
+      selectedQuestions.forEach(questionId => {
+        console.log("🗑️ Deleting question ID:", questionId);
+        const isDefault = questionId.toString().startsWith('default_');
+        console.log("📌 Is Default?", isDefault);
+        
+        if (isDefault) {
+          console.log("📚 Before delete - DEFAULT_QUESTIONS count:", DEFAULT_QUESTIONS.length);
+          console.log("📚 DEFAULT_QUESTIONS:", DEFAULT_QUESTIONS.map(q => q.id));
+          const index = DEFAULT_QUESTIONS.findIndex(q => q.id === questionId || q.id.toString() === questionId.toString());
+          console.log("🔍 Found index:", index);
+          if (index > -1) {
+            DEFAULT_QUESTIONS.splice(index, 1);
+            console.log("✅ Deleted from array. New count:", DEFAULT_QUESTIONS.length);
+            saveDefaultQuestionsToStorage(DEFAULT_QUESTIONS);
+            console.log("💾 Saved to storage");
+          }
+        } else {
+          let questions = loadCustomQuestions();
+          console.log("📋 Before delete - Custom questions count:", questions.length);
+          console.log("🔎 Looking for ID:", questionId, "in questions:", questions.map(q => ({ id: q.id, type: typeof q.id })));
+          questions = questions.filter(q => q.id != questionId && q.id.toString() !== questionId.toString());
+          console.log("📋 After delete - Custom questions count:", questions.length);
+          saveCustomQuestions(questions);
+        }
+      });
+
+      const message2 = count === 1 ? '1 question deleted successfully!' : `${count} questions deleted successfully!`;
+      showMessage(message2, 'success');
+      
+      // Reload DEFAULT_QUESTIONS from storage to ensure display has latest data
+      DEFAULT_QUESTIONS = loadDefaultQuestionsFromStorage();
+      console.log("🔄 Reloaded DEFAULT_QUESTIONS from storage:", DEFAULT_QUESTIONS.length);
+      
+      // Reload and display updated questions list
+      const customQuestions = loadCustomQuestions();
+      console.log("🔄 Reloaded custom questions from storage:", customQuestions.length);
+      console.log("🎯 About to display. Total will be:", DEFAULT_QUESTIONS.length + customQuestions.length);
+      displayCustomQuestionsList(customQuestions);
+      
+      // Exit selection mode manually (without calling loadCustomQuestionsList which would override display)
+      selectionMode = false;
+      selectedQuestions.clear();
+      document.getElementById('bulkDeleteControls').style.display = 'none';
+      updateSelectionCount();
+    }
+
     function handleQuestionSubmit(event) {
       event.preventDefault();
 
@@ -869,16 +1404,22 @@
           document.getElementById('option3').value,
           document.getElementById('option4').value
         ],
-        answer: correctAnswers.length === 1 ? correctAnswers[0] : correctAnswers
+        answer: correctAnswers.length === 1 ? correctAnswers[0] : correctAnswers,
+        isDefault: false
       };
 
       let customQuestions = loadCustomQuestions();
       customQuestions.push(question);
       saveCustomQuestions(customQuestions);
+      
+      console.log("✅ Question saved:", question);
+      console.log("📊 Total custom questions now:", customQuestions.length);
 
       showMessage('Question added successfully!', 'success');
       resetQuestionForm();
-      loadCustomQuestionsList();
+      
+      // Display immediately from localStorage without waiting for Firebase
+      displayCustomQuestionsList(customQuestions);
     }
 
     function resetQuestionForm() {
@@ -908,56 +1449,100 @@
     }
 
     function loadCustomQuestionsList() {
-      loadCustomQuestionsFromFirebase().then(questions => {
-        displayCustomQuestionsList(questions);
-      }).catch(err => {
-        console.warn("Error loading questions:", err);
+      console.log("🔄 Loading custom questions list...");
+      
+      // If Firebase module is available, try to fetch from Firebase
+      if (window.fetchCustomQuestionsFromFirebase) {
+        console.log("🔗 Firebase available, attempting to load from Firebase...");
+        loadCustomQuestionsFromFirebase().then(questions => {
+          console.log("✅ Loaded custom questions from Firebase:", questions.length);
+          displayCustomQuestionsList(questions);
+        }).catch(err => {
+          console.warn("⚠️ Firebase load failed, falling back to localStorage:", err);
+          const questions = loadCustomQuestions();
+          console.log("📁 Loaded custom questions from localStorage:", questions.length);
+          displayCustomQuestionsList(questions);
+        });
+      } else {
+        // Firebase not available yet, load from localStorage directly
+        console.log("⏳ Firebase module not yet loaded, using localStorage");
         const questions = loadCustomQuestions();
+        console.log("📁 Loaded custom questions from localStorage:", questions.length);
         displayCustomQuestionsList(questions);
-      });
+      }
     }
 
     function displayCustomQuestionsList(questions) {
       const container = document.getElementById('questionsList');
+      console.log("🎯 displayCustomQuestionsList called with:", questions.length, "custom questions");
+      console.log("📚 DEFAULT_QUESTIONS available:", DEFAULT_QUESTIONS.length);
+      
+      if (!container) {
+        console.error("❌ Container element 'questionsList' not found!");
+        return;
+      }
+      
+      // Always combine default and custom questions
+      const displayQuestions = [...DEFAULT_QUESTIONS, ...questions];
+      console.log("✅ Total questions to display:", displayQuestions.length);
 
-      if (questions.length === 0) {
-        container.innerHTML = '<div class="empty-state">No custom questions added yet</div>';
+      if (displayQuestions.length === 0) {
+        container.innerHTML = `<div class="empty-state">No questions available</div>`;
         return;
       }
 
-      container.innerHTML = questions.map(q => `
-        <div class="question-card">
-          <h3>Q: ${q.q}</h3>
+      container.innerHTML = displayQuestions.map((q, index) => {
+        const correctAnswerText = Array.isArray(q.answer) 
+          ? q.answer.map(a => q.options[a]).join(', ')
+          : q.options[q.answer];
+        const isDefault = q.isDefault || q.id.toString().startsWith('default_');
+        const isSelected = selectedQuestions.has(q.id);
+
+        return `
+        <div class="question-card" style="${isDefault ? 'border-left: 5px solid #ff9800; background: #fffbf0;' : ''} ${isSelected ? 'border: 3px solid #2e7d32; background: #e8f5e9;' : ''}">
+          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+            ${selectionMode ? `<input type="checkbox" data-question-id="${q.id}" ${isSelected ? 'checked' : ''} onchange="toggleQuestionSelection('${q.id}')" style="width: 20px; height: 20px; cursor: pointer; margin-right: 0.8rem; flex-shrink: 0; margin-top: 0.2rem;">` : ''}
+            <h3 style="flex: 1; margin: 0;">Q${index + 1}: ${q.q}</h3>
+            ${isDefault ? '<span style="background: #ff9800; color: #fff; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; margin-left: 1rem;">DEFAULT</span>' : '<span style="background: #2e7d32; color: #fff; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; margin-left: 1rem;">CUSTOM</span>'}
+          </div>
           ${q.image ? `<div class="question-card-image"><img src="${q.image}" alt="Question Image"></div>` : ''}
           <div class="question-card-options">
             <strong>Options:</strong>
             <ul>
-              ${q.options.map((opt, idx) => `
-                <li>${opt}${idx === q.answer ? ' <strong>(Correct Answer)</strong>' : ''}</li>
-              `).join('')}
+              ${q.options.map((opt, idx) => {
+                const isCorrect = Array.isArray(q.answer) ? q.answer.includes(idx) : idx === q.answer;
+                return `<li>${opt}${isCorrect ? ' <strong style="color: #4caf50;">(✓ Correct Answer)</strong>' : ''}</li>`;
+              }).join('')}
             </ul>
           </div>
-          <div class="question-card-actions">
-            <button class="btn btn-edit" onclick="editQuestion(${q.id})">Edit</button>
-            <button class="btn btn-danger" onclick="deleteQuestion(${q.id})">Delete</button>
-          </div>
+          ${!selectionMode ? `<div class="question-card-actions">
+            ${isDefault ? `
+              <button class="btn btn-edit" onclick="editQuestion('${q.id}')">Edit</button>
+            ` : `
+              <button class="btn btn-edit" onclick="editQuestion(${q.id})">Edit</button>
+            `}
+          </div>` : ''}
         </div>
-      `).join('');
+      `}).join('');
+      
+      console.log("📝 HTML rendered with", displayQuestions.length, "questions");
+      console.log("🎨 Container element found:", container !== null);
     }
 
     function deleteQuestion(questionId) {
-      if (!confirm('Are you sure you want to delete this question?')) return;
-
-      let questions = loadCustomQuestions();
-      questions = questions.filter(q => q.id !== questionId);
-      saveCustomQuestions(questions);
-      showMessage('Question deleted successfully!', 'success');
-      loadCustomQuestionsList();
+      // Bulk delete is now the primary method - this function kept for backward compatibility
     }
 
     function editQuestion(questionId) {
-      const questions = loadCustomQuestions();
-      const question = questions.find(q => q.id === questionId);
+      const isDefault = questionId.toString().startsWith('default_');
+      let question;
+
+      if (isDefault) {
+        question = DEFAULT_QUESTIONS.find(q => q.id === questionId);
+      } else {
+        const questions = loadCustomQuestions();
+        question = questions.find(q => q.id === questionId);
+      }
 
       if (!question) return;
 
@@ -970,6 +1555,9 @@
       
       // Handle multiple correct answers
       const correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
+      // Clear all checkboxes first
+      document.querySelectorAll('input[name="correctAnswer"]').forEach(cb => cb.checked = false);
+      // Check the correct ones
       correctAnswers.forEach(ans => {
         document.querySelector(`input[name="correctAnswer"][value="${ans}"]`).checked = true;
       });
@@ -1016,15 +1604,26 @@
             document.getElementById('option3').value,
             document.getElementById('option4').value
           ],
-          answer: newCorrectAnswers.length === 1 ? newCorrectAnswers[0] : newCorrectAnswers
+          answer: newCorrectAnswers.length === 1 ? newCorrectAnswers[0] : newCorrectAnswers,
+          isDefault: isDefault
         };
 
-        let allQuestions = loadCustomQuestions();
-        const index = allQuestions.findIndex(q => q.id === questionId);
-        allQuestions[index] = updatedQuestion;
-        saveCustomQuestions(allQuestions);
+        if (isDefault) {
+          const index = DEFAULT_QUESTIONS.findIndex(q => q.id === questionId);
+          if (index > -1) {
+            DEFAULT_QUESTIONS[index] = updatedQuestion;
+            // Save to localStorage to persist changes for users
+            saveDefaultQuestionsToStorage(DEFAULT_QUESTIONS);
+          }
+          showMessage('Default question updated successfully!', 'success');
+        } else {
+          let allQuestions = loadCustomQuestions();
+          const index = allQuestions.findIndex(q => q.id === questionId);
+          allQuestions[index] = updatedQuestion;
+          saveCustomQuestions(allQuestions);
+          showMessage('Custom question updated successfully!', 'success');
+        }
 
-        showMessage('Question updated successfully!', 'success');
         resetQuestionForm();
         submitBtn.textContent = originalText;
         form.onsubmit = originalOnsubmit;
@@ -1051,8 +1650,11 @@
 
     // Load dashboard
     function loadDashboardData() {
+      console.log("📊 Loading dashboard data...");
       loadLoginDataTable();
+      console.log("✅ Login data table loaded");
       loadCustomQuestionsList();
+      console.log("✅ Custom questions list loaded");
     }
 
     function viewEmployeeReview(attemptIndex) {
@@ -1114,7 +1716,7 @@
               <h2 style="margin: 0; color: #2e7d32; font-size: 1.3rem;">Quiz Review - ${attempt.employeeName}</h2>
               <p style="margin: 0.5rem 0 0 0; color: #666; font-size: 0.9rem;">Employee ID: ${attempt.employeeId} | Date: ${new Date(attempt.timestamp).toLocaleString()}</p>
             </div>
-            <button onclick="closeEmployeeReview()" style="background: #2e7d32; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600;">Close</button>
+            <button onclick="closeEmployeeReview()" style="background: #2e7d32; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 700;">Close</button>
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; padding: 1rem; background: #f5f5f5; border-radius: 6px;">
@@ -1165,7 +1767,7 @@
           <div style="background: #f9f9f9; border-left: 4px solid ${statusColor}; padding: 1.2rem; margin-bottom: 1rem; border-radius: 6px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
               <div style="font-weight: 700; color: #2e7d32; font-size: 1rem;">Q${qIndex + 1}: ${question.q}</div>
-              <div style="background: ${statusColor}; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem;">${statusBadge}</div>
+              <div style="background: ${statusColor}; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 700; font-size: 0.85rem;">${statusBadge}</div>
             </div>
         `;
 
@@ -1195,11 +1797,11 @@
 
           let label = '';
           if (isCorrectOption && isUserSelected) {
-            label = '<span style="color: #4caf50; font-weight: 600; margin-left: auto;">(Your Answer - Correct)</span>';
+            label = '<span style="color: #4caf50; font-weight: 700; margin-left: auto;">(Your Answer - Correct)</span>';
           } else if (isCorrectOption) {
-            label = '<span style="color: #4caf50; font-weight: 600; margin-left: auto;">(Correct Answer)</span>';
+            label = '<span style="color: #4caf50; font-weight: 700; margin-left: auto;">(Correct Answer)</span>';
           } else if (isUserSelected && !isCorrect) {
-            label = '<span style="color: #f44336; font-weight: 600; margin-left: auto;">(Your Answer)</span>';
+            label = '<span style="color: #f44336; font-weight: 700; margin-left: auto;">(Your Answer)</span>';
           }
 
           html += `
