@@ -1,6 +1,6 @@
 // firebase.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 // Uses environment variables (loaded from .env.local or Vercel dashboard)
@@ -35,17 +35,18 @@ async function saveCustomQuestionsToFirebase(questions) {
 async function fetchCustomQuestionsFromFirebase() {
   try {
     const configDoc = doc(db, "portalConfig", "customQuestions");
-    const response = await getDocs(query(collection(db, "portalConfig")));
-    let questions = [];
-    response.forEach(doc => {
-      if (doc.id === "customQuestions" && doc.data().questions) {
-        questions = doc.data().questions;
-      }
-    });
-    console.log("✅ Custom questions fetched from Firebase:", questions.length);
-    return questions;
+    const snapshot = await getDoc(configDoc);
+    
+    if (snapshot.exists() && snapshot.data().questions) {
+      const questions = snapshot.data().questions;
+      console.log("✅ Custom questions fetched from Firebase:", questions.length, "questions");
+      return questions;
+    } else {
+      console.log("⚠️ No custom questions found in Firebase");
+      return [];
+    }
   } catch (error) {
-    console.error("❌ Error fetching custom questions:", error);
+    console.error("❌ Error fetching custom questions from Firebase:", error);
     return [];
   }
 }
