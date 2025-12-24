@@ -1215,36 +1215,183 @@
     const DEFAULT_QUIZ_QUESTIONS = [];
 
     // Load and merge all questions (default + custom)
-    function initializeAllQuestions() {
-      // Load only custom questions (ignore default questions)
-      let customQuestions = [];
-      const storedCustom = localStorage.getItem('customQuestions');
-      if (storedCustom) {
+    // Initialize questions - will be set by async loader
+    let questions = [];
+
+    // Function to load questions from Firebase or localStorage
+    async function initializeAllQuestions() {
+      // Try to fetch custom questions from Firebase first
+      if (window.fetchCustomQuestionsFromFirebase) {
         try {
-          customQuestions = JSON.parse(storedCustom);
-          console.log("Loaded custom questions from localStorage:", customQuestions.length, "questions");
-        } catch (e) {
-          console.warn("Error parsing custom questions", e);
+          const firebaseQuestions = await window.fetchCustomQuestionsFromFirebase();
+          if (firebaseQuestions && firebaseQuestions.length > 0) {
+            console.log("✅ Fetched", firebaseQuestions.length, "questions from Firebase");
+            // Save to localStorage for offline access
+            localStorage.setItem('customQuestions', JSON.stringify(firebaseQuestions));
+            questions = firebaseQuestions;
+            console.log("📊 Quiz initialized with Firebase questions:", questions.length);
+            return firebaseQuestions;
+          }
+        } catch (err) {
+          console.warn("⚠️ Error fetching from Firebase:", err);
         }
       }
 
-      // Remove duplicates by question ID
-      const uniqueMap = new Map();
-      customQuestions.forEach(q => {
-        if (!uniqueMap.has(q.id)) {
-          uniqueMap.set(q.id, q);
+      // If Firebase didn't work, try loading from localStorage
+      const storedCustom = localStorage.getItem('customQuestions');
+      if (storedCustom) {
+        try {
+          let customQuestions = JSON.parse(storedCustom);
+          console.log("📦 Loaded", customQuestions.length, "questions from localStorage");
+          // Remove duplicates
+          const uniqueMap = new Map();
+          customQuestions.forEach(q => {
+            if (!uniqueMap.has(q.id)) {
+              uniqueMap.set(q.id, q);
+            }
+          });
+          const uniqueQuestions = Array.from(uniqueMap.values());
+          console.log("After deduplication:", uniqueQuestions.length, "unique questions");
+          if (uniqueQuestions.length > 0) {
+            questions = uniqueQuestions;
+            console.log("📊 Quiz initialized with localStorage questions:", questions.length);
+            return uniqueQuestions;
+          }
+        } catch (e) {
+          console.warn("Error parsing localStorage questions", e);
         }
-      });
-      customQuestions = Array.from(uniqueMap.values());
-      console.log("After deduplication:", customQuestions.length, "unique questions");
+      }
 
-      // Return all custom questions (no limit)
-      console.log("Total questions initialized:", customQuestions.length);
-      return customQuestions;
+      // Default questions for deployment (fallback)
+      const defaultQuestions = [
+        {
+          id: "q1",
+          q: "What is phishing?",
+          options: [
+            "A type of fishing technique",
+            "A fraudulent attempt to obtain sensitive information by disguising communication as trustworthy source",
+            "A programming language",
+            "A social media platform"
+          ],
+          answer: 1,
+          image: ""
+        },
+        {
+          id: "q2",
+          q: "Which of the following is NOT a common phishing method?",
+          options: [
+            "Fake email from your bank asking to verify account details",
+            "SMS messages asking you to click a link",
+            "Sending official company announcement through verified channels",
+            "Pop-up windows asking for personal information"
+          ],
+          answer: 2,
+          image: ""
+        },
+        {
+          id: "q3",
+          q: "What should you do if you receive a suspicious email asking for your password?",
+          options: [
+            "Reply with your password to confirm your account",
+            "Click the link to verify",
+            "Delete the email and report it to your IT department",
+            "Forward it to all your colleagues"
+          ],
+          answer: 2,
+          image: ""
+        },
+        {
+          id: "q4",
+          q: "How can you identify a phishing email?",
+          options: [
+            "Check the sender's email address carefully",
+            "Look for spelling and grammar errors",
+            "Check if links match the stated domain",
+            "All of the above"
+          ],
+          answer: 3,
+          image: ""
+        },
+        {
+          id: "q5",
+          q: "What is the safest way to check if a link is legitimate?",
+          options: [
+            "Hover over the link to see the URL",
+            "Click it and then go back if it looks wrong",
+            "Ask a colleague to click it first",
+            "Always assume it's safe if it looks professional"
+          ],
+          answer: 0,
+          image: ""
+        },
+        {
+          id: "q6",
+          q: "Which organization should you contact if you suspect a phishing attempt targeting your company?",
+          options: [
+            "The police immediately",
+            "Your IT/Security department",
+            "The sender of the email",
+            "Social media"
+          ],
+          answer: 1,
+          image: ""
+        },
+        {
+          id: "q7",
+          q: "What is two-factor authentication (2FA)?",
+          options: [
+            "Entering your password twice",
+            "An additional security layer requiring a second verification method beyond password",
+            "Having two email accounts",
+            "Using two different browsers"
+          ],
+          answer: 1,
+          image: ""
+        },
+        {
+          id: "q8",
+          q: "How often should you change your passwords?",
+          options: [
+            "Once a year",
+            "Every 3-6 months or immediately if compromised",
+            "Never, keep the same password",
+            "Every time you log in"
+          ],
+          answer: 1,
+          image: ""
+        },
+        {
+          id: "q9",
+          q: "What is a credential stuffing attack?",
+          options: [
+            "Hiding credentials in a bag",
+            "Using stolen passwords from one breach to access multiple accounts",
+            "A type of food storage",
+            "Interviewing candidates for a job"
+          ],
+          answer: 1,
+          image: ""
+        },
+        {
+          id: "q10",
+          q: "What should be your response if you accidentally click a phishing link?",
+          options: [
+            "Ignore it and do nothing",
+            "Immediately change your password and notify your IT department",
+            "Forward the email to your friends",
+            "Check if your data was stolen online"
+          ],
+          answer: 1,
+          image: ""
+        }
+      ];
+
+      // Use default questions as fallback
+      console.log("ℹ️ Using default fallback questions:", defaultQuestions.length);
+      questions = defaultQuestions;
+      console.log("📊 Quiz initialized with default questions:", questions.length);
+      return defaultQuestions;
     }
-
-    // Initialize questions
-    let questions = initializeAllQuestions();
 
     // Employee Database for Verification - Email based authentication
     const employeeDatabase = {
@@ -1528,8 +1675,12 @@
           const custom = await window.fetchCustomQuestionsFromFirebase();
           if (custom && custom.length > 0) {
             console.log("✅ Firebase has", custom.length, "custom questions");
-            // Don't add to quiz - already loaded from localStorage in initializeAllQuestions
-            console.log("📊 Quiz questions remain at:", questions.length);
+            // Save to localStorage for persistence
+            localStorage.setItem('customQuestions', JSON.stringify(custom));
+            // Update the questions array
+            questions = custom;
+            console.log("💾 Saved Firebase questions to localStorage");
+            console.log("📊 Quiz questions updated to:", questions.length);
           } else {
             console.log("ℹ️ No custom questions from Firebase");
           }
@@ -1995,9 +2146,12 @@
 
     async function loadAllQuestionsAndStart() {
       console.log("🚀 Loading all questions and starting quiz...");
-      console.log("📊 Questions before Firebase sync:", questions.length);
-      await syncCustomQuestionsFromFirebase();
-      console.log("📊 Questions after Firebase sync:", questions.length);
+      console.log("📊 Questions before sync:", questions.length);
+      
+      // Initialize questions from Firebase or localStorage
+      await initializeAllQuestions();
+      
+      console.log("📊 Questions after sync:", questions.length);
       buildNavigator();
       
       // Add double-click listener for violation recovery
@@ -3717,4 +3871,3 @@
   </script>
 </body>
 </html>
-
