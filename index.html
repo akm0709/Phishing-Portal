@@ -88,7 +88,7 @@
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      margin-top: 60px;
+      margin-top: 20px;
       position: relative;
       overflow: hidden;
     }
@@ -125,11 +125,11 @@
     /* FDC Logo in Navbar */
     .fdc-logo-nav {
       position: fixed;
-      top: 8px;
+      top: 15px;
       left: 50%;
-      margin-left: -45px;
-      width: 90px;
-      height: 90px;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 60px;
       z-index: 1001;
       opacity: 1;
       pointer-events: auto;
@@ -139,17 +139,23 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.3s ease;
-      border-radius: 50%;
+      background: transparent;
+      padding: 10px;
     }
 
     .fdc-logo-nav:hover {
-      transform: scale(1.05);
+      transform: translateX(-50%) scale(1.08);
     }
 
     .fdc-logo-svg {
-      width: 90px;
-      height: 90px;
-      filter: drop-shadow(0 2px 4px rgba(46, 125, 50, 0.2));
+      width: 100%;
+      height: auto;
+      max-width: 140px;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+    }
+
+    body {
+      padding-top: 40px;
     }
 
     /* Floating Icons */
@@ -705,16 +711,7 @@
 
   <!-- FDC Logo in Navbar -->
   <a href="https://www.fdcindia.com/" target="_blank" class="fdc-logo-nav" title="Visit FDC India">
-    <svg class="fdc-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gradientFDC" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#2e7d32;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#4caf50;stop-opacity:1" />
-        </linearGradient>
-      </defs>
-      <ellipse cx="100" cy="60" rx="85" ry="35" fill="none" stroke="url(#gradientFDC)" stroke-width="4"/>
-      <text x="100" y="75" font-size="50" font-weight="bold" fill="url(#gradientFDC)" text-anchor="middle" font-family="Arial">FDC</text>
-    </svg>
+    <img src="favicon-green.svg" alt="FDC Logo" class="fdc-logo-svg" />
   </a>
 
   <!-- Hero Section -->
