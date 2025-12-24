@@ -253,11 +253,11 @@
 
     /* Employee Form Styles */
     .quiz-container {
-      max-width: 520px;
-      margin: 5.5rem auto 4rem auto;
+      max-width: 440px;
+      margin: 0.4rem auto 1.5rem auto;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(10px);
-      padding: 1.5rem;
+      padding: 1.2rem;
       border-radius: 12px;
       border: 2px solid #2e7d32;
       box-shadow: 0 8px 32px rgba(46, 125, 50, 0.2);
@@ -345,17 +345,17 @@
 
     .back-home-btn-quiz {
       width: 100%;
-      padding: 0.75rem 1.5rem;
+      padding: 0.6rem 1.5rem;
       background: rgba(255, 255, 255, 0.6);
       color: #2e7d32;
       border: 1px solid rgba(46, 125, 50, 0.3);
       border-radius: 8px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin-top: 2rem;
+      margin-top: 0.5rem;
       display: block;
       text-align: center;
       text-decoration: none;
@@ -415,11 +415,12 @@
     /* FDC Logo in Navbar */
     .fdc-logo-nav {
       position: fixed;
-      top: 8px;
-      left: 50%;
-      margin-left: -45px;
-      width: 90px;
-      height: 90px;
+      top: 15px;
+      right: 15px;
+      left: auto;
+      transform: none;
+      width: 120px;
+      height: 60px;
       z-index: 1001;
       opacity: 1;
       pointer-events: auto;
@@ -429,11 +430,12 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.3s ease;
-      border-radius: 50%;
+      background: transparent;
+      padding: 10px;
     }
 
     .fdc-logo-nav:hover {
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
 
     .fdc-logo-nav.disabled {
@@ -442,25 +444,45 @@
       pointer-events: none;
     }
 
+    .fdc-logo-nav.hidden {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .fdc-logo-nav.quiz-active {
+      top: auto;
+      bottom: 15px;
+      right: 15px;
+      left: auto;
+      transform: none;
+    }
+
     .fdc-logo-svg {
-      width: 90px;
-      height: 90px;
-      filter: drop-shadow(0 2px 4px rgba(46, 125, 50, 0.2));
+      width: 100%;
+      height: auto;
+      max-width: 140px;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+    }
+
+    body {
+      padding-top: 40px;
     }
 
     /* Employee Form Input Styling */
     .quiz-container input[type="email"],
     .quiz-container input[type="text"] {
       width: 100% !important;
-      padding: 0.9rem !important;
+      padding: 0.7rem !important;
       border: 2px solid #2e7d32 !important;
       border-radius: 8px !important;
-      font-size: 1rem !important;
+      font-size: 0.95rem !important;
       font-weight: 500 !important;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       transition: all 0.3s ease !important;
       background: rgba(255, 255, 255, 0.8) !important;
       color: #333 !important;
+      margin-bottom: 0.6rem !important;
     }
 
     .quiz-container input[type="email"]:focus,
@@ -482,11 +504,11 @@
     .quiz-container button[type="submit"],
     .quiz-container button[type="button"] {
       width: 100% !important;
-      padding: 0.9rem !important;
+      padding: 0.7rem !important;
       border-radius: 8px !important;
       font-weight: 700 !important;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-      font-size: 1rem !important;
+      font-size: 0.95rem !important;
       cursor: pointer !important;
       transition: all 0.3s ease !important;
       border: none !important;
@@ -495,7 +517,7 @@
     .quiz-container button[type=\"submit\"] {
       background: linear-gradient(135deg, #2e7d32, #4caf50) !important;
       color: #fff !important;
-      margin-bottom: 0.5rem !important;
+      margin-bottom: 0.4rem !important;
       box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3) !important;
     }
 
@@ -538,7 +560,7 @@
       padding: 1.5rem;
       background: #f5f5f5;
       min-height: 100vh;
-      margin-top: 5rem;
+      margin-top: 0.25rem;
     }
 
     .main-stage {
@@ -1132,16 +1154,7 @@
 
   <!-- FDC Logo in Navbar -->
   <a href="https://www.fdcindia.com/" target="_blank" class="fdc-logo-nav" id="fdcLogoLink" title="Visit FDC India">
-    <svg class="fdc-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gradientFDC" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#2e7d32;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#4caf50;stop-opacity:1" />
-        </linearGradient>
-      </defs>
-      <ellipse cx="100" cy="60" rx="85" ry="35" fill="none" stroke="url(#gradientFDC)" stroke-width="4"/>
-      <text x="100" y="75" font-size="50" font-weight="bold" fill="url(#gradientFDC)" text-anchor="middle" font-family="Arial">FDC</text>
-    </svg>
+    <img src="favicon-green.svg" alt="FDC Logo" class="fdc-logo-svg" />
   </a>
 
   <a href="index.html" class="home-icon" id="homeIcon" title="Back to Home">
@@ -1754,7 +1767,7 @@
       }
       
       const guidelinesHTML = `
-        <div class="quiz-container" style="max-width: 900px; margin: 4rem auto; animation: fadeIn 1s ease;">
+        <div class="quiz-container" style="max-width: 900px; margin: 1rem auto; animation: fadeIn 1s ease;">
           <h1>Quiz Guidelines & Rules</h1>
           
           <!-- Welcome Card -->
@@ -1874,7 +1887,7 @@
       }
       
       const videoHTML = `
-        <div class="quiz-container" style="max-width: 900px; margin: 4rem auto; animation: fadeIn 1s ease;">
+        <div class="quiz-container" style="max-width: 900px; margin: 1rem auto; animation: fadeIn 1s ease;">
           <h1 style="text-align: center; margin-bottom: 1.5rem;">Mandatory Awareness Video</h1>
           
           <!-- Video Info Card -->
@@ -2086,10 +2099,11 @@
         homeIcon.style.display = 'none';
       }
 
-      // Disable FDC logo link once actual quiz starts
+      // Show FDC logo in bottom right during active quiz
       const fdcLogoLink = document.getElementById('fdcLogoLink');
       if (fdcLogoLink) {
-        fdcLogoLink.classList.add('disabled');
+        fdcLogoLink.classList.remove('hidden');
+        fdcLogoLink.classList.add('quiz-active');
         fdcLogoLink.onclick = (e) => {
           e.preventDefault();
           alert('Please submit the quiz before leaving.');
@@ -2140,6 +2154,11 @@
     }
 
     function goBackToHome() {
+      // Remove quiz-active class from FDC logo
+      const fdcLogoLink = document.getElementById('fdcLogoLink');
+      if (fdcLogoLink) {
+        fdcLogoLink.classList.remove('quiz-active');
+      }
       // Redirect to home/index page
       window.location.href = '/';
     }
@@ -3279,6 +3298,12 @@
     }
 
     async function submitQuiz() {
+      // Remove quiz-active class from FDC logo when submitting
+      const fdcLogoLink = document.getElementById('fdcLogoLink');
+      if (fdcLogoLink) {
+        fdcLogoLink.classList.remove('quiz-active');
+      }
+      
       // Show loading overlay
       showLoadingOverlay();
       
@@ -3685,13 +3710,25 @@
       showPerformanceSummary(score, percentage, isPassed);
     }
 
+    function goBackToQuiz() {
+      // Hide comprehensive review and show quiz questions
+      mainStage.innerHTML = '';
+      document.getElementById('quizWrapper').style.display = 'flex';
+      buildNavigator();
+      currentQuestionIndex = 0;
+      displayQuestion();
+    }
+
     function showComprehensiveReview() {
       let html = `
         <div style="overflow-y: auto; height: 100%; display: flex; flex-direction: column;">
           <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid #2e7d32; flex-shrink: 0;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
               <div style="font-weight: 600; color: #2e7d32; font-size: 1.1rem;">Complete Quiz Review</div>
-              <button onclick="exitComprehensiveReview()" style="background: #2e7d32; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">← Back to Summary</button>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button onclick="exitComprehensiveReview()" style="background: #2e7d32; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">← Back to Summary</button>
+                <button onclick="goBackToQuiz()" style="background: #1565c0; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">← Back to Quiz</button>
+              </div>
             </div>
           </div>
           <div style="flex: 1; overflow-y: auto; padding-right: 0.5rem;">
