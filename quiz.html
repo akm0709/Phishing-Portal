@@ -3130,6 +3130,14 @@
       
       let html = `
         <div style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+          <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1rem; flex-shrink: 0;">
+            <button onclick="cancelPreSubmissionReview()" style="background: transparent; color: #2e7d32; border: 2px solid #2e7d32; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; flex: 1; min-width: 120px;">
+              ← Back to Quiz
+            </button>
+            <button onclick="confirmFinalSubmit()" style="background: #4caf50; color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; flex: 1; min-width: 120px;">
+              Confirm & Submit
+            </button>
+          </div>
           <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid #2e7d32; flex-shrink: 0;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <div style="font-weight: 700; color: #2e7d32; font-size: 1.1rem;">Review Before Submitting</div>
@@ -3245,14 +3253,6 @@
       `;
 
       html += `
-          </div>
-          <div style="flex-shrink: 0; padding-top: 1rem; border-top: 2px solid #e0e0e0; display: flex; gap: 0.8rem; flex-wrap: wrap;">
-            <button onclick="cancelPreSubmissionReview()" style="background: transparent; color: #2e7d32; border: 2px solid #2e7d32; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; flex: 1; min-width: 120px;">
-              ← Back to Quiz
-            </button>
-            <button onclick="confirmFinalSubmit()" style="background: #4caf50; color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; flex: 1; min-width: 120px;">
-              Confirm & Submit
-            </button>
           </div>
         </div>
       `;
@@ -3891,22 +3891,16 @@
 
   <!-- Firebase Module Script -->
   <script type="module">
-    import { db, collection, addDoc, fetchCustomQuestionsFromFirebase } from './firebase.js';
+    import { db, collection, addDoc, fetchCustomQuestionsFromFirebase, saveQuizAttemptToFirebase } from './firebase.js';
     
     // Export custom questions fetcher to window
     window.fetchCustomQuestionsFromFirebase = fetchCustomQuestionsFromFirebase;
     
-    window.saveQuizAttemptToFirebase = async function(attemptData) {
-      try {
-        console.log("📝 Saving quiz attempt to Firebase...");
-        console.log("Employee:", attemptData.employeeName);
-        console.log("Score:", attemptData.score + "/" + attemptData.totalQuestions);
-        
-        const docRef = await addDoc(collection(db, "quizAttempts"), attemptData);
-        console.log("✅ Quiz attempt saved to Firebase with ID:", docRef.id);
-        alert("✅ Your quiz has been submitted and saved to the database!");
-        return true;
-      } catch (error) {
-        console.error("❌ Error saving to Firebase:", error);
+    // Export saveQuizAttemptToFirebase to window
+    window.saveQuizAttemptToFirebase = saveQuizAttemptToFirebase;
 
-      
+    console.log("🔥 Firebase module loaded on quiz.html");
+    console.log("💡 Quiz submissions will be saved to Firebase automatically");
+  </script>
+</body>
+</html>
