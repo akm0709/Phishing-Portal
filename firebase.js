@@ -51,5 +51,30 @@ async function fetchCustomQuestionsFromFirebase() {
   }
 }
 
+// Save Quiz Attempt to Firebase
+async function saveQuizAttemptToFirebase(attempt) {
+  try {
+    // Generate a unique document ID based on timestamp and employee ID
+    const docId = `${attempt.employeeId}_${new Date(attempt.timestamp).getTime()}`;
+    
+    await setDoc(doc(db, "quizAttempts", docId), {
+      employeeName: attempt.employeeName,
+      employeeGroup: attempt.employeeGroup,
+      employeeId: attempt.employeeId,
+      timestamp: attempt.timestamp,
+      score: attempt.score,
+      totalQuestions: attempt.totalQuestions,
+      userAnswersJSON: attempt.userAnswersJSON || JSON.stringify([]),
+      createdAt: new Date().toISOString()
+    });
+    
+    console.log("✅ Quiz attempt saved to Firebase");
+    return true;
+  } catch (error) {
+    console.error("❌ Error saving quiz attempt to Firebase:", error);
+    throw error;
+  }
+}
+
 // Export the database and tools so other files can use them
-export { db, collection, addDoc, getDocs, query, orderBy, saveCustomQuestionsToFirebase, fetchCustomQuestionsFromFirebase };
+export { db, collection, addDoc, getDocs, query, orderBy, saveCustomQuestionsToFirebase, fetchCustomQuestionsFromFirebase, saveQuizAttemptToFirebase };
