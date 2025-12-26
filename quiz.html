@@ -856,15 +856,21 @@
 
     /* Question States */
     .question-btn.unattempted {
-      background: #ffffff;
-      border: 2px solid #ccc;
-      color: #999;
+      background: #e8e8e8;
+      border: 2px solid #999;
+      color: #555;
+    }
+
+    .question-btn.visited {
+      background: #fff9c4;
+      border: 2px solid #fbc02d;
+      color: #f57f17;
     }
 
     .question-btn.answered {
-      background: #e3f2fd;
-      border: 2px solid #2196f3;
-      color: #2196f3;
+      background: #c8e6c9;
+      border: 2px solid #4caf50;
+      color: #2e7d32;
     }
 
     .question-btn.current {
@@ -1242,6 +1248,9 @@
     // Load and merge all questions (default + custom)
     // Initialize questions - will be set by async loader
     let questions = [];
+    
+    // Track visited questions
+    let visitedQuestions = new Set();
 
     // Function to load questions from Firebase or localStorage
     async function initializeAllQuestions() {
@@ -2093,6 +2102,9 @@
         videoContainer.remove();
       }
       
+      // Scroll to top of page
+      window.scrollTo(0, 0);
+      
       // Show quiz guidelines next
       showQuizGuidelines();
     }
@@ -2894,6 +2906,7 @@
         navigatorGrid.appendChild(btn);
       });
       
+      visitedQuestions.add(0);
       updateNavigator();
     }
 
@@ -2906,6 +2919,8 @@
           btn.classList.add('current');
         } else if (userAnswers[index] !== null) {
           btn.classList.add('answered');
+        } else if (visitedQuestions && visitedQuestions.has(index)) {
+          btn.classList.add('visited');
         } else {
           btn.classList.add('unattempted');
         }
@@ -2916,6 +2931,7 @@
       if (isQuizSubmitted) return;
       saveCurrentAnswer();
       currentQuestionIndex = index;
+      visitedQuestions.add(index);
       displayQuestion();
     }
 
@@ -3739,7 +3755,6 @@
               <div style="font-weight: 600; color: #2e7d32; font-size: 1.1rem;">Complete Quiz Review</div>
               <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <button onclick="exitComprehensiveReview()" style="background: #2e7d32; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">← Back to Summary</button>
-                <button onclick="goBackToQuiz()" style="background: #1565c0; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">← Back to Quiz</button>
               </div>
             </div>
           </div>
